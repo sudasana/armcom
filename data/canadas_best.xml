@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+Campaign calendar based on article by Mitch Rupe published in _The General_,
+Volume 25, number 3.
+-->
+
+<campaign>
+
+<name>Canada's Best</name>
+<description>
+Join the 4th Canadian (Armoured) Division in their advance through France, Belgium, and
+the Netherlands. You command an M4 Sherman tank, part of the Commonwealth forces fighting
+in Normandy.
+</description>
+<player_nation>CAN</player_nation>
+<enemy_nation>GER</enemy_nation>
+<campaign_map_file>canadas_best_map.xp</campaign_map_file>
+
+<player_tanks>
+  <player_tank_type>Sherman II</player_tank_type>
+  <player_tank_type>Sherman V</player_tank_type>
+  <player_tank_type>Sherman VC Firefly</player_tank_type>
+</player_tanks>
+
+<!-- enemy unit activation tables -->
+<activation_table>
+
+  <advance>
+    <TANK>10</TANK>
+    <SPG>15</SPG>
+    <AT_GUN>20</AT_GUN>
+    <LW>20</LW>
+    <MG>10</MG>
+    <TRUCK>15</TRUCK>
+    <APC>5</APC>
+    <AC>5</AC>
+  </advance>
+  
+  <battle>
+    <TANK>5</TANK>
+    <SPG>20</SPG>
+    <AT_GUN>25</AT_GUN>
+    <LW>20</LW>
+    <MG>20</MG>
+    <TRUCK>0</TRUCK>
+    <APC>5</APC>
+    <AC>5</AC>
+  </battle>
+  
+  <counterattack>
+    <TANK>25</TANK>
+    <SPG>20</SPG>
+    <AT_GUN>0</AT_GUN>
+    <LW>25</LW>
+    <MG>15</MG>
+    <TRUCK>0</TRUCK>
+    <APC>10</APC>
+    <AC>5</AC>
+  </counterattack>
+
+</activation_table>
+
+<!-- TODO: date modifiers -->
+
+<!-- spawn chances for each unit type within a class / 1000 -->
+<unit_class_activations>
+  <TANK>PzKw IV H; 500;</TANK>
+  <TANK>PzKw V G; 480;</TANK>
+  <TANK>PzKw VI E; 14;</TANK>
+  <TANK>PzKw VI B; 6;</TANK>
+  <SPG>STuG III G; 300;</SPG>
+  <SPG>Marder II; 100;</SPG>
+  <SPG>Marder III H; 200;</SPG>
+  <SPG>JgdPzKw IV; 200;</SPG>
+  <SPG>JgdPz 38(t); 200;</SPG>
+  <AT_GUN>50L; 300;</AT_GUN>
+  <AT_GUN>75L; 500;</AT_GUN>
+  <AT_GUN>88LL; 200;</AT_GUN>
+  <TRUCK>Opel; 1000;</TRUCK>
+  <APC>SPW 251; 1000;</APC>
+  <AC>PSW 232; 1000;</AC>
+</unit_class_activations>
+
+
+<!-- Campaign Calendar -->
+<calendar>
+
+<!-- Somebackground information based on https://fr.wikipedia.org/wiki/Op%C3%A9ration_Totalize -->
+
+<day>
+  <month>8</month>
+  <date>8</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Cintheaux</comment>
+  <description>Just over two months after the D-Day invasion, the First Canadian Army has launched Operation Totalize, designed to break through German defenses south of the town of Caen. Supported by mechanized infantry, your battlegroup is to advance into the town of Cintheaux. Although it has been hit by Allied artillery, command still expects strong resistance.</description>
+  <terrain>bocage</terrain>
+  <map_x>19</map_x>
+  <map_y>41</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>9</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Hill 195</comment>
+  <description>As the division advanced south toward Falaise, overnight it captured an area of high, open ground known as Hill or Point 195. As dawn breaks, elements of German grenadier and panzer divisions counterattack to try and re-take the hill.</description>
+  <map_x>19</map_x>
+  <map_y>42</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>10</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Quesnay</comment>
+  <description>Your battlegroup has survived the counterattack, and pushes northeast through dense woods to capture the nearby village of Quesnay. This is a key objective in order to open the road south toward Laison.</description>
+  <terrain>forest</terrain>
+  <map_x>19</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>14</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Laison Valley</comment>
+  <description>Faced with heavy resistance, Operation Totalize is brought to an end, less than 12 kilometres from its objective of Falaise. The new plan, Operation Tractable, will continue the advance. The 4th Armoured is to lead the strike along the Laison valley.</description>
+  <map_x>19</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>17</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Couliboeuf</comment>
+  <description>Operation Tractable has made some gains, although the 4th has lost its commander, Brigadier Leslie Booth. Couliboeuf is your next target, a small village northeast of Falaise that is expected to be heavily defended.</description>
+  <map_x>20</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>20</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Couliboeuf</comment>
+  <description>A number of German divisions have been trapped by American, Polish, British, and Canadian advances. As the division holds the village of Couliboeuf, it must defend against infantry and panzer divisions trying to break out of the encirclement.</description>
+  <map_x>20</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>21</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Chambois</comment>
+  <description>After the fall of Falaise, a large number of German forces have been surrounded in the city of Chambois. Facing Polish, American, and Canadian encirclement, they have launched a counterattack to try to break free.</description>
+  <map_x>22</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>22</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Chambois</comment>
+  <description>Yesterday's counterattack having failed, your task today is to mop up any remaining resistance in the area. Although they are well entrenched, remaining resistance is likely to be light.</description>
+  <map_x>22</map_x>
+  <map_y>43</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>25</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Le Neubourg</comment>
+  <description>Operation Tractable has succeeded, destroying several German divisions that were trapped in the Falaise Pocket. The plan now is to advance to the Seine river and cross it, cutting off any German retreat. The small village of Le Neubourg is well-defended but must be captured before the advance can continue.</description>
+  <map_x>26</map_x>
+  <map_y>41</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Criquebeuf</comment>
+  <description>This town on the banks of the Seine river, just south of the city of Rouen, is the gateway to crossing the Seine.</description>
+  <map_x>27</map_x>
+  <map_y>40</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>28</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Elbeuf-Seine Crossing</comment>
+  <description>The division has advanced over one hundred kilometres from the Falaise Pocket. Today your mission is to take the village of Elbeuf and secure a safe crossing point over the Seine.</description>
+  <map_x>27</map_x>
+  <map_y>40</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>31</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>The Seine crossing has been secured and the division has a chance to re-arm and re-fuel at Buchy in preperation for further advance northeast towards the Somme river.</description>
+  <map_x>30</map_x>
+  <map_y>38</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>3</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Pont Remy</comment>
+  <description>The division has advanced northeast to the Somme river. Canadian and Polish divisions are advancing alongside toward the coast, while British forces are southward. This small village must be captured to serve as a crossing point on the Somme.</description>
+  <map_x>29</map_x>
+  <map_y>35</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>6</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Saint-Omer</comment>
+  <description>This small village is just south of Dunkirk, and close to the border with Belgium.</description>
+  <map_x>33</map_x>
+  <map_y>30</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>9</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Ghent Canal, Belgium</comment>
+  <description>The division has pushed into Belgium, but arriving at the Ghent Canal linking Ghent with the Bruges and the sea, Germans have destroyed every crossing. Attacking the defending forces will help the engineers who are trying to build a bridge over the canal.</description>
+  <map_x>52</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>10</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Ghent Canal</comment>
+  <description>The bridge over the canal has been completed, but your battlegroup must still attack the defending forces in order to press the advance north to the coast.</description>
+  <map_x>52</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>12</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Molentje</comment>
+  <description>This small hamlet is at the center of a number of strategic objectives north of the Leopold canal. Your mission is to support the rifle companies in their assault across the canal.</description>
+  <map_x>50</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>14</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Channel Ports</comment>
+  <description>The division is within striking distance of several ports with access to the English Channel. If these can be secured, the Allied advance in western Europe will be much better supplied.</description>
+  <map_x>49</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>15</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Eeklo</comment>
+  <description>This small town is midway between Ghent and the coast. German forces in this area have been badly weakened but continue to hold on.</description>
+  <map_x>51</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>17</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Eeklo</comment>
+  <description>The German defenders refuse to give way, forcing another advance into the countryside around Eeklo.</description>
+  <map_x>51</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>22</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Braakman Inlet, Netherlands</comment>
+  <description>This area, inside the Netherlands and on the south bank of the Scheldt, is a key port and must be secured. It is heavily defended.</description>
+  <map_x>53</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>26</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Braakman Inlet</comment>
+  <description>The assault on the area around the Braakman Inlet continues, although enemy resistance has been worn down the past few days.</description>
+  <map_x>53</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Leopold Canal</comment>
+  <description>Your battlegroup has been ordered to advance along the Leopold Canal in order to gain control over this vital shipping connection.</description>
+  <map_x>53</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>29</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Leopold Canal</comment>
+  <description>You have encountered heavy, entrenched resistance, and must fight on in order to capture this area.</description>
+  <map_x>53</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>1</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Regroup and Mop Up</comment>
+  <description>Most of the defenders have been destroyed or scattered, there's only a few unit in this area that might put up some resistance.</description>
+  <map_x>53</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>5</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Braakman Inlet</comment>
+  <description>The division returns to the Braakman Inlet, determined to finally break the last German holdouts.</description>
+  <map_x>53</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>6</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>The past few days of heavy combat have taken their toll on the division, and it stops to refuel and rearm.</description>
+  <map_x>53</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>9</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Brecht</comment>
+  <description>Your battlegroup has advanced east past Antwerp to advance on the village of Brecht, which stands on one of the main canals leading northeastwards out of Antwerp.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>12</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Brecht</comment>
+  <description>The advance through the area around Brecht continues, as German defenders continue to hold on to every yard of territory that they can.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>13</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Wernhoutsburg</comment>
+  <description>Another small town on the border between Belgium and the Netherlands, it must be liberated in order to continue advancing on the channel ports.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<!-- Was originally 'Stroolburg' but I could not find any information on such a place -->
+
+<day>
+  <month>10</month>
+  <date>19</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Wernhoutsburg</comment>
+  <description>The German defenders here continue to put up moderate resistance, trying to delay the Allied advance for as long as possible.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>20</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Essen</comment>
+  <description>This small town, right on the border with the Netherlands to the north, is the gateway to advancing on the port of Bergen op Zoom.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>23</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Essen</comment>
+  <description>Resistance here is stubborn, and today your battlegroup must continue to advance through territory near Essen.</description>
+  <map_x>56</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>24</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Beveland Canal, The Netherlands</comment>
+  <description>Today your battlegroup is assisting with Operation Vitality, designed to capture the pennisula of Zuid-Beveland. Your mission today is to advance into the area around the Beveland Canal, which cuts through the penninsula and blocks further advance.</description>
+  <map_x>53</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>26</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Wouwsche</comment>
+  <description>This flat plantation area east of the port of Bergen op Zoom is heavily defended, but must be cleared in order to advance on the city itself.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Bergen op Zoom</comment>
+  <description>A port city, Bergen op Zoom has access to the English channel and capturing it is thus one of the major objectives of this campaign.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>31</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Steenbergen</comment>
+  <description>This town, a few kilometres north of Bergen op Zoom, is in the centre of several important canals, and must be captured in order to gain control of the area.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>3</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Steenbergen</comment>
+  <description>After yesterday's advance, it appears that German forces are heavily dug-in, and the battle for the area continues.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>4</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Occupying Steenbergen</comment>
+  <description>Most of the defenders in this area have been destroyed or captured; today your mission is to mop up any remaining hold-outs so that the position can be occupied.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>5</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Zijpe</comment>
+  <description>The area around Bergen op Zoom having been liberated, your battlegroup moves to take the area near Zijpe, an estuary separating the mainland from the island of Schouwen.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>8</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>The port areas of the Scheldt estuary have finally been cleared of all enemy resistance. Engineers have already begun to repair the ports around Antwerp so that Allied supplies can start to flow in. The division is being moved into reserve, awaiting its next assignment.</description>
+  <map_x>55</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>26</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Kapelsche Veer</comment>
+  <description>After nearly two months, the division has been reactivated in order to advance northwards into the Netherlands. German forces have held on to this area for some time, and elements of the 4th Canadian Armoured are tasked with helping to lead the advance.</description>
+  <map_x>55</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>27</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Operation Elephant</comment>
+  <description>The armoured element of the battle to secure the Kapelsche Veer has been termed Operation Elephant. The operation continues today as resistance continues to be heavy.</description>
+  <map_x>55</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>28</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Operation Elephant</comment>
+  <description>Although some forces have been scattered, fighting continues. The weather is exceptionally cold but the assault against the fortified German positions continues.</description>
+  <map_x>55</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>30</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Operation Elephant</comment>
+  <description>Three days of fighting have nearly cleared out the defending forces. A final assault today should clear any remaining hold-outs.</description>
+  <map_x>55</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>28</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Hochwald Gap</comment>
+  <description>Allied forces have moved across the border into Germany. As part of Operation Blockbuster, your division has been brought in to attack a key strategic area where a railway pierces the dense Hochwald forest.</description>
+  <map_x>69</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>1</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Hochwald Gap</comment>
+  <description>The German forces have expertly prepared for the Allied attack, and are causing a great number of casualties all over the battleline. The assault continues today, although less resistance is expected after allied troops broke through the outer defense lines.</description>
+  <map_x>69</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>3</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Hochwald Gap</comment>
+  <description>You have pushed into the Hochwald forest, and face the troops of the final German defensive line in this area. They are expected to be dug-in and prepared in large numbers for your attack.</description>
+  <terrain>forest</terrain>
+  <map_x>69</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>8</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Veen</comment>
+  <description>The Battle of Hochwald Gap resulted in some 5300 casualities among Canadian forces, but the area has been secured and the remaining German defenders have retreated. Today your mission is to push forward into the town of Veen.</description>
+  <map_x>70</map_x>
+  <map_y>23</map_y>
+</day>
+
+<!-- http://www.canadiansoldiers.com/history/battlehonours/northwesteurope/kusten2.gif -->
+
+<day>
+  <month>4</month>
+  <date>1</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Ruurlo, The Netherlands</comment>
+  <description>The division has been ordered to advance northward, back across the border, in order to liberate the western Netherlands. Your battlegroup will help by securing key areas on both sides of the border. First objective is to liberate this small town, just across the border.</description>
+  <map_x>68</map_x>
+  <map_y>20</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>2</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Twente Canal</comment>
+  <description>This canal, a tributary of the Ijssel River, is a barrier to further advance northward.</description>
+  <map_x>68</map_x>
+  <map_y>18</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>4</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Almelo</comment>
+  <description>Another small town near the border with Germany, it should not hold very heavy resistance.</description>
+  <map_x>68</map_x>
+  <map_y>18</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>6</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Meppen, Germany</comment>
+  <description>The division has crossed the border again, back in Germany. This village occupies a strategic position on the Dortmund-Ems Canal.</description>
+  <map_x>71</map_x>
+  <map_y>16</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>9</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Sogel</comment>
+  <description>Moving northward, the next objective is the town of Sogel, near the intersection of two important canals.</description>
+  <map_x>74</map_x>
+  <map_y>15</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>14</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Friesoythe</comment>
+  <description>Motorized infantry have already led an assault on this town, but the German defenders have continued to hold out. Your mission today is to strike through and occupy the town.</description>
+  <map_x>80</map_x>
+  <map_y>14</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>15</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Regroup and Mop up</comment>
+  <description>Scattered defenders remain in the area around Friesoythe, and must be dealt with before the division can continue on.</description>
+  <map_x>80</map_x>
+  <map_y>14</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>17</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Edewechter Damm</comment>
+  <description>This area on the Kusten Canal has entrenched German defenders. Your mission is to assault them so that a canal crossing can be secured.</description>
+  <map_x>81</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>18</date>
+  <year>1945</year>
+  <mission>C</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Counterattack</comment>
+  <description>Local defenders have launched a counterattack on your position.</description>
+  <map_x>81</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>20</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Oldenburg</comment>
+  <description>This city occupies a key position at the intersection of several major roads, rivers, railways, and canals. Resistance is expected to be moderate.</description>
+  <map_x>82</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>24</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Edewecht</comment>
+  <description>Your battlegroup has taken Oldenburg and has moved to attack the outlying town of Edewecht, about 18 kilometres west of the city.</description>
+  <map_x>82</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>26</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Querenstede</comment>
+  <description>This small town, just northwest of Edewecht, must be captured so that your battlegroup can continue north.</description>
+  <map_x>82</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>30</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Bad Zwischerwahn</comment>
+  <description>This town, on the banks of the Zwischenahner Meer lake, is home to the largest airbase in northern Germany. Capturing it will mean a great deal less air cover and support for German defenders.</description>
+  <map_x>82</map_x>
+  <map_y>12</map_y>
+</day>
+
+<day>
+  <month>5</month>
+  <date>3</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Oldenburg</comment>
+  <description>Your battlegroup has returned to the area around Oldenburg to mop up any remaining defenders.</description>
+  <map_x>82</map_x>
+  <map_y>13</map_y>
+</day>
+
+<day>
+  <month>5</month>
+  <date>4</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Going into army reserve</comment>
+  <description>Rumour is that today will be the last day of combat for the battlegroup for some time. Try to survive the day.</description>
+  <map_x>82</map_x>
+  <map_y>13</map_y>
+</day>
+
+</calendar>
+
+</campaign>

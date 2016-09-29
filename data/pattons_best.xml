@@ -1,0 +1,949 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<campaign>
+
+<name>Patton's Best</name>
+<description>
+Join the battle to liberate Western Europe as part of General Patton's 4th Armoured
+Division. You are in command of an M4 Sherman tank and must survive a campaign that will
+take you through France, Belgium, and into Germany. Participate in the breakout from the
+D-Day landing positions and the Battle of the Bulge. Runs from July 27, 1944 to April 13,
+1945.
+</description>
+<player_nation>USA</player_nation>
+<enemy_nation>GER</enemy_nation>
+<campaign_map_file>pattons_best_map.xp</campaign_map_file>
+
+<player_tanks>
+  <player_tank_type>M4 Turret A</player_tank_type>
+  <player_tank_type>M4 Turret B</player_tank_type>
+  <player_tank_type>M4 Turret C</player_tank_type>
+  <player_tank_type>M4A1 Turret A</player_tank_type>
+  <player_tank_type>M4A1 Turret B</player_tank_type>
+  <player_tank_type>M4A1 Turret C</player_tank_type>
+  <player_tank_type>M4A3 Turret A</player_tank_type>
+  <player_tank_type>M4A3 Turret B</player_tank_type>
+  <player_tank_type>M4A3 Turret C</player_tank_type>
+  <player_tank_type>M4A3(75)W Turret D</player_tank_type>
+  <player_tank_type>M4A3(75)W Turret E</player_tank_type>
+  <player_tank_type>M4A3E2(75)W Turret F</player_tank_type>
+  <player_tank_type>M4A3E2(76)W Turret F</player_tank_type>
+  <player_tank_type>M4A3E2(76)W Turret G</player_tank_type>
+  <player_tank_type>M4A1(76)W Turret G</player_tank_type>
+  <player_tank_type>M4A1(76)W Turret H</player_tank_type>
+  <player_tank_type>M4A3(76)W Turret G</player_tank_type>
+  <player_tank_type>M4A3(76)W Turret H</player_tank_type>
+</player_tanks>
+
+<!-- enemy unit activation tables -->
+<activation_table>
+
+  <advance>
+    <TANK>10</TANK>
+    <SPG>15</SPG>
+    <AT_GUN>20</AT_GUN>
+    <LW>20</LW>
+    <MG>10</MG>
+    <TRUCK>15</TRUCK>
+    <APC>5</APC>
+    <AC>5</AC>
+  </advance>
+  
+  <battle>
+    <TANK>5</TANK>
+    <SPG>20</SPG>
+    <AT_GUN>25</AT_GUN>
+    <LW>20</LW>
+    <MG>20</MG>
+    <TRUCK>0</TRUCK>
+    <APC>5</APC>
+    <AC>5</AC>
+  </battle>
+  
+  <counterattack>
+    <TANK>25</TANK>
+    <SPG>20</SPG>
+    <AT_GUN>0</AT_GUN>
+    <LW>25</LW>
+    <MG>15</MG>
+    <TRUCK>0</TRUCK>
+    <APC>10</APC>
+    <AC>5</AC>
+  </counterattack>
+
+</activation_table>
+
+
+<!-- activation modifiers based on calendar date -->
+<activation_modifiers>
+  <modifier>
+    <year>1945</year>
+    <month>2</month>
+    <date>1</date>
+    <class_name>LW</class_name>
+    <mod>10</mod>
+  </modifier>
+  <modifier>
+    <year>1945</year>
+    <month>2</month>
+    <date>1</date>
+    <class_name>TANK</class_name>
+    <mod>-5</mod>
+  </modifier>
+  <modifier>
+    <year>1945</year>
+    <month>2</month>
+    <date>1</date>
+    <class_name>AT_GUN</class_name>
+    <mod>-10</mod>
+  </modifier>
+  <modifier>
+    <year>1945</year>
+    <month>3</month>
+    <date>1</date>
+    <class_name>MG</class_name>
+    <mod>10</mod>
+  </modifier>
+</activation_modifiers>
+
+
+<!-- spawn chances for each unit type within a class / 1000 -->
+<unit_class_activations>
+  <TANK>PzKw IV H; 500;</TANK>
+  <TANK>PzKw V G; 480;</TANK>
+  <TANK>PzKw VI E; 14;</TANK>
+  <TANK>PzKw VI B; 6;</TANK>
+  <SPG>STuG III G; 300;</SPG>
+  <SPG>Marder II; 100;</SPG>
+  <SPG>Marder III H; 200;</SPG>
+  <SPG>JgdPzKw IV; 200;</SPG>
+  <SPG>JgdPz 38(t); 200;</SPG>
+  <AT_GUN>50L; 300;</AT_GUN>
+  <AT_GUN>75L; 500;</AT_GUN>
+  <AT_GUN>88LL; 200;</AT_GUN>
+  <TRUCK>Opel; 1000;</TRUCK>
+  <APC>SPW 251; 1000;</APC>
+  <AC>PSW 232; 1000;</AC>
+</unit_class_activations>
+
+
+<!-- Campaign Calendar -->
+<calendar>
+
+<day>
+  <month>7</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Cobra Breakout</comment>
+  <description>After landing at Utah beach on July 11th, the 4th Armoured Division first entered combat on July 17th. Now, as part of a larger operation to break out of the Normandy beachhead and punch through German defending forces, your battlegroup has been ordered to advance south.</description>
+  <terrain>bocage</terrain>
+  <map_x>18</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>7</month>
+  <date>28</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Coutances</comment>
+  <description>With German resistance collapsing across the line, your division advances to capture the small town of Coutances.</description>
+  <terrain>bocage</terrain>
+  <map_x>15</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>7</month>
+  <date>30</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Avranches</comment>
+  <description>Having finally cleared the dangerous bocage terrain, your battlegroup approaches the town of Avranches, the gateway to Brittany and southern Normandy.</description>
+  <map_x>14</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>7</month>
+  <date>31</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Countryside near Avranches</comment>
+  <description>With the town subdued, your battlegroup is given the responsibility of holding the line against German counterattacks.</description>
+  <map_x>14</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>2</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Rennes</comment>
+  <description>This small town should not hold much resistance, but is a waypoint on your advance south. It also holds important railway connections to ports on the southwestern coast of the Brittany peninsula.</description>
+  <map_x>13</map_x>
+  <map_y>28</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>3</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Countryside southwest of Rennes</comment>
+  <description>Your division turns southwest, aiming for the coastal town of Vannes. Patton's aim is to cut off the entire peninsula and prevent the retreat of German forces.</description>
+  <map_x>12</map_x>
+  <map_y>29</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>4</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Countryside northeast of Vannes</comment>
+  <description>The coast is still another day away, and resistance continues to be light, but that could change very quickly. Overnight, German attacks cut signal lines to headquarters, forcing your company to rely on mobile messengers to remain in contact.</description>
+  <map_x>11</map_x>
+  <map_y>30</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>5</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Vannes</comment>
+  <description>This is a major regional city, and is heavily defended by German forces.</description>
+  <map_x>10</map_x>
+  <map_y>31</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>7</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Lorient</comment>
+  <description>This coastal city is heavily defended by a German garrison, but you must capture it before returning east.</description>
+  <map_x>8</map_x>
+  <map_y>31</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>11</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Nantes</comment>
+  <description>Your battlegroup assaults the city of Nantes, a major regional city and an important crossing point on the river Loire.</description>
+  <map_x>14</map_x>
+  <map_y>33</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>12</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>On the Road to Orleans</comment>
+  <description>Having liberated Nantes, your company presses forward along the banks of the Loire, aiming for the city of Orleans some 200 miles to the east.</description>
+  <map_x>22</map_x>
+  <map_y>32</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>16</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Orleans</comment>
+  <description>A key city on the river Loire, Orleans is only about 74 miles south of Paris.</description>
+  <map_x>29</map_x>
+  <map_y>31</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>21</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Sens</comment>
+  <description>This small city stands at the confluence of the Yonne and Vanne rivers.</description>
+  <map_x>34</map_x>
+  <map_y>28</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>22</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Countryside east of Sens</comment>
+  <description>The division has captured an entire supply train of gasoline from German forces, helping to alleviate the division's badly stretched supply lines.</description>
+  <map_x>35</map_x>
+  <map_y>28</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>25</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>En route to Commercy</comment>
+  <description>Word arrives that the last German forces in Paris have surrendered, and the city has finally been liberated. Your battlegroup, however, continues to push Eastward.</description>
+  <map_x>38</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>8</month>
+  <date>31</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Commercy</comment>
+  <description>This town lies on the river Meuse, and must be captured to secure a crossing point and allow allied forces to continue pushing east.</description>
+  <map_x>42</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>2</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>The division's supply lines have become stretched to the point that gasoline supplies have nearly run out. The division will halt to repair, refit, and scour the countryside for supplies.</description>
+  <map_x>42</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>11</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Moselle Crossing</comment>
+  <description>With the discovery of 100,000 gallons of German gasoline, your division has been ordered to secure a bridgehead on the Moselle River south of Nancy.</description>
+  <map_x>45</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>12</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Moselle Crossing</comment>
+  <description>Your position near the Moselle river is under attack. You must defend the bridgehead to maintain this important crossing point over the river.</description>
+  <map_x>45</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>15</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Crevic and Maixe</comment>
+  <description>You have advanced past the Mosell river and continue pushing East. You must now capture a pair of small villages that lay along a tributary of the river, but German forces are well dug-in.</description>
+  <map_x>45</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>16</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Luneville</comment>
+  <description>This town lies at the confluence of two streams, and has been fortified by enemy units. You must capture it before proceeding.</description>
+  <map_x>46</map_x>
+  <map_y>28</map_y>
+</day>
+
+<!-- http://www.privateletters.net/featured_arracourt.html -->
+
+<day>
+  <month>9</month>
+  <date>19</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Arracourt</comment>
+  <description>Turning North toward Belgium, you have reached the small town of Arracourt. The German Fifth Panzer Army is defending the town and will offer heavy resistance.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>23</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>Word has been passed that fuel supplies are being diverted for an operation called Market Garden. Your battlegroup will not be able to take advantage of its recent victory, and will instead shift to a defensive position.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>25</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Near Arracourt</comment>
+  <description>German forces have taken advantage of the division's lack of mobility and have launched a counterattack in the countryside near Arracourt.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Hill 318</comment>
+  <description>This position overlooks much of the battle line, and German forces have succeeded in pushing allied infantry units off the hill. Your battlegroup must retake as much territory as you can, but the enemy has managed to dig in, so resistance will be considerable.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>9</month>
+  <date>29</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Arracourt</comment>
+  <description>The remaining elements of the German attackers are moving on the town of Arracourt, and your division is again put on the defensive.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>10</month>
+  <date>12</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>With the last counterattack, the bridgehead over the Moselle River is finally secure. The division halts to build up supplies, repair vehicles, and plan for the next stage of its advance.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>9</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Moselle Bridgehead</comment>
+  <description>Having finally built up enough supplies, the Third Army is activated again and goes on the offensive, beginning the battle for Germany. Although record rains have flooded the Seine and Moselle rivers, the engineers have maintained the hard-won bridgeheads to allow troops to cross over and advance toward the German border.</description>
+  <map_x>47</map_x>
+  <map_y>27</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>11</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Fonteny</comment>
+  <description>This small village north of Arracourt must be taken to continue the division's advance.</description>
+  <map_x>47</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>12</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Counterattack at Rodalbe</comment>
+  <description>The 11th Panzer Division has launched a counterattack in force against the division. Your battlegroup is assigned to defend the small village of Rodalbe.</description>
+  <map_x>48</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>18</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Dieuze and Rodalbe</comment>
+  <description>Although an entire US division was lost during the battle at Rodalbe, the 4th Armored continues to fight. Your battlegroup has been ordered to advance against heavy resistance in the crossroads village of Dieuze.</description>
+  <map_x>48</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>24</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Romelfing</comment>
+  <description>The division has broken through German defenses and must capture this town on the Saar river, the last major river before the German border.</description>
+  <map_x>49</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>25</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Counterattacks</comment>
+  <description>German defenders continue to press against the American armoured advance.</description>
+  <map_x>49</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>11</month>
+  <date>27</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Wolfskirchen</comment>
+  <description>This town on the east bank of the Saar river must be taken to continue the division's advance further north, where a crossing point of the river can be established.</description>
+  <map_x>49</map_x>
+  <map_y>26</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>1</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Attack on Saare Union</comment>
+  <description>Approaching this town on the Saar river, the 4th Armoured Division aims to establish a bridgehead to allow further advance.</description>
+  <map_x>49</map_x>
+  <map_y>25</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>5</date>
+  <year>1944</year>
+  <mission>B</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Battle of Bining</comment>
+  <description>This small French village is only about seven miles from the German border, and is heavily defended.</description>
+  <map_x>50</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>7</date>
+  <year>1944</year>
+  <comment>Refitting</comment>
+  <description>Your division has fought its way through France, right to the border of Germany. The division must stop to refuel and re-arm.</description>
+  <map_x>50</map_x>
+  <map_y>24</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>19</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Epping-Urbach</comment>
+  <description>German forces have launched an offensive in the vast forest region known as the Ardennes, and Patton's Third Army has been ordered to strike north into the southern flank of the German salient.</description>
+  <terrain>forest</terrain>
+  <map_x>50</map_x>
+  <map_y>24</map_y>
+  <!-- While we're not in the Ardennes yet, the area around Urbach is quite forested -->
+</day>
+
+<day>
+  <month>12</month>
+  <date>22</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Martelange, Belgium</comment>
+  <description>The 4th has advanced northwest about 120 miles, past occupied Luxembourg, and into the frontier area of southeastern Belgium.</description>
+  <map_x>43</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>23</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Battle for Chaumont</comment>
+  <description>The next sizable village along the route north toward Bastogne, Chaumont is surrounded by German forces and must be cleared.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>22</map_y>
+</day>
+
+<!-- http://www.battleofthebulgememories.be/stories26/32-battle-of-the-bulge-us-army/284-battle-for-chaumont-belgium-december-23-1944.html -->
+
+<day>
+  <month>12</month>
+  <date>24</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Battle for Warnach</comment>
+  <description>Warnach is being assaulted on three sides from infantry and armoured companies, but is a German regimental command post and will be heavily defended.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>26</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>H</resistance_level>
+  <comment>Into Bastogne</comment>
+  <description>After pushing north for a week, the 4th Armoured has nearly met up with surrounded and beleagured 101st Airborn Division at Bastogne. One final push should allow you to link up with these soldiers, who have been largely cut off from allies for seven days.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>29</date>
+  <year>1944</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Opening Arlon-Bastogne Highway</comment>
+  <description>Having met up with the 101st Airborne, your division must now secure the supply route into Bastogne so that it can be held against further counterattacks.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>12</month>
+  <date>30</date>
+  <year>1944</year>
+  <mission>C</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Defense of Bastogne corridor</comment>
+  <description>Determined to push back American forces reinforcing the area around Bastogne, German forces have launched a counterattack. Your battlegroup must defend its position to help keep the lifeline into the captured area secure.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>3</date>
+  <year>1945</year>
+  <comment>Refitting</comment>
+  <description>The German counterattacks over the New Year have been driven back, and the division has an opportunity to rest and resupply.</description>
+  <map_x>43</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>9</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Noville</comment>
+  <description>The division has been ordered to advance on Noville, a small village on the highway leading north from Bastogne.</description>
+  <terrain>forest</terrain>
+  <map_x>43</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>10</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Bourcy</comment>
+  <description>This village, just east of the captured Noville, is just a few miles from the border with Germany.</description>
+  <map_x>44</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>1</month>
+  <date>11</date>
+  <year>1945</year>
+  <mission>C</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Defensive Positions near Bourcy</comment>
+  <description>Your battlegroup is ordered to hold your position near the village of Bourcy in defense of a German counterattack.</description>
+  <map_x>44</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>2</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Hosdorf</comment>
+  <description>This small village is on the river Our, the border between Belgium and Germany.</description>
+  <map_x>46</map_x>
+  <map_y>20</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>3</date>
+  <year>1945</year>
+  <comment>Refitting</comment>
+  <description>While waiting for a secure bridgehead into Germany, the division takes the opportunity to rearm, reload, and refit.</description>
+  <map_x>46</map_x>
+  <map_y>20</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>22</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Geichlingen</comment>
+  <description>This small town, close to the border with Luxembourg, is the first barrier to penetrating Germany's Siegfried defense line.</description>
+  <map_x>47</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>23</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Sinspelt</comment>
+  <description>The division continues to advance into Germany. Today your orders are to capture the village of Sinspelt, a small group of farmhouses surrounded by rolling hills.</description>
+  <map_x>48</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>25</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Rittersdorf</comment>
+  <description>Another small town, Rittersdorf stands astride the Nims river, and capturing it will ensure that allied forces are not held up here.</description>
+  <map_x>48</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>26</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Bitburg</comment>
+  <description>The bridgehead secure, this area just southeast of Rittersdorf is an important high ground and must be cleared of entrenched German forces.</description>
+  <map_x>48</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>2</month>
+  <date>27</date>
+  <year>1945</year>
+  <mission>B</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Matzen</comment>
+  <description>Your battlegroup has been ordered to attack the village of Matzen to the northeast of Bitburg.</description>
+  <map_x>48</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>2</date>
+  <year>1945</year>
+  <comment>Refitting</comment>
+  <description>The division's advance has been halted for a few days while it regroups in an assembly area, in preparation for moving out again.</description>
+  <map_x>48</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>5</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>To the Rhine</comment>
+  <description>General Patton is determined to advanced to the Rhine river, even if it means leaving behind supporting forces, so the division begins its advance eastwards deeper into Germany.</description>
+  <map_x>49</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>14</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Attack out of Moselle Bridgehead</comment>
+  <description>The division has made steady progress but must now cross the Moselle river, the same river that the division had forged across much further upstream back in early September of last year.</description>
+  <map_x>50</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>15</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>M</resistance_level>
+  <comment>Bad Kreuznauch</comment>
+  <description>This small town stands on a tributary of the Rhine river, and must be cleared of resistance in order to approach the frontier of the river itself.</description>
+  <map_x>53</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>20</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Worms on the Rhine</comment>
+  <description>This is a major town on the Rhine, but luckily is only lightly defended.</description>
+  <map_x>54</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>21</date>
+  <year>1945</year>
+  <comment>Refitting</comment>
+  <description>In preparation for capturing a secure crossing over the Rhine, the division halts for one day to rearm, refuel, and refit.</description>
+  <map_x>54</map_x>
+  <map_y>23</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>22</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Across the Rhine at Oppenheim</comment>
+  <description>Your battlegroup is ordered to capture the town of Oppenheim, a suitable location for the combat engineers to construct a pontoon bridge over the Rhine.</description>
+  <map_x>54</map_x>
+  <map_y>22</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>25</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Hanau and Darmstadt</comment>
+  <description>Just east of the major city of Frankfurt, these small towns should not offer much resistance.</description>
+  <map_x>56</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>3</month>
+  <date>28</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Across the Main at Grossauheim</comment>
+  <description>The Main river flows through Frankfurt and feeds into the Rhine. It must be crossed here in order to continue the division's push deeper into Germany.</description>
+  <map_x>56</map_x>
+  <map_y>21</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>1</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Creuzburg</comment>
+  <description>In a few days the division has advanced over 100 miles, arriving at the town of Creuzburg, nearly in the center of Germany proper.</description>
+  <map_x>60</map_x>
+  <map_y>18</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>4</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Gotha</comment>
+  <description>Just 30 miles east of Creuzburg, this small town only offers light resistance.</description>
+  <map_x>61</map_x>
+  <map_y>18</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>12</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Crossed the Saale River</comment>
+  <description>Just south of the town of Jena, the division approaches the Saale river.</description>
+  <map_x>63</map_x>
+  <map_y>18</map_y>
+</day>
+
+<day>
+  <month>4</month>
+  <date>13</date>
+  <year>1945</year>
+  <mission>A</mission>
+  <resistance_level>L</resistance_level>
+  <comment>Wolkenburg</comment>
+  <description>This town, a mere 41 miles from occupied Czechoslovakia, is one of the final targets for Patton's advance eastwards through Germany. Afterwards, if the war hasn't yet ended, the division will refit before getting ready to advance into Czechoslovakia.</description>
+  <map_x>65</map_x>
+  <map_y>18</map_y>
+</day>
+
+</calendar>
+
+</campaign>
