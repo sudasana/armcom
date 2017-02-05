@@ -2,11 +2,11 @@
                                   Armoured Commander                                    
                        The World War II Tank Commander Roguelike                        
 
-                                     Version 1.02
+                                     Version 1.03
 
 
 
-Copyright 2015-2016 Gregory Adam Scott (sudasana@gmail.com)
+Copyright 2015-2017 Gregory Adam Scott (sudasana@gmail.com)
 
 This file is part of Armoured Commander.
 
@@ -73,6 +73,10 @@ see XpLoader_LICENSE.txt for more info.
 
 
 ##########################################################################################
+
+########## 1.03 Changelog ##########
+# - advancing fire now no longer possible if main gun is malfunctioning or broken (GS)
+# - fixed a rare crash when moving in a counterattack mission (GS)
 
 ########## 1.02 Changelog ##########
 # - Made the terrain symbols that are displayed next to enemy units on the encounter map
