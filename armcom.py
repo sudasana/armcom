@@ -7,7 +7,7 @@
 
 ##########################################################################################
 #
-#    Copyright 2015-2016 Gregory Adam Scott (sudasana@gmail.com)
+#    Copyright 2015-2017 Gregory Adam Scott (sudasana@gmail.com)
 #
 #    This file is part of Armoured Commander.
 #
@@ -30,15 +30,9 @@
 #
 ##########################################################################################
 
-########## 1.02 Changelog ##########
-# - Made the terrain symbols that are displayed next to enemy units on the encounter map
-#   slightly more visible against the background
-# - Updated the in-game help text, as some entries were long out of date and described earlier
-#   versions of the game!
-# - Fixed a bug where in counterattack missions, nodes could be 'captured' by the enemy
-#   twice in the same campaign turn
-# - Fixed a bug relating to the player having to re-position when surrounded in a
-#   counterattack mission
+########## 1.03 Changelog ##########
+# - advancing fire now no longer possible if main gun is malfunctioning or broken
+# - fixed a rare crash when moving in a counterattack mission
 
 ##########################################################################################
 
@@ -73,7 +67,7 @@ DEBUG = False						# enable in-game debug commands
 
 NAME = 'Armoured Commander'
 VERSION = '1.0'					# determines saved game compatability
-SUBVERSION = '2'				# descriptive only, no effect on compatability
+SUBVERSION = '3'				# descriptive only, no effect on compatability
 
 COMPATIBLE_VERSIONS = ['Beta 3.0']		# list of older versions for which the savegame
 						#  is compatible with this version
@@ -675,8 +669,6 @@ class Campaign:
 			for link_node in node.links:
 				if not link_node.friendly_control:
 					nodes.append(node)
-					# NEW: should fix bug where friendly areas can be
-					#      captured twice
 					break
 		
 		# if no candidate nodes, return
@@ -743,7 +735,7 @@ class Campaign:
 			' HE shells to cover your withdrawl. This takes ' + str(time_req) +
 			' minutes.')
 		
-		# NEW: player node captured by enemy
+		# player node captured by enemy
 		campaign.day_map.player_node.friendly_control = False
 		campaign.day_map.player_node.res_known = True
 		
@@ -861,7 +853,7 @@ class Campaign:
 			nodes = []
 			for node in campaign.day_map.nodes:
 				if node in campaign.day_map.blocked_nodes: continue
-				# NEW: skip marshland nodes; should have been done by
+				# skip marshland nodes; should have been done by
 				#  previous line but still seems to be getting through
 				if node.node_type == 'E': continue
 				if node == campaign.day_map.player_node: continue
@@ -1388,6 +1380,9 @@ class PlayerTank:
 		
 		##### List of Active Minor Damage #####
 		self.damage_list = []
+		
+		# TEMP
+		self.damage_list.append('Main Gun Broken')
 	
 	# reset the tank for a new encounter turn
 	def Reset(self):
@@ -3221,8 +3216,6 @@ class EnemyUnit:
 			char = libtcod.CHAR_DVLINE
 		
 		bc = libtcod.console_get_char_background(map_con, self.x, self.y)
-		#fc = bc * libtcod.lightest_grey
-		# NEW: terrain symbols slightly more visible
 		fc = bc * libtcod.light_grey
 		for x in [-1, 1]:	
 			libtcod.console_put_char_ex(overlay_con, self.x+x, self.y, char, fc, bc)
@@ -11070,7 +11063,6 @@ def InitEncounter(load=False, counterattack=False, res_level=None):
 		battle = Battle(counterattack=counterattack, res_level=res_level)
 		
 		# roll on deployment table for player tank status
-		# NEW: moved up here
 		tank.SetDeployment()
 		
 		# set up initial list of orders for crew, also set their initial spot ability
@@ -12023,8 +12015,17 @@ def MoveArea():
 	
 	# if target area is enemy controlled, see if can use advancing fire
 	# must have at least 6 HE shells
+	# NEW: main gun must also be operational
+	gun_malfunction = 'Main Gun Malfunction' in tank.damage_list or 'Main Gun Broken' in tank.damage_list
 	total_he = tank.general_ammo['HE'] + tank.rr_ammo['HE']
-	if not campaign.selected_node.friendly_control and total_he >= 6:
+	
+	# NEW: handle situations when there is no node selected
+	friendly_control = False
+	if campaign.selected_node is not None:
+		if campaign.selected_node.friendly_control:
+			friendly_control = True
+	
+	if not gun_malfunction and not friendly_control and total_he >= 6:
 		
 		text += ' Use advancing fire (requires 1-6 HE rounds; currently have '
 		text += str(total_he) + ' rounds)?'
@@ -13191,7 +13192,7 @@ def GetPath(node1, node2, enemy_blocks=False):
 			# ignore blocked nodes
 			if node in campaign.day_map.blocked_nodes: continue
 			
-			# NEW: can ignore enemy-held areas
+			# can ignore enemy-held areas
 			if enemy_blocks and not node.friendly_control: continue
 			
 			# calculate g value for travel to linked node based on node
