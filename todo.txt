@@ -1,0 +1,5 @@
+todo.txt
+
+List of planned features and changes
+
+- any time a hometown is displayed on the screen it may need to be transcoded to display accented characters properly; needs to be tested (GS)
