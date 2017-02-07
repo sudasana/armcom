@@ -5,6 +5,7 @@
 - Adding Crew Talk diversity
 
 ## v1.04+
+- Include all dependent libraries
 - Difficulty settings (Veterant, Regular, Reserve)
 - Adding cities for Canadian campaign
 - Adding more Crew Talk diversity
