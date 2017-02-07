@@ -16,6 +16,7 @@
 - More campaigns (Russian...)
 - More diversity of enemies
 - More tank variants
+- Replacement crew may already have some skills
   
 ### UI improvements
 - Consistency (ESC, ENTER, SPACE...)
