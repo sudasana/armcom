@@ -15,3 +15,6 @@
   - Consistency (ESC, ENTER, SPACE...)
   - Make menus more accessible on laptops (1, 2, 3... plus F1, F2, F3...)
   - Mouse less mode
+- Update Manual
+- Write a quick start section
+- Write installation section
