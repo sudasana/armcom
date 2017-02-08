@@ -6,8 +6,8 @@
 - fixed a rare crash when moving in a counterattack mission
 - added additional hometowns for Canadian crew
 - hometown text is now transcoded properly to handle accented characters (UTF-8 -> IBM850)
+- added additional strings for in-battle crew observations
 ## TODO:
-- Add more strings for crew talk
 - Add a text description of gun sounds when unidentified enemy unit fires
 
 ## v1.04+
