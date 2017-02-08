@@ -1,8 +1,13 @@
 # List of things to do for Armoured Commander
 
 ## v1.03
-- Some bug fixes
-- Adding Crew Talk diversity
+## Done
+- advancing fire now no longer possible if main gun is malfunctioning or broken
+- fixed a rare crash when moving in a counterattack mission
+- added additional hometowns for Canadian crew
+## TODO:
+- Add more strings for crew talk
+- Add a text description of gun sounds when unidentified enemy unit fires
 
 ## v1.04+
 ### Game and installation
