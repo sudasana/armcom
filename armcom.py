@@ -3853,6 +3853,10 @@ class EnemyUnit:
 		else:
 			ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'No effect.')
 		
+		# NEW: if unit is unidentified, a crewmember indicates the calibre of gun heard
+		if self.hidden or not self.identified:
+			CrewTalk('That sounded like a ' + gun_type[:1] + 'mm gun!')
+			
 		return True
 	
 	
@@ -4059,6 +4063,11 @@ class EnemyUnit:
 		
 		if shot_missed:
 			PlaySound('main_gun_miss')
+			
+			# NEW: if unit is unidentified, a crewmember indicates the calibre of gun heard
+			if self.hidden or not self.identified:
+				text = self.stats['main_gun']
+				CrewTalk('That sounded like a ' + text[:1] + 'mm gun!')
 		
 		# possible crew talk
 		roll = Roll1D10()
@@ -6216,6 +6225,8 @@ def SpawnCrewMember(name, position, rank_level, replacement=False, old_member=No
 		new_crew.hometown = random.choice(USA_HOMETOWNS)
 	elif campaign.player_nation == 'CAN':
 		new_crew.hometown = random.choice(CAN_HOMETOWNS)
+	# NEW: transcode to handle accented characters
+	new_crew.hometown = new_crew.hometown.decode('utf8').encode('IBM850')
 	
 	# set default order and initial hatch state
 	if position == 'Commander':
@@ -15136,7 +15147,7 @@ def MainMenu():
 		
 		libtcod.console_set_default_foreground(con, libtcod.light_grey)
 		libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-6, libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
-		text = 'Copyright 2015-2016 Gregory Adam Scott' 
+		text = 'Copyright 2015-2017 Gregory Adam Scott' 
 		libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-4, libtcod.BKGND_NONE, libtcod.CENTER, text)
 		text = 'Free Software under the GNU General Public License'
 		libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-3, libtcod.BKGND_NONE, libtcod.CENTER, text)

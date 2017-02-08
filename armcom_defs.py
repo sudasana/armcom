@@ -529,37 +529,53 @@ enough punch and firepower to knock out virtually any Allied tank."""
 CREW_TALK_HEAVY_RES = [
 	'Yikes! Might want to call in some support, Commander.',
 	'I guess we could go around.',
-	"We're not going in there, are we?"
+	"We're not going in there, are we?",
+	"This doesn't look too good.",
+        "I guess it's our job to take care of it.",
+        "Germans. Always, more Germans."
 ]
 
 CREW_TALK_ARTY_STRIKE = [
 	'Thanks guys!',
-	"I love that sound, at least when it's far away."
+	"I love that sound, at least when it's far away.",
+	"Better outgoing than incoming!",
+        "I never thought I'd come to love the sound of artillery."
 ]
 
 CREW_TALK_NO_ARTY_STRIKE = [
 	'What are they doing over there?',
-	'How are we supposed to capture territory without proper artillery support?'
+	'How are we supposed to capture territory without proper artillery support?',
+	"Looks like all the fun is going to be ours once again.",
+        "We could use some help here.",
+        "All right. We still have a job to do!"
 ]
 
 CREW_TALK_NO_RES = [
 	"It's quiet. Too quiet.",
-	'They must have repositioned.'
+	'They must have repositioned.',
+	"Somebody must have told them we were coming.",
+        "Where are they hiding?"
 ]
 
 CREW_TALK_THROWN_TRACK = [
 	"Well that's not good!",
-	"We're immobilized!"
+	"We're immobilized!",
+	"We need to repair that track ASAP!",
+        "We're sitting ducks."
 ]
 
 CREW_TALK_ARMOUR_SAVED = [
 	'Whoa! That was close!',
-	'Incoming AT!'
+	'Incoming AT!',
+	"My head is ringing",
+        "Who's there?"
 ]
 
 CREW_TALK_SHOT_MISSED = [
 	'That was close. Too close.',
-	'We got lucky on that one.'
+	'We got lucky on that one.',
+	"Good thing they can't aim.",
+        "I hope this keeps up!"
 ]
 
 # List of hometowns for USA
@@ -670,7 +686,6 @@ USA_HOMETOWNS = [
 
 # List of hometowns for Canada, duplicate entries represent high populations and chances
 #   or a crewman being from there
-# TODO: may need to transcode these strings due to accented characters
 CAN_HOMETOWNS = [
 	'Toronto, ON',
 	'Toronto, ON',
@@ -742,10 +757,6 @@ CAN_HOMETOWNS = [
 	'Victoria, BC',
 	'Victoria, BC',
 	'Victoria, BC',
-	'St. Catharines–Niagara, ON',
-	'St. Catharines–Niagara, ON',
-	'St. Catharines–Niagara, ON',
-	'St. Catharines–Niagara, ON',
 	'Halifax, NS',
 	'Halifax, NS',
 	'Halifax, NS',
@@ -795,7 +806,6 @@ CAN_HOMETOWNS = [
 	'Red Deer, AB',
 	'Nanaimo, BC',
 	'Lethbridge, AB',
-	'Saint-Jean-sur-Richelieu, QC',
 	'White Rock, BC',
 	'Peterborough, ON',
 	'Sarnia, ON',
@@ -821,7 +831,6 @@ CAN_HOMETOWNS = [
 	'Brandon, MB',
 	'Vernon, BC',
 	'Chatham, ON',
-	'Bowmanville-Newcastle, ON',
 	'Joliette, QC',
 	'Charlottetown, PE',
 	'Airdrie, AB',
@@ -829,7 +838,6 @@ CAN_HOMETOWNS = [
 	'St. Thomas, ON',
 	'Courtenay, BC',
 	'Georgetown, ON',
-	'Salaberry-de-Valleyfield, QC',
 	'Rimouski, QC',
 	'Woodstock, ON',
 	'Sorel-Tracy, QC',
@@ -851,7 +859,6 @@ CAN_HOMETOWNS = [
 	'Alma, QC',
 	'Bolton, ON',
 	'Saint-Georges, QC',
-	'Keswick-Elmhurst_Beach, ON',
 	'Stouffville, ON',
 	'Okotoks, AB',
 	'Duncan, BC',
