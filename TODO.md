@@ -7,8 +7,7 @@
 - added additional hometowns for Canadian crew
 - hometown text is now transcoded properly to handle accented characters (UTF-8 -> IBM850)
 - added additional strings for in-battle crew observations
-## TODO:
-- Add a text description of gun sounds when unidentified enemy unit fires
+- added a text description of gun sounds when a hidden unidentified enemy unit fires with a gun
 
 ## v1.04+
 ### Game and installation
