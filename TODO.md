@@ -5,6 +5,7 @@
 - advancing fire now no longer possible if main gun is malfunctioning or broken
 - fixed a rare crash when moving in a counterattack mission
 - added additional hometowns for Canadian crew
+- hometown text is now transcoded properly to handle accented characters (UTF-8 -> IBM850)
 ## TODO:
 - Add more strings for crew talk
 - Add a text description of gun sounds when unidentified enemy unit fires
