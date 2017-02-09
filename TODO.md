@@ -1,8 +1,12 @@
 # List of things to do for Armoured Commander
 
 ## Development
+- Combine README.md and readme.txt into README.md and CHANGELOG
 - Flip files to Linux line ending
 - Replace tabulations by spaces in Python scripts
+
+## Bugs to investigate
+- Canadian crew starts campaign with broken gun
 
 ## Improvements
 ### Gameplay and content
