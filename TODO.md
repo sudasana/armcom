@@ -6,7 +6,6 @@
 - Replace tabulations by spaces in Python scripts
 
 ## Bugs to investigate
-- Canadian crew starts campaign with broken gun
 
 ## Improvements
 ### Gameplay and content
@@ -32,7 +31,8 @@
 - Write installation section
 
 ## v1.04 (completed)
-- Include all dependent libraries (Linux or OSX from terminal)
+- BugFix: Tanks were begining with Main Gun broken
+- Included all dependent libraries (Linux or OSX from terminal)
 
 ## v1.03 (completed)
 - advancing fire now no longer possible if main gun is malfunctioning or broken
