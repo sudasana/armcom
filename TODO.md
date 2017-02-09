@@ -1,5 +1,9 @@
 # List of things to do for Armoured Commander
 
+## Development
+- Flip files to Linux line ending
+- Replace tabulations by spaces in Python scripts
+
 ## Improvements
 ### Gameplay and content
 - Adding cities of origin for Canadian crew members
