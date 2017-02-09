@@ -21,7 +21,7 @@
 #    GNU General Public License for more details.
 
 #    You should have received a copy of the GNU General Public License
-#    along with Armoured Commander, in the form of a file named "gpl.txt".
+#    along with Armoured Commander, in the form of a file named "LICENSE".
 #    If not, see <http://www.gnu.org/licenses/>.
 #
 ##########################################################################################
