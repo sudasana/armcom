@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 # Python 2.7.8
 ##########################################################################################
@@ -4961,6 +4962,7 @@ def ShowTankInfo(select_tank = False):
 			
 				# get pressed key
 				key_char = chr(key.c)
+
 				
 				if key_char in ['a', 'A'] or key.vk == libtcod.KEY_LEFT:
 					i = tank_list.index(selected_tank)
@@ -10935,6 +10937,7 @@ def GetEncounterInput():
 			if tank.new_facing == 0:
 				tank.new_facing = 5
 			else:
+
 				tank.new_facing -= 1
 			UpdateMapOverlay()
 			RenderEncounter()
@@ -11217,6 +11220,7 @@ def InitEncounter(load=False, counterattack=False, res_level=None):
 			# set spot ability for crew
 			for crew_member in tank.crew:
 				crew_member.SetSpotAbility()
+
 			
 			# see if we need to set spot sectors for one or more crewmen
 			if CheckSpotSectors():
@@ -13762,6 +13766,7 @@ def AdvanceDay():
 	# advancing to a new day
 	else:
 		
+
 		n = campaign.days.index(GetToday())
 		
 		# still have at least one more day in the campaign
