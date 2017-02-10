@@ -1380,9 +1380,6 @@ class PlayerTank:
 		
 		##### List of Active Minor Damage #####
 		self.damage_list = []
-		
-		# TEMP
-		self.damage_list.append('Main Gun Broken')
 	
 	# reset the tank for a new encounter turn
 	def Reset(self):
