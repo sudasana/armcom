@@ -5,6 +5,7 @@
 - **Replace tabulations by spaces in Python scripts**
 
 ## Bugs to investigate
+- Confirm if advancing fire can really have an impact
 
 ## Improvements
 ### Gameplay and content
