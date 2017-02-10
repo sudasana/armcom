@@ -5,31 +5,11 @@ http://armouredcommander.com/
                                   Armoured Commander                                    
                        The World War II Tank Commander Roguelike                        
 
-                                     Version 1.03
-
 Copyright 2015-2017 Gregory Adam Scott (sudasana@gmail.com)
 
-This file is part of Armoured Commander.
+Maintained by Eric Normandeau since version 1.04
 
-Armoured Commander is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-Armoured Commander is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-    
-You should have received a copy of the GNU General Public License
-along with Armoured Commander, in the form of a file named "LICENSE".
-If not, see <http://www.gnu.org/licenses/>.
-
-xp_loader.py is covered under a MIT License (MIT) and is Copyright (c) 2015 Sean Hagar
-see XpLoader_LICENSE.txt for more info.
-
-
-##########################################################################################
+## Installation
 
 If you get an error when running armcom.exe, trying installing the Microsoft Visual C++
 2008 Redistributable Package (x86) [vcredist_x86.exe]
@@ -51,15 +31,14 @@ Sound effects created with LLMS <https://lmms.io/> and sfxr
 
 xp_loader.py is covered under a MIT License (MIT) and is Copyright (c) 2015 Sean Hagar
 see XpLoader_LICENSE.txt for more info.
-
-
-##########################################################################################
   
 ## General Notes ##
+
 - You can only have one campaign game running at one time. If you start a new campaign while
   an old one is unfinished, then old one will be deleted.
 
 ## General Tips ##
+
 - Don't fire at AT Guns, Self-propelled Guns, or Tanks unless you're fairly sure to take
   them out. If you fire at their front then they are much more likely to fire back at you
   in the next enemy action phase
@@ -71,4 +50,25 @@ see XpLoader_LICENSE.txt for more info.
 - MG fire is really only effective at close range, and at units in the open.
 - Every pop-up and console message during a game session is saved to logfile.txt; if you
   find a crash, please send this to me with a description of the error
+
+## Legal notice
+
+This file is part of Armoured Commander.
+
+Armoured Commander is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Armoured Commander is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+    
+You should have received a copy of the GNU General Public License
+along with Armoured Commander, in the form of a file named "LICENSE".
+If not, see <http://www.gnu.org/licenses/>.
+
+xp_loader.py is covered under a MIT License (MIT) and is Copyright (c) 2015 Sean Hagar
+see XpLoader_LICENSE.txt for more info.
 
