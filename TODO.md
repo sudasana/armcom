@@ -1,7 +1,6 @@
 # List of things to do for Armoured Commander
 
 ## Development
-- Combine README.md and readme.txt into README.md and CHANGELOG
 - Flip files to Linux line ending
 - Replace tabulations by spaces in Python scripts
 
@@ -30,14 +29,4 @@
 - Write a quick start section
 - Write installation section
 
-## v1.04 (completed)
-- BugFix: Tanks were begining with Main Gun broken
-- Included all dependent libraries (Linux or OSX from terminal)
-
 ## v1.03 (completed)
-- advancing fire now no longer possible if main gun is malfunctioning or broken
-- fixed a rare crash when moving in a counterattack mission
-- added additional hometowns for Canadian crew
-- hometown text transcoded properly to handle accented characters (UTF-8 -> IBM850)
-- added additional strings for in-battle crew observations
-- added text description of gun sounds when hidden unidentified enemy fires with a gun
