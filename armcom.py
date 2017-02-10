@@ -40,117 +40,117 @@
 
 
 ##### Libraries #####
-import libtcodpy as libtcod				# The Doryen Library
-import pygame, pygame.mixer				# for sound effects
+from datetime import datetime           # for recording date and time in campaign journal
+from encodings import ascii, utf_8      # needed for Py2EXE version
+from encodings import hex_codec         # needed for Py2EXE version
+from math import atan2, degrees         # more "
+from math import pi, floor, ceil, sqrt  # math functions
+from operator import attrgetter         # for list sorting
 from pygame.locals import *
-import os						# for SDL window instruction, other OS-related stuff
-import sys						# for command line functions
-from datetime import datetime				# for recording date and time in campaign journal
-import random						# for randomly selecting items from a list
-from math import pi, floor, ceil, sqrt			# math functions
-from math import atan2, degrees				# more "
-from textwrap import wrap				# for breaking up game messages
-from encodings import ascii, utf_8			# needed for Py2EXE version
-import xml.etree.ElementTree as xml			# ElementTree library for xml
-import shelve						# for saving and loading games
-import dbhash, anydbm					# need this for py2exe
-import time						# for wait function
-from operator import attrgetter				# for list sorting
-import csv						# for loading campaign info
-import zipfile, io					# for loading from zip archive
-from encodings import hex_codec				# needed for Py2EXE version
-import xp_loader, gzip					# for loading image files
+from textwrap import wrap               # for breaking up game messages
+import csv                              # for loading campaign info
+import dbhash, anydbm                   # need this for py2exe
+import libtcodpy as libtcod             # The Doryen Library
+import os                               # for SDL window instruction, other OS-related stuff
+import pygame, pygame.mixer             # for sound effects
+import random                           # for randomly selecting items from a list
+import shelve                           # for saving and loading games
+import sys                              # for command line functions
+import time                             # for wait function
+import xml.etree.ElementTree as xml     # ElementTree library for xml
+import xp_loader, gzip                  # for loading image files
+import zipfile, io                      # for loading from zip archive
 
-from armcom_defs import *				# general definitions
-from armcom_vehicle_defs import *			# vehicle stat definitions
+from armcom_defs import *               # general definitions
+from armcom_vehicle_defs import *       # vehicle stat definitions
 
 ##### Constants #####
-DEBUG = False						# enable in-game debug commands
+DEBUG = False                           # enable in-game debug commands
 
 NAME = 'Armoured Commander'
-VERSION = '1.0'					# determines saved game compatability
-SUBVERSION = '3'				# descriptive only, no effect on compatability
+VERSION = '1.0'                         # determines saved game compatability
+SUBVERSION = '4'                        # descriptive only, no effect on compatability
 
-COMPATIBLE_VERSIONS = ['Beta 3.0']		# list of older versions for which the savegame
-						#  is compatible with this version
+COMPATIBLE_VERSIONS = ['Beta 3.0']      # list of older versions for which the savegame
+                                        #  is compatible with this version
 
-DATAPATH = 'data/'.replace('/', os.sep)		# path to data files
+DATAPATH = 'data/'.replace('/', os.sep)        # path to data files
 
 PI = pi
 
-SCREEN_WIDTH = 149			# width of game window in characters
-SCREEN_HEIGHT = 61			# height "
-SCREEN_XM = int(SCREEN_WIDTH/2)		# horizontal center "
-SCREEN_YM = int(SCREEN_HEIGHT/2)	# vertical "
+SCREEN_WIDTH = 149            # width of game window in characters
+SCREEN_HEIGHT = 61            # height "
+SCREEN_XM = int(SCREEN_WIDTH/2)        # horizontal center "
+SCREEN_YM = int(SCREEN_HEIGHT/2)    # vertical "
 
-TANK_CON_WIDTH = 73	# width of tank info console in characters
-TANK_CON_HEIGHT = 37	# height "
+TANK_CON_WIDTH = 73    # width of tank info console in characters
+TANK_CON_HEIGHT = 37    # height "
 
-MSG_CON_WIDTH = TANK_CON_WIDTH	# width of message console in characters
-MSG_CON_HEIGHT = 19		# height "
+MSG_CON_WIDTH = TANK_CON_WIDTH    # width of message console in characters
+MSG_CON_HEIGHT = 19        # height "
 
-MAP_CON_WIDTH = 73	# width of encounter map console in characters
-MAP_CON_HEIGHT = 51	# height "
-MAP_CON_X = MSG_CON_WIDTH + 2	# x position of encounter map console
-MAP_CON_Y = 2			# y "
-MAP_X0 = int(MAP_CON_WIDTH/2)	# centre of encounter map console
+MAP_CON_WIDTH = 73    # width of encounter map console in characters
+MAP_CON_HEIGHT = 51    # height "
+MAP_CON_X = MSG_CON_WIDTH + 2    # x position of encounter map console
+MAP_CON_Y = 2            # y "
+MAP_X0 = int(MAP_CON_WIDTH/2)    # centre of encounter map console
 MAP_Y0 = int(MAP_CON_HEIGHT/2)
 
-MAP_INFO_CON_WIDTH = MAP_CON_WIDTH	# width of map info console in characters
-MAP_INFO_CON_HEIGHT = 7			# height "
+MAP_INFO_CON_WIDTH = MAP_CON_WIDTH    # width of map info console in characters
+MAP_INFO_CON_HEIGHT = 7            # height "
 
-DATE_CON_WIDTH = TANK_CON_WIDTH		# date, scenario type, etc. console
+DATE_CON_WIDTH = TANK_CON_WIDTH        # date, scenario type, etc. console
 DATE_CON_HEIGHT = 1
 
-MENU_CON_WIDTH = 139			# width of in-game menu console
-MENU_CON_HEIGHT = 42			# height "
-MENU_CON_XM = int(MENU_CON_WIDTH/2)	# horizontal center of "
-MENU_CON_YM = int(MENU_CON_HEIGHT/2)	# vertical center of "
-MENU_CON_X = SCREEN_XM - MENU_CON_XM				# x and y location to draw
-MENU_CON_Y = int(SCREEN_HEIGHT/2) - int(MENU_CON_HEIGHT/2)	# menu console on screen
+MENU_CON_WIDTH = 139            # width of in-game menu console
+MENU_CON_HEIGHT = 42            # height "
+MENU_CON_XM = int(MENU_CON_WIDTH/2)    # horizontal center of "
+MENU_CON_YM = int(MENU_CON_HEIGHT/2)    # vertical center of "
+MENU_CON_X = SCREEN_XM - MENU_CON_XM                # x and y location to draw
+MENU_CON_Y = int(SCREEN_HEIGHT/2) - int(MENU_CON_HEIGHT/2)    # menu console on screen
 
 # text console, displays 84 x 50 characters
-TEXT_CON_WIDTH = 86			# width of text display console (campaign journal, messages, etc.)
-TEXT_CON_HEIGHT = 57			# height "
-TEXT_CON_XM = int(TEXT_CON_WIDTH/2)	# horizontal center "
-TEXT_CON_X = SCREEN_XM - TEXT_CON_XM	# x/y location to draw window
+TEXT_CON_WIDTH = 86            # width of text display console (campaign journal, messages, etc.)
+TEXT_CON_HEIGHT = 57            # height "
+TEXT_CON_XM = int(TEXT_CON_WIDTH/2)    # horizontal center "
+TEXT_CON_X = SCREEN_XM - TEXT_CON_XM    # x/y location to draw window
 TEXT_CON_Y = 2
 
-C_MAP_CON_WIDTH = 90		# width of campaign map console
-C_MAP_CON_HEIGHT = 90		# height "
-C_MAP_CON_WINDOW_W = 90		# width of how much of the campaign map is displayed on screen
-C_MAP_CON_WINDOW_H = 57		# height "
-C_MAP_CON_X = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 1	# x position of campaign map console
+C_MAP_CON_WIDTH = 90        # width of campaign map console
+C_MAP_CON_HEIGHT = 90        # height "
+C_MAP_CON_WINDOW_W = 90        # width of how much of the campaign map is displayed on screen
+C_MAP_CON_WINDOW_H = 57        # height "
+C_MAP_CON_X = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 1    # x position of campaign map console
 
-C_ACTION_CON_W = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 3		# width of campaign action console
-C_ACTION_CON_H = 30						# height "
+C_ACTION_CON_W = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 3        # width of campaign action console
+C_ACTION_CON_H = 30                        # height "
 
-C_INFO_CON_W = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 3		# width of campaign info console
-C_INFO_CON_H = SCREEN_HEIGHT - C_ACTION_CON_H - 4		# height "
+C_INFO_CON_W = SCREEN_WIDTH - C_MAP_CON_WINDOW_W - 3        # width of campaign info console
+C_INFO_CON_H = SCREEN_HEIGHT - C_ACTION_CON_H - 4        # height "
 C_INFO_CON_X = int(C_INFO_CON_W/2)
 
-MAX_HS = 40		# maximum number of highscore entries to save
-NAME_MAX_LEN = 17	# maximum length of crew names in characters
-NICKNAME_MAX_LEN = 15	# maximum length of crew nicknames in characters
+MAX_HS = 40        # maximum number of highscore entries to save
+NAME_MAX_LEN = 17    # maximum length of crew names in characters
+NICKNAME_MAX_LEN = 15    # maximum length of crew nicknames in characters
 
-LIMIT_FPS = 50		# maximum screen refreshes per second
+LIMIT_FPS = 50        # maximum screen refreshes per second
 
 # Game defintions
-EXTRA_AMMO = 30		# player tank can carry up to this many extra main gun shells
-BASE_EXP_REQ = 30	# exp required to advance from level 1 to 2
-LVL_INFLATION = 10	# extra exp required per additional level
+EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun shells
+BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
+LVL_INFLATION = 10    # extra exp required per additional level
 
-STONE_ROAD_MOVE_TIME = 30	# minutes required to move into a new area via an improved road
-DIRT_ROAD_MOVE_TIME = 45	# " dirt road
-NO_ROAD_MOVE_TIME = 60		# " no road
-GROUND_MOVE_TIME_MODIFIER = 15	# additional time required if ground is muddy / rain / snow
+STONE_ROAD_MOVE_TIME = 30    # minutes required to move into a new area via an improved road
+DIRT_ROAD_MOVE_TIME = 45    # " dirt road
+NO_ROAD_MOVE_TIME = 60        # " no road
+GROUND_MOVE_TIME_MODIFIER = 15    # additional time required if ground is muddy / rain / snow
 
 # Colour Defintions
-KEY_COLOR = libtcod.Color(255, 0, 255)			# key color for transparency
+KEY_COLOR = libtcod.Color(255, 0, 255)            # key color for transparency
 
 # campaign map base colours
-MAP_B_COLOR = libtcod.Color(100, 120, 100)		# fields
-MAP_D_COLOR = libtcod.Color(70, 90, 70)			# woods
+MAP_B_COLOR = libtcod.Color(100, 120, 100)        # fields
+MAP_D_COLOR = libtcod.Color(70, 90, 70)            # woods
 
 OPEN_GROUND_COLOR = libtcod.Color(100, 140, 100)
 MUD_COLOR = libtcod.Color(80, 50, 30)
@@ -161,24 +161,24 @@ CLEAR_SKY_COLOR = libtcod.Color(16, 180, 240)
 OVERCAST_COLOR = libtcod.Color(150, 150, 150)
 STONE_ROAD_COLOR = libtcod.darker_grey
 
-FRONTLINE_COLOR = libtcod.red				# highlight for hostile map areas
+FRONTLINE_COLOR = libtcod.red                # highlight for hostile map areas
 
 PLAYER_COLOR = libtcod.Color(10, 64, 10)
 ENEMY_COLOR = libtcod.Color(80, 80, 80)
-ROW_COLOR = libtcod.Color(30, 30, 30)			# to highlight a line in a console
-ROW_COLOR2 = libtcod.Color(20, 20, 20)			# to highlight a line in a console
-SELECTED_COLOR = libtcod.blue				# selected option background
-HIGHLIGHT_COLOR = libtcod.light_blue			# to highlight important text
-GREYED_COLOR = libtcod.Color(60, 60, 60)		# greyed-out option
+ROW_COLOR = libtcod.Color(30, 30, 30)            # to highlight a line in a console
+ROW_COLOR2 = libtcod.Color(20, 20, 20)            # to highlight a line in a console
+SELECTED_COLOR = libtcod.blue                # selected option background
+HIGHLIGHT_COLOR = libtcod.light_blue            # to highlight important text
+GREYED_COLOR = libtcod.Color(60, 60, 60)        # greyed-out option
 
-SKILL_ACTIVATE_COLOR = libtcod.Color(0, 255, 255)	# skill activated message
-MENU_TITLE_COLOR = libtcod.lighter_blue			# title of menu console
-KEY_HIGHLIGHT_COLOR = libtcod.Color(0, 255, 255)	# highlight for key commands
-HIGHLIGHT = (libtcod.COLCTRL_1, libtcod.COLCTRL_STOP)	# constant for highlight pair
+SKILL_ACTIVATE_COLOR = libtcod.Color(0, 255, 255)    # skill activated message
+MENU_TITLE_COLOR = libtcod.lighter_blue            # title of menu console
+KEY_HIGHLIGHT_COLOR = libtcod.Color(0, 255, 255)    # highlight for key commands
+HIGHLIGHT = (libtcod.COLCTRL_1, libtcod.COLCTRL_STOP)    # constant for highlight pair
 
-TITLE_GROUND_COLOR = libtcod.Color(26, 79, 5)		# color of ground in main menu
+TITLE_GROUND_COLOR = libtcod.Color(26, 79, 5)        # color of ground in main menu
 
-SOUNDS = {}						# sound effects
+SOUNDS = {}                        # sound effects
 
 ##########################################################################################
 #                                       Classes                                          #
