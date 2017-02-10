@@ -58,11 +58,12 @@ import shelve                           # for saving and loading games
 import sys                              # for command line functions
 import time                             # for wait function
 import xml.etree.ElementTree as xml     # ElementTree library for xml
-import xp_loader, gzip                  # for loading image files
+import lib.xp_loader                    # for loading image files
+import gzip                             # for loading image files
 import zipfile, io                      # for loading from zip archive
 
-from armcom_defs import *               # general definitions
-from armcom_vehicle_defs import *       # vehicle stat definitions
+from lib.armcom_defs import *           # general definitions
+from lib.armcom_vehicle_defs import *   # vehicle stat definitions
 
 ##### Constants #####
 DEBUG = False                           # enable in-game debug commands
