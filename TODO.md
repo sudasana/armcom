@@ -12,6 +12,7 @@
 - **If 10 shells cannot be added, add maximum possible**
 - **Add more Crew dialog diversity**
 - Add air burst against infantry in wood
+- Modify enemy type rarity as a function of terrain
 - Difficulty settings (Veterant, Regular, Reserve)
 - Possibility to save multiple campaigns (one per campaign type?)
 - More campaigns (Russian...)
