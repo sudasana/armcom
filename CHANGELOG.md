@@ -1,6 +1,8 @@
 # History of changes
 
 ## 1.04 Changelog 
+- Use spaces instead of tabulations in Python scripts
+- Save Python scripts with Linux line endings
 - Split readme.md into README.md and CHANGELOG.md
 - Add dependent libraries (libSDL and libtcod)
 - Cleanup repository
