@@ -11,6 +11,7 @@
 ### Gameplay and content
 - **If 10 shells cannot be added, add maximum possible**
 - **Add more Crew dialog diversity**
+- Add air burst against infantry in wood
 - Difficulty settings (Veterant, Regular, Reserve)
 - Possibility to save multiple campaigns (one per campaign type?)
 - More campaigns (Russian...)
