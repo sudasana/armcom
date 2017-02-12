@@ -1,6 +1,6 @@
 # History of changes
 
-## 1.04 Changelog 
+## 1.04 Changelog (now maintained by Eric Normandeau)
 - Feature: Added pop up "Screenshot saved as: ..." for screenshots
 - Feature: Menu items (help...) are now accessible through F keys AND number keys
 - Feature: Added "On the way!" as possible gunner call upon firing
