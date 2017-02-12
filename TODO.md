@@ -6,6 +6,7 @@
 ## Improvements
 ### Gameplay and content
 - **Add air burst against infantry in wood**
+- Reduce chances of being targeted early in the campaign
 - Modify enemy type rarity as a function of terrain
 - Difficulty settings (Veterant, Regular, Reserve)
 - Possibility to save multiple campaigns (one per campaign type?)
@@ -16,6 +17,7 @@
 - Show enemy ascii image in description
   
 ### UI improvements
+- **Add Quick Start section in first screen and in top menu**
 - **Consistency (ESC, ENTER, SPACE...)**
 - **Default start actions of crew to accomodate Fire Main Gun**
 - Mouse less mode
