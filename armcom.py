@@ -3855,7 +3855,7 @@ class EnemyUnit:
 
         # NEW: if unit is unidentified, a crewmember indicates the calibre of gun heard
         if self.hidden or not self.identified:
-            CrewTalk('That sounded like a ' + gun_type[:1] + 'mm gun!')
+            CrewTalk('That sounded like a ' + gun_type[:2] + 'mm gun!')
 
         return True
 
@@ -7858,6 +7858,9 @@ def FireMainGun():
     if Roll1D10() == 1:
         ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'Firing!',
             GetCrewByPosition('Gunner'))
+    if Roll1D10() == 2:
+        ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'On the way!',
+            GetCrewByPosition('Gunner'))
 
     # play firing sound
     soundfile = GetFiringSound(tank.stats['main_gun'])
@@ -10112,6 +10115,7 @@ def SaveScreenshot():
     filename = 'screenshot_' + time.strftime("%Y_%m_%d_%H_%M_%S") + '.bmp'
     libtcod.image_save(img, filename)
     PlaySound('screenshot')
+    PopUp("Screenshot saved as: " + filename)
 
 
 # display a crew speech box, either on the encounter or the campaign day map
@@ -10478,27 +10482,27 @@ def GetEncounterInput():
         EncounterMenu()
 
     # help display
-    elif key.vk == libtcod.KEY_F1:
+    elif key.vk == libtcod.KEY_F1 or key.vk == libtcod.KEY_1:
         ShowHelp()
 
     # tank info display
-    elif key.vk == libtcod.KEY_F2:
+    elif key.vk == libtcod.KEY_F2 or key.vk == libtcod.KEY_2:
         ShowTankInfo()
 
     # crew info display
-    elif key.vk == libtcod.KEY_F3:
+    elif key.vk == libtcod.KEY_F3 or key.vk == libtcod.KEY_3:
         ShowCrewInfo()
 
     # settings
-    elif key.vk == libtcod.KEY_F10:
+    elif key.vk == libtcod.KEY_F4 or key.vk == libtcod.KEY_4:
         ShowSettings()
 
     # campaign stats
-    elif key.vk == libtcod.KEY_F11:
+    elif key.vk == libtcod.KEY_F5 or key.vk == libtcod.KEY_5:
         ShowCampaignStats()
 
     # screenshot
-    elif key.vk == libtcod.KEY_F12:
+    elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
         SaveScreenshot()
 
     # backspace key can cancel issue order input mode
@@ -11156,9 +11160,14 @@ def InitEncounter(load=False, counterattack=False, res_level=None):
                 PlaySound(soundfile)
 
             for unit in battle.enemy_units:
-                if not unit.alive: continue
+                if not unit.alive:
+                    continue
                 if unit.FriendlyAction(advance_fire=True):
                     result = True
+                    # TODO bug
+                    # Add actual result from advancing fire, like the enemy
+                    # unit being destroyed
+
                 UpdateMapOverlay()
                 RenderEncounter()
 
@@ -12323,13 +12332,13 @@ def CallStrike(key_char):
 
         # chance of crew reaction
         if key_char in ['a', 'A']:
-            if Roll1D10() == 1:
+            if Roll1D10() <= 3:
                 CrewTalk(random.choice(CREW_TALK_ARTY_STRIKE))
 
     else:
         if key_char in ['a', 'A']:
             # chance of crew reaction
-            if Roll1D10() == 1:
+            if Roll1D10() <= 3:
                 CrewTalk(random.choice(CREW_TALK_NO_ARTY_STRIKE))
 
     UpdateCActionCon()
@@ -13013,20 +13022,21 @@ def MainGunAmmoMenu(no_dark=False):
                 # add to general stores if there's room
                 # if limited amounts, check that there are enough left
                 else:
-                    if total_g + amount <= tank.stats['main_gun_rounds'] + EXTRA_AMMO:
+                    if total_g + amount > tank.stats['main_gun_rounds'] + EXTRA_AMMO:
+                        amount = tank.stats['main_gun_rounds'] + EXTRA_AMMO - total_g
 
-                        if new_type == 'HCBI':
-                            if campaign.hcbi < amount: continue
-                            campaign.hcbi -= amount
-                        elif new_type == 'HVAP':
-                            if campaign.hvap < amount: continue
-                            campaign.hvap -= amount
-                        elif new_type == 'APDS':
-                            if campaign.apds < amount: continue
-                            campaign.apds -= amount
+                    if new_type == 'HCBI':
+                        if campaign.hcbi < amount: continue
+                        campaign.hcbi -= amount
+                    elif new_type == 'HVAP':
+                        if campaign.hvap < amount: continue
+                        campaign.hvap -= amount
+                    elif new_type == 'APDS':
+                        if campaign.apds < amount: continue
+                        campaign.apds -= amount
 
-                        tank.general_ammo[new_type] += amount
-                        PlaySound('shell_move')
+                    tank.general_ammo[new_type] += amount
+                    PlaySound('shell_move')
 
                 refresh_menu = True
 
@@ -14040,32 +14050,32 @@ def RunCalendar(load_day):
             key_char = chr(key.c)
 
             # help display
-            if key.vk == libtcod.KEY_F1:
+            if key.vk == libtcod.KEY_F1 or key.vk == libtcod.KEY_1:
                 ShowHelp()
                 refresh = True
 
             # tank info display
-            elif key.vk == libtcod.KEY_F2:
+            elif key.vk == libtcod.KEY_F2 or key.vk == libtcod.KEY_2:
                 ShowTankInfo()
                 refresh = True
 
             # crew info display
-            elif key.vk == libtcod.KEY_F3:
+            elif key.vk == libtcod.KEY_F3 or key.vk == libtcod.KEY_3:
                 ShowCrewInfo()
                 refresh = True
 
             # settings
-            elif key.vk == libtcod.KEY_F10:
+            elif key.vk == libtcod.KEY_F4 or key.vk == libtcod.KEY_4:
                 ShowSettings()
                 refresh = True
 
             # campaign stats
-            elif key.vk == libtcod.KEY_F11:
+            elif key.vk == libtcod.KEY_F5 or key.vk == libtcod.KEY_5:
                 ShowCampaignStats()
                 refresh = True
 
             # screenshot
-            elif key.vk == libtcod.KEY_F12:
+            elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
                 SaveScreenshot()
                 refresh = True
 
@@ -14637,27 +14647,27 @@ def DoCampaignDay():
                 return
 
         # help display
-        elif key.vk == libtcod.KEY_F1:
+        elif key.vk == libtcod.KEY_F1 or key.vk == libtcod.KEY_1:
             ShowHelp()
 
         # tank info display
-        elif key.vk == libtcod.KEY_F2:
+        elif key.vk == libtcod.KEY_F2 or key.vk == libtcod.KEY_2:
             ShowTankInfo()
 
         # crew info display
-        elif key.vk == libtcod.KEY_F3:
+        elif key.vk == libtcod.KEY_F3 or key.vk == libtcod.KEY_3:
             ShowCrewInfo()
 
         # settings
-        elif key.vk == libtcod.KEY_F10:
+        elif key.vk == libtcod.KEY_F4 or key.vk == libtcod.KEY_4:
             ShowSettings()
 
         # campaign stats
-        elif key.vk == libtcod.KEY_F11:
+        elif key.vk == libtcod.KEY_F5 or key.vk == libtcod.KEY_5:
             ShowCampaignStats()
 
         # screenshot
-        elif key.vk == libtcod.KEY_F12:
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
 
         # get pressed key

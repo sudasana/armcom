@@ -413,13 +413,14 @@ HIGHLIGHT = (libtcod.COLCTRL_1, libtcod.COLCTRL_STOP)
 
 # menu bar
 MENU_BAR1 = '%cESC%c:Menu  |  '%HIGHLIGHT
-MENU_BAR2 = ('%cF1%c:Help  |  '%HIGHLIGHT +
-    '%cF2%c:Tank Info  |  '%HIGHLIGHT +
-    '%cF3%c:Crew Info'%HIGHLIGHT +
-    ' '*39 +
-    '%cF10%c:Settings  |  '%HIGHLIGHT +
-    '%cF11%c:Campaign Stats  |  '%HIGHLIGHT +
-    '%cF12%c:Screenshot'%HIGHLIGHT
+MENU_BAR2 = (
+    '%cF1/1%c:Help  |  '%HIGHLIGHT +
+    '%cF2/2%c:Tank Info  |  '%HIGHLIGHT +
+    '%cF3/3%c:Crew Info'%HIGHLIGHT +
+    ' '*30 +
+    '%cF4/4%c:Settings  |  '%HIGHLIGHT +
+    '%cF5/5%c:Campaign Stats  |  '%HIGHLIGHT +
+    '%cF6/6%c:Screenshot'%HIGHLIGHT
     )
 
 # select spot sector
@@ -527,55 +528,70 @@ enough punch and firepower to knock out virtually any Allied tank."""
 ##########################################################################################
 
 CREW_TALK_HEAVY_RES = [
-    'Yikes! Might want to call in some support, Commander.',
+    'Might want to call in some support, Commander.',
     'I guess we could go around.',
+    'Maybe we could go around?',
+    "Can't we find another route?",
     "We're not going in there, are we?",
     "This doesn't look too good.",
-        "I guess it's our job to take care of it.",
-        "Germans. Always, more Germans."
+    "I guess it's our job to take care of it.",
+    "If we don't deal with them, somebody else will have to.",
+    "He who runs away lives to fight another day.",
+    "We've seen worst. Then again, we've seen better...",
+    "Germans. Always, more Germans."
 ]
 
 CREW_TALK_ARTY_STRIKE = [
     'Thanks guys!',
     "I love that sound, at least when it's far away.",
     "Better outgoing than incoming!",
-        "I never thought I'd come to love the sound of artillery."
+    "I never thought I'd come to love the sound of artillery.",
+    "May these shells find 'em."
 ]
 
 CREW_TALK_NO_ARTY_STRIKE = [
     'What are they doing over there?',
     'How are we supposed to capture territory without proper artillery support?',
     "Looks like all the fun is going to be ours once again.",
-        "We could use some help here.",
-        "All right. We still have a job to do!"
+    "We could use some help over here.",
+    "All right. We still have a job to do!",
+    "Conserving ammunition? What about our lives?",
+    "Thanks for nothing guys..."
 ]
 
 CREW_TALK_NO_RES = [
     "It's quiet. Too quiet.",
     'They must have repositioned.',
     "Somebody must have told them we were coming.",
-        "Where are they hiding?"
+    "Where are they hiding?",
+    "I thought we were supposed to find the enemy here",
+    "I guess they moved somewhere else."
 ]
 
 CREW_TALK_THROWN_TRACK = [
-    "Well that's not good!",
+    "That's not good!",
     "We're immobilized!",
     "We need to repair that track ASAP!",
-        "We're sitting ducks."
+    "We're sitting ducks.",
+    "Busted another track..."
 ]
 
 CREW_TALK_ARMOUR_SAVED = [
     'Whoa! That was close!',
     'Incoming AT!',
-    "My head is ringing",
-        "Who's there?"
+    "My head is ringing.",
+    "Saved by the tin box again.",
+    "IS THAT ALL YOU GOT?!?",
+    "Come on! You hit like my granny!"
 ]
 
 CREW_TALK_SHOT_MISSED = [
     'That was close. Too close.',
     'We got lucky on that one.',
     "Good thing they can't aim.",
-        "I hope this keeps up!"
+    "They won't be missing forever!",
+    "Our turn now.",
+    "Don't let them fire again!"
 ]
 
 # List of hometowns for USA
@@ -1120,6 +1136,9 @@ CREDITS_TEXT = [
     '',
     'Designed and Programmed by',
     'Gregory Adam Scott',
+    '',
+    'Maintained by Eric Normandeau,',
+    'since version 1.04',
     '',
     '',
     '* Inspired By *',
