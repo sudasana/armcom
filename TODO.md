@@ -5,7 +5,7 @@
 
 ## Improvements
 ### Gameplay and content
-- **Add air burst against infantry in wood**
+- Add air burst against infantry in wood
 - Reduce chances of being targeted early in the campaign
 - Modify enemy type rarity as a function of terrain
 - Difficulty settings (Veterant, Regular, Reserve)
@@ -17,9 +17,11 @@
 - Show enemy ascii image in description
   
 ### UI improvements
-- **Add Quick Start section in first screen and in top menu**
+- **Use "N" for next battle phase**
 - **Consistency (ESC, ENTER, SPACE...)**
+- **Change HIGHLIGH color?**
 - **Default start actions of crew to accomodate Fire Main Gun**
+- Add Quick Start Guide section in first screen and in top menu
 - Mouse less mode
   - Examine enemy units without mouse
   - Anything else?
@@ -30,7 +32,7 @@
 ### Manual
 - **Update Manual**
 - **Find best place and format to host manual**
-- **Write a quick start section**
+- **Write a quick start guide**
 - Write installation section
 
 ## Later but probably better left alone

@@ -1,15 +1,17 @@
 # History of changes
 
 ## 1.04 Changelog (now maintained by Eric Normandeau)
+- InTheWork: Feature: Use "Space" to clear pop up messages instead of "Enter"
+- Cleanup: Removed all instances of "is not None" in code
 - Feature: Added pop up "Screenshot saved as: ..." for screenshots
 - Feature: Menu items (help...) are now accessible through F keys AND number keys
 - Feature: Added "On the way!" as possible gunner call upon firing
 - Feature: Added more crew talk diversity and increased odds for artillery
 - Feature: If 10 round cannot be added to tank, add maximum possible
 - BugFix: Wrong caliber of gun reported by crew ("That sounded like a 8mm gun")
-- Use spaces instead of tabulations in Python scripts
-- Save Python scripts with Linux line endings
-- Split readme.md into README.md and CHANGELOG.md
+- Cleanup: Use spaces instead of tabulations in Python scripts
+- Cleanup: Save Python scripts with Linux line endings
+- Cleanup: Split readme.md into README.md and CHANGELOG.md
 - Add dependent libraries (libSDL and libtcod)
 - Cleanup repository
 - NOTE: First version maintained by Eric Normandeau
