@@ -17,7 +17,7 @@
 - Show enemy ascii image in description
   
 ### UI improvements
-- **Use "N" for next battle phase**
+- **Add legend of symbols (trees, hull down, building, units) to map
 - **Consistency (ESC, ENTER, SPACE...)**
 - **Change HIGHLIGH color?**
 - **Default start actions of crew to accomodate Fire Main Gun**
