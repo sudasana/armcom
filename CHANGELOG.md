@@ -1,6 +1,12 @@
 # History of changes
 
 ## 1.04 Changelog 
+- Feature: Added pop up "Screenshot saved as: ..." for screenshots
+- Feature: Menu items (help...) are now accessible through F keys AND number keys
+- Feature: Added "On the way!" as possible gunner call upon firing
+- Feature: Added more crew talk diversity and increased odds for artillery
+- Feature: If 10 round cannot be added to tank, add maximum possible
+- BugFix: Wrong caliber of gun reported by crew ("That sounded like a 8mm gun")
 - Use spaces instead of tabulations in Python scripts
 - Save Python scripts with Linux line endings
 - Split readme.md into README.md and CHANGELOG.md
@@ -27,7 +33,7 @@
    twice in the same campaign turn
 - Fixed a bug relating to the player having to re-position when surrounded in a
    counterattack mission
-
+é
 ## 1.01 Changelog
 - Fixed a bug where the assistant driver did not have his Fire Bow MG order properly
    disabled when an encounter starts with the player tank Hull Down

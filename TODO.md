@@ -1,17 +1,11 @@
 # List of things to do for Armoured Commander
 
-## Development
-- **Flip files to Linux line ending**
-- **Replace tabulations by spaces in Python scripts**
-
 ## Bugs to investigate
-- Confirm if advancing fire can really have an impact
+- Fix no effect on advancing fire
 
 ## Improvements
 ### Gameplay and content
-- **If 10 shells cannot be added, add maximum possible**
-- **Add more Crew dialog diversity**
-- Add air burst against infantry in wood
+- **Add air burst against infantry in wood**
 - Modify enemy type rarity as a function of terrain
 - Difficulty settings (Veterant, Regular, Reserve)
 - Possibility to save multiple campaigns (one per campaign type?)
@@ -19,11 +13,14 @@
 - More diversity of enemies
 - More tank variants
 - Replacement crew may already have some skills
+- Show enemy ascii image in description
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
-- **Make menus more accessible on laptops (1, 2, 3... plus F1, F2, F3...)**
+- **Default start actions of crew to accomodate Fire Main Gun**
 - Mouse less mode
+  - Examine enemy units without mouse
+  - Anything else?
   
 ### Game and installation
 - Maintain Windows and OSX executables
@@ -33,3 +30,6 @@
 - **Find best place and format to host manual**
 - **Write a quick start section**
 - Write installation section
+
+## Later but probably better left alone
+- remove "is not None" and such
