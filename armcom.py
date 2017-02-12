@@ -9047,6 +9047,63 @@ def UpdateMapOverlay(skip_los=False):
     libtcod.console_set_default_foreground(overlay_con, libtcod.white)
     libtcod.console_set_default_background(overlay_con, libtcod.black)
 
+    # TODO
+    # display symbol legend on map
+
+    # Units
+    libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit types:')
+    libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '-----------')
+
+    libtcod.console_put_char(overlay_con, 1, 43, libtcod.CHAR_RADIO_UNSET, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 43, libtcod.BKGND_SET, libtcod.LEFT, 'Tank')
+
+    libtcod.console_put_char(overlay_con, 1, 44, 'X', flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 44, libtcod.BKGND_SET, libtcod.LEFT, 'Anti Tank Gun')
+
+    libtcod.console_put_char(overlay_con, 1, 45, "#", flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 45, libtcod.BKGND_SET, libtcod.LEFT, 'Self Propelled Gun')
+
+    libtcod.console_put_char(overlay_con, 1, 46, libtcod.CHAR_BULLET_INV, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 46, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Personel Carrier')
+
+    libtcod.console_put_char(overlay_con, 1, 47, libtcod.CHAR_RADIO_SET, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 47, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Carrier')
+
+    libtcod.console_put_char(overlay_con, 1, 48, libtcod.CHAR_BLOCK1, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 48, libtcod.BKGND_SET, libtcod.LEFT, 'Light Infantry')
+
+    libtcod.console_put_char(overlay_con, 1, 49, 'x', flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 49, libtcod.BKGND_SET, libtcod.LEFT, 'Machine Gun')
+
+    libtcod.console_put_char(overlay_con, 1, 50, libtcod.CHAR_BULLET_SQUARE, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 4, 50, libtcod.BKGND_SET, libtcod.LEFT, 'Truck')
+
+    # Tactical situation
+    #if self.terrain == 'Hull Down':
+    #    char = libtcod.CHAR_ARROW2_N
+    #elif self.terrain == 'Building':
+    #    char = libtcod.CHAR_DVLINE
+    #elif self.terrain == 'Woods':
+    #    char = libtcod.CHAR_SPADE
+
+    libtcod.console_print_ex(overlay_con, 60, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Situation:')
+    libtcod.console_print_ex(overlay_con, 60, 42, libtcod.BKGND_SET, libtcod.LEFT, '----------')
+
+    libtcod.console_put_char(overlay_con, 60, 43, libtcod.CHAR_ARROW2_N, flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 61, 43, ' ', flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 62, 43, libtcod.CHAR_ARROW2_N, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 64, 43, libtcod.BKGND_SET, libtcod.LEFT, 'Hull Down')
+
+    libtcod.console_put_char(overlay_con, 60, 44, libtcod.CHAR_DVLINE, flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 61, 44, ' ', flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 62, 44, libtcod.CHAR_DVLINE, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 64, 44, libtcod.BKGND_SET, libtcod.LEFT, 'Building')
+
+    libtcod.console_put_char(overlay_con, 60, 45, libtcod.CHAR_SPADE, flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 61, 45, ' ', flag=libtcod.BKGND_SET)
+    libtcod.console_put_char(overlay_con, 62, 45, libtcod.CHAR_SPADE, flag=libtcod.BKGND_SET)
+    libtcod.console_print_ex(overlay_con, 64, 45, libtcod.BKGND_SET, libtcod.LEFT, 'Woods')
+
     # display current round number
     libtcod.console_print_ex(overlay_con, int(MAP_CON_WIDTH/2), 0, libtcod.BKGND_SET,
         libtcod.CENTER, 'Round ' + str(battle.rounds_passed))

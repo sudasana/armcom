@@ -1,6 +1,7 @@
 # History of changes
 
 ## 1.04 Changelog (now maintained by Eric Normandeau)
+- Interface: Add symbol legent to tactical map
 - Interface: Minor tweak to command highlight color 
 - Interface: Make use of ENTER and SPACE more consistent
 - Cleanup: Removed all instances of "is not None" in code
