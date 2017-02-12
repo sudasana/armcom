@@ -427,7 +427,7 @@ MENU_BAR2 = (
 SPOT_SECTOR_INFO = [
     '[%cW/S/Up/Down%c] Select crew'%HIGHLIGHT,
     '[%cA/D/Left/Right%c] Rotate selected spot sector'%HIGHLIGHT,
-    '[%cEnd/Space%c] Proceed to Spotting Phase'%HIGHLIGHT
+    '[%cSpace/End%c] Proceed to Spotting Phase'%HIGHLIGHT
 ]
 
 # instructions for orders phase
@@ -438,7 +438,7 @@ ORDERS_PHASE_INFO = [
     '[%cR%c] cycle through ammo types to use when Reloading the main gun'%HIGHLIGHT,
     '[%cT%c] toggle use of the Ready Rack for reloading the main gun'%HIGHLIGHT,
     '[%cH%c] toggle Hatch status for selected crew member'%HIGHLIGHT,
-    '[%cEnd/Space%c] finish Orders and proceed to Crew Actions'%HIGHLIGHT
+    '[%cSpace/End%c] finish Orders and proceed to Crew Actions'%HIGHLIGHT
 ]
 
 # instructions for selecting an order to issue
@@ -468,7 +468,7 @@ FIRE_GUN_INFO = [
     '[%cR%c] Change ammo type to use when reloading'%HIGHLIGHT,
     '[%cT%c] Toggle use of Ready Rack for reloading'%HIGHLIGHT,
     '[%cEnter%c] Fire main gun'%HIGHLIGHT,
-    '[%cEnd%c] Finish firing and proceed to resolve hits or to next phase'%HIGHLIGHT
+    '[%cSpace/End%c] Finish firing and proceed to resolve hits or to next phase'%HIGHLIGHT
 ]
 
 # instructions for firing MGs
@@ -477,7 +477,7 @@ FIRE_MGS_INFO = [
     '[%cM%c] Cycle active MG'%HIGHLIGHT,
     '[%cTab%c] Cycle between available targets'%HIGHLIGHT,
     '[%cEnter%c] Fire an MG'%HIGHLIGHT,
-    '[%cEnd%c] Finish firing and proceed to next phase'%HIGHLIGHT
+    '[%cSpace/End%c] Finish firing and proceed to next phase'%HIGHLIGHT
 ]
 
 # Campaign - check adjacent area instructions

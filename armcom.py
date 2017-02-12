@@ -32,13 +32,6 @@
 #
 ##########################################################################################
 
-########## 1.03 Changelog ##########
-# - advancing fire now no longer possible if main gun is malfunctioning or broken
-# - fixed a rare crash when moving in a counterattack mission
-
-##########################################################################################
-
-
 ##### Libraries #####
 from datetime import datetime           # for recording date and time in campaign journal
 from encodings import ascii, utf_8      # needed for Py2EXE version
@@ -58,12 +51,12 @@ import shelve                           # for saving and loading games
 import sys                              # for command line functions
 import time                             # for wait function
 import xml.etree.ElementTree as xml     # ElementTree library for xml
-import xp_loader                    # for loading image files
+import xp_loader                        # for loading image files
 import gzip                             # for loading image files
 import zipfile, io                      # for loading from zip archive
 
-from armcom_defs import *           # general definitions
-from armcom_vehicle_defs import *   # vehicle stat definitions
+from armcom_defs import *               # general definitions
+from armcom_vehicle_defs import *       # vehicle stat definitions
 
 ##### Constants #####
 DEBUG = False                           # enable in-game debug commands
@@ -5707,7 +5700,7 @@ def ShowLabel(x, y, original_text, crewman=None):
 
     # if wait for enter is on in campaign settings, add to text to display
     if campaign.pause_labels:
-        text += ' [Enter to Continue]'
+        text += ' [Enter to continue]'
 
     # divide text to be shown into lines
     lines = wrap(text, 28)
@@ -9537,7 +9530,7 @@ def UpdateTankCon():
         libtcod.console_print(tank_con, 1, TANK_CON_HEIGHT-6,
             'Open [%cM%c]ain Gun Ammunition Menu'%HIGHLIGHT)
         libtcod.console_print(tank_con, 1, TANK_CON_HEIGHT-2,
-            '[%cESC%c] to exit this view'%HIGHLIGHT)
+            '[%cENTER%c] to confirm this loadout'%HIGHLIGHT)
 
 
 # date, time, etc. console
@@ -9929,6 +9922,32 @@ def WaitForEnter():
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
         libtcod.console_flush()
 
+# wait for player to press space before continuing
+def WaitForSpace():
+    end_pause = False
+    while not end_pause:
+        # get input from user
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+
+        # exit right away
+        if libtcod.console_is_window_closed():
+            sys.exit()
+
+        elif key.vk == libtcod.KEY_SPACE:
+            end_pause = True
+
+        # screenshot
+        elif key.vk == libtcod.KEY_F12:
+            SaveScreenshot()
+
+        # refresh the screen
+        libtcod.console_flush()
+
+    # wait for enter to be released
+    while libtcod.console_is_key_pressed(libtcod.KEY_SPACE):
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+        libtcod.console_flush()
+
 
 # save the game in progress
 def SaveGame():
@@ -10219,7 +10238,6 @@ def PopUp(message, confirm=False, skip_update=False):
 
     return choice
 
-
 # checks if we need to set spot sectors for one or more crewmen
 def CheckSpotSectors():
 
@@ -10270,17 +10288,17 @@ def EncounterMenu():
     # campaign is over
     if campaign.exiting:
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
-            libtcod.BKGND_NONE, libtcod.CENTER, '[%cESC%c] Return to Main Menu'%HIGHLIGHT)
+            libtcod.BKGND_NONE, libtcod.CENTER, '[%cEnter%c] Return to Main Menu'%HIGHLIGHT)
 
     # scenario is resolved
     elif battle.result != 'Undetermined':
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
-            libtcod.BKGND_NONE, libtcod.CENTER, '[%cESC%c] Return to Campaign Map'%HIGHLIGHT)
+            libtcod.BKGND_NONE, libtcod.CENTER, '[%cEnter%c] Return to Campaign Map'%HIGHLIGHT)
 
     # scenario continues
     else:
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
-            libtcod.BKGND_NONE, libtcod.CENTER, '[%cESC%c] Return to Game'%HIGHLIGHT)
+            libtcod.BKGND_NONE, libtcod.CENTER, '[%cEnter%c] Return to Game'%HIGHLIGHT)
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 4,
             libtcod.BKGND_NONE, libtcod.CENTER, '[%cQ%c] Save Game and Quit'%HIGHLIGHT)
 
@@ -10381,7 +10399,7 @@ def EncounterMenu():
         # get input from user
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
 
-        if key.vk == libtcod.KEY_ESCAPE: break
+        if key.vk == libtcod.KEY_ENTER: break
 
         # get pressed key
         key_char = chr(key.c)
@@ -12696,7 +12714,7 @@ def CampaignViewTank(load_ammo_menu=False):
             libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
 
             # exit view
-            if key.vk == libtcod.KEY_ESCAPE:
+            if key.vk == libtcod.KEY_ENTER:
 
                 # if we're resupplying and haven't loaded any ammo,
                 # confirm that player wants to continue
