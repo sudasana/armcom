@@ -1,7 +1,8 @@
 # History of changes
 
 ## 1.04 Changelog (now maintained by Eric Normandeau)
-- InTheWork: Feature: Use "Space" to clear pop up messages instead of "Enter"
+- Interface: Minor tweak to command highlight color 
+- Interface: Make use of ENTER and SPACE more consistent
 - Cleanup: Removed all instances of "is not None" in code
 - Feature: Added pop up "Screenshot saved as: ..." for screenshots
 - Feature: Menu items (help...) are now accessible through F keys AND number keys
