@@ -167,7 +167,7 @@ GREYED_COLOR = libtcod.Color(60, 60, 60)        # greyed-out option
 
 SKILL_ACTIVATE_COLOR = libtcod.Color(0, 255, 255)    # skill activated message
 MENU_TITLE_COLOR = libtcod.lighter_blue            # title of menu console
-KEY_HIGHLIGHT_COLOR = libtcod.Color(0, 255, 255)    # highlight for key commands
+KEY_HIGHLIGHT_COLOR = libtcod.Color(0, 200, 255)    # highlight for key commands
 HIGHLIGHT = (libtcod.COLCTRL_1, libtcod.COLCTRL_STOP)    # constant for highlight pair
 
 TITLE_GROUND_COLOR = libtcod.Color(26, 79, 5)        # color of ground in main menu
