@@ -2305,7 +2305,7 @@ class Crewman:
 					libtcod.console_put_char_ex(console, x1, y+9,
 						179, libtcod.red, libtcod.blue)
 					libtcod.console_put_char_ex(console, x1, y+10,
-						31, libtcod.light_white, libtcod.black)
+						31, libtcod.white, libtcod.black)
 				elif dec_name == 'Victoria Cross':
 					libtcod.console_put_char_ex(console, x1, y+9,
 						178, libtcod.red, libtcod.black)
