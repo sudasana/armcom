@@ -1,6 +1,7 @@
 # List of things to do for Armoured Commander
 
 ## Bugs to investigate
+- **Crashes on some my Linux test machine 2**
 - Fix no effect on advancing fire
 
 ## Improvements
@@ -18,20 +19,21 @@
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
-- **Default start actions of crew to accomodate Fire Main Gun**
+- Default start actions of crew to accomodate Fire Main Gun
 - Add Quick Start Guide section in first screen and in top menu
 - Mouse less mode
   - Examine enemy units without mouse
   - Anything else?
   
 ### Game and installation
-- **Include pygame and bsddb? (seems big)**
+- **Code paths using os.path.join**
+- Include pygame and bsddb? (seems big)
 - Maintain Windows and OSX executables
   
 ### Manual
-- **Update Manual**
-- **Find best place and format to host manual**
-- **Write a quick start guide**
+-*Update Manual
+- Find best place and format to host manual
+- Write a quick start guide
 - Write installation section
 
 ## Later but probably better left alone
