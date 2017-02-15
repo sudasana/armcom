@@ -14923,7 +14923,7 @@ def LoadSounds():
         ]
 
     # load the sounds from the zip file into memory
-    with zipfile.ZipFile('data/sounds.zip', 'r') as archive:
+    with zipfile.ZipFile('data.zip', 'r') as archive:
         for sound_name in SOUND_LIST:
             sound_data = archive.read(sound_name + '.wav')
             bytes_io = io.BytesIO(sound_data)
