@@ -1,7 +1,6 @@
 # List of things to do for Armoured Commander
 
 ## Bugs to investigate
-- **Crashes on some my Linux test machine 2**
 - Fix no effect on advancing fire
 
 ## Improvements
