@@ -25,6 +25,7 @@
   - Anything else?
   
 ### Game and installation
+- **Code paths using os.path.join**
 - **Include pygame and bsddb? (seems big)**
 - Maintain Windows and OSX executables
   
