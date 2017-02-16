@@ -9051,8 +9051,8 @@ def UpdateMapOverlay(skip_los=False):
     # display symbol legend on map
 
     # Units
-    libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit types:')
-    libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '-----------')
+    libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit type:')
+    libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '----------')
 
     libtcod.console_put_char(overlay_con, 1, 43, libtcod.CHAR_RADIO_UNSET, flag=libtcod.BKGND_SET)
     libtcod.console_print_ex(overlay_con, 4, 43, libtcod.BKGND_SET, libtcod.LEFT, 'Tank')
