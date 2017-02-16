@@ -6219,8 +6219,8 @@ def SpawnCrewMember(name, position, rank_level, replacement=False, old_member=No
         new_crew.hometown = random.choice(USA_HOMETOWNS)
     elif campaign.player_nation == 'CAN':
         new_crew.hometown = random.choice(CAN_HOMETOWNS)
-    # NEW: transcode to handle accented characters
-    new_crew.hometown = new_crew.hometown.decode('utf8').encode('cp850')
+    # removed transcoding; may be able to add a better solution in the future
+    #new_crew.hometown = new_crew.hometown.decode('utf8').encode('cp850')
 
     # set default order and initial hatch state
     if position == 'Commander':
