@@ -24,6 +24,9 @@
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
+- **Text reflow in messages on tactical map**
+  - Change messages to include `\n`?
+  - Change displaying code to split message
 - Add control key to toggle sound (F7/7)
 - Default start actions of crew to accomodate Fire Main Gun
 - Add Quick Start Guide section in first screen and in top menu
