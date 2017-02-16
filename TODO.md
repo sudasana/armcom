@@ -25,12 +25,11 @@
   - Anything else?
   
 ### Game and installation
-- **Code paths using os.path.join**
 - Include pygame and bsddb? (seems big)
 - Maintain Windows and OSX executables
   
 ### Manual
--*Update Manual
+- Update Manual
 - Find best place and format to host manual
 - Write a quick start guide
 - Write installation section

@@ -68,7 +68,7 @@ SUBVERSION = '4'                        # descriptive only, no effect on compata
 COMPATIBLE_VERSIONS = ['Beta 3.0']      # list of older versions for which the savegame
                                         #  is compatible with this version
 
-DATAPATH = 'data/'.replace('/', os.sep)        # path to data files
+DATAPATH = 'data' + os.sep        # path to data files
 
 PI = pi
 
