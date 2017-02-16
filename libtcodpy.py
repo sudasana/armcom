@@ -44,13 +44,13 @@ MAC=False
 MINGW=False
 MSVC=False
 if sys.platform.find('linux') != -1:
-    _lib = ctypes.cdll['libtcod.so']
+    _lib = ctypes.cdll['./libtcod.so']
     LINUX=True
 elif sys.platform.find('darwin') != -1:
     _lib = ctypes.cdll['./libtcod.dylib']
     MAC = True
 elif sys.platform.find('haiku') != -1:
-    _lib = ctypes.cdll['libtcod.so']
+    _lib = ctypes.cdll['./libtcod.so']
     HAIKU = True
 else:
     try:

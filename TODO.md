@@ -18,19 +18,21 @@
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
-- **Default start actions of crew to accomodate Fire Main Gun**
+- Default start actions of crew to accomodate Fire Main Gun
 - Add Quick Start Guide section in first screen and in top menu
 - Mouse less mode
   - Examine enemy units without mouse
   - Anything else?
   
 ### Game and installation
+- **Code paths using os.path.join**
+- Include pygame and bsddb? (seems big)
 - Maintain Windows and OSX executables
   
 ### Manual
-- **Update Manual**
-- **Find best place and format to host manual**
-- **Write a quick start guide**
+-*Update Manual
+- Find best place and format to host manual
+- Write a quick start guide
 - Write installation section
 
 ## Later but probably better left alone

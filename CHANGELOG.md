@@ -1,6 +1,7 @@
 # History of changes
 
 ## 1.04 Changelog (now maintained by Eric Normandeau)
+- BugFix: libtcod.so wasn't searched in game folder
 - Interface: Add symbol legend to tactical map
 - Interface: Minor tweak to command highlight color 
 - Interface: Make use of ENTER and SPACE more consistent
