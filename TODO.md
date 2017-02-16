@@ -18,6 +18,7 @@
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
+- Add control key to toggle sound (F7/7)
 - Default start actions of crew to accomodate Fire Main Gun
 - Add Quick Start Guide section in first screen and in top menu
 - Mouse less mode
