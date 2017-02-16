@@ -5,7 +5,13 @@
 
 ## Improvements
 ### Gameplay and content
+- Default starting load for tanks (HE, AP...)
+- Shortcut to fire AP or HE (eg SHIFT-A and SHIFT-E)
+  - Adjusts next reloaded shell
+  - Put reloader in "change load" mode if needed
+  - Reload from rack if more than zero shell of type in rack
 - Add air burst against infantry in wood
+- Infantry can be dug in trenches
 - Reduce chances of being targeted early in the campaign
 - Modify enemy type rarity as a function of terrain
 - Difficulty settings (Veterant, Regular, Reserve)
