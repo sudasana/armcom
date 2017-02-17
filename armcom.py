@@ -64,6 +64,9 @@ DEBUG = False                           # enable in-game debug commands
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
 SUBVERSION = '4'                        # descriptive only, no effect on compatability
+MAINTAINER_INFO = "Maintained by Eric Normandeau (ericDOTnormandeauDOTqcATgmailDOTcom)"
+WEBSITE = 'www.armouredcommander.com'
+GITHUB = 'github.com/sudasana/armcom'
 
 COMPATIBLE_VERSIONS = ['Beta 3.0']      # list of older versions for which the savegame
                                         #  is compatible with this version
@@ -5533,6 +5536,8 @@ def ShowSettings():
         libtcod.console_set_default_foreground(menu_con, libtcod.white)
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
             libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
+        libtcod.console_print_ex(menu_con, MENU_CON_XM, 4,
+                libtcod.BKGND_NONE, libtcod.CENTER, "test")
 
         # Campaign Settings
         libtcod.console_print_frame(menu_con, 50, 5, 40, 6, clear=False,
@@ -15235,13 +15240,16 @@ def MainMenu():
             HIGHLIGHT)
 
         libtcod.console_set_default_foreground(con, libtcod.light_grey)
-        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-6, libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-7, libtcod.BKGND_NONE, libtcod.CENTER,
+                "version " + VERSION + SUBVERSION)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-6, libtcod.BKGND_NONE, libtcod.CENTER,
+                MAINTAINER_INFO.replace("DOT", ".").replace("AT", "@"))
         text = 'Copyright 2015-2017 Gregory Adam Scott'
         libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-4, libtcod.BKGND_NONE, libtcod.CENTER, text)
         text = 'Free Software under the GNU General Public License'
         libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-3, libtcod.BKGND_NONE, libtcod.CENTER, text)
-        text = 'www.armouredcommander.com'
-        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-2, libtcod.BKGND_NONE, libtcod.CENTER, text)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-2, libtcod.BKGND_NONE, libtcod.CENTER, WEBSITE)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-1, libtcod.BKGND_NONE, libtcod.CENTER, GITHUB)
 
         # display ascii poppy
         libtcod.console_set_default_foreground(con, libtcod.red)

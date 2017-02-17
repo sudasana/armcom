@@ -39,9 +39,6 @@
   - Anything else?
   
 ### Game and installation
-- **Mention new game maintainer and email address**
-  - Main page
-  - Credits
 - Include pygame and bsddb? (seems big)
 - Maintain Windows and OSX executables
   
