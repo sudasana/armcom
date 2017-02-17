@@ -24,6 +24,10 @@
   
 ### UI improvements
 - **Consistency (ESC, ENTER, SPACE...)**
+  - Encounter Menu, use ESC to return to game instead of ENTER
+  - Right clicking on enemy unit to get info, use ESC to return to game instead of ENTER
+- **In info text (right click) of enemy unit, mention what type of weapons/shell types they are
+  succeptible to (AP, HE, HVAP, machine gun...)**
 - **Text reflow in messages on tactical map**
   - Change messages to include `\n`?
   - Change displaying code to split message
@@ -35,6 +39,9 @@
   - Anything else?
   
 ### Game and installation
+- **Mention new game maintainer and email address**
+  - Main page
+  - Credits
 - Include pygame and bsddb? (seems big)
 - Maintain Windows and OSX executables
   
