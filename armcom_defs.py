@@ -417,10 +417,10 @@ MENU_BAR2 = (
     '%cF1/1%c:Help  |  '%HIGHLIGHT +
     '%cF2/2%c:Tank Info  |  '%HIGHLIGHT +
     '%cF3/3%c:Crew Info'%HIGHLIGHT +
-    ' '*30 +
     '%cF4/4%c:Settings  |  '%HIGHLIGHT +
     '%cF5/5%c:Campaign Stats  |  '%HIGHLIGHT +
-    '%cF6/6%c:Screenshot'%HIGHLIGHT
+    '%cF6/6%c:Screenshot  |  '%HIGHLIGHT +
+    '%cF7/7%c:Sound'%HIGHLIGHT
     )
 
 # select spot sector
@@ -543,10 +543,10 @@ CREW_TALK_HEAVY_RES = [
 
 CREW_TALK_ARTY_STRIKE = [
     'Thanks guys!',
-    "I love that sound, at least when it's far away.",
+    "I love that sound. At least when it's far away.",
     "Better outgoing than incoming!",
     "I never thought I'd come to love the sound of artillery.",
-    "May these shells find 'em."
+    "I hope these shells find 'em."
 ]
 
 CREW_TALK_NO_ARTY_STRIKE = [
@@ -564,7 +564,7 @@ CREW_TALK_NO_RES = [
     'They must have repositioned.',
     "Somebody must have told them we were coming.",
     "Where are they hiding?",
-    "I thought we were supposed to find the enemy here",
+    "I thought we were going to have some action.",
     "I guess they moved somewhere else."
 ]
 

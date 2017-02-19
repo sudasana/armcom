@@ -134,6 +134,9 @@ LIMIT_FPS = 50        # maximum screen refreshes per second
 
 # Game defintions
 EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun shells
+#TODO Difficulty level (Veteran=1, Regular=2, Recruit=3)
+#BASE_EXP_REQ = int(30 / DIFFICULTY
+#LVL_INFLATION = 40 - 10 * DIFFICULTY
 BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
 LVL_INFLATION = 10    # extra exp required per additional level
 
@@ -2457,11 +2460,14 @@ class Crewman:
                     if battle.battle_leadership:
                         roll -= 5
 
+                #TODO Difficulty level (Veteran=1, Regular=2, Recruit=3)
+                #if roll <= skill.level * DIFFICULTY and roll <= 90#
                 if roll <= skill.level:
                     # only display message if skill is not automatic
                     if skill.level < 100:
                         text = self.name + ' activates ' + skill_name + ' skill!'
                         Message(text, color=SKILL_ACTIVATE_COLOR)
+                        PopUp(text)
                     return True
                 break
         return False
@@ -7016,11 +7022,11 @@ def UnitInfo(mx, my):
                 ShowVehicleTypeInfo(unit.unit_type, menu_con, 58, 7)
 
             libtcod.console_print_ex(menu_con, MENU_CON_XM, MENU_CON_HEIGHT-4,
-                libtcod.BKGND_NONE, libtcod.CENTER, 'Press Enter to continue')
+                libtcod.BKGND_NONE, libtcod.CENTER, 'Press ESC to exit')
             libtcod.console_blit(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT, 0, MENU_CON_X, MENU_CON_Y)
             libtcod.console_flush()
 
-            WaitForEnter()
+            WaitForEscape()
             return
 
 
@@ -9072,7 +9078,7 @@ def UpdateMapOverlay(skip_los=False):
     libtcod.console_print_ex(overlay_con, 4, 46, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Personel Carrier')
 
     libtcod.console_put_char(overlay_con, 1, 47, libtcod.CHAR_RADIO_SET, flag=libtcod.BKGND_SET)
-    libtcod.console_print_ex(overlay_con, 4, 47, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Carrier')
+    libtcod.console_print_ex(overlay_con, 4, 47, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Car')
 
     libtcod.console_put_char(overlay_con, 1, 48, libtcod.CHAR_BLOCK1, flag=libtcod.BKGND_SET)
     libtcod.console_print_ex(overlay_con, 4, 48, libtcod.BKGND_SET, libtcod.LEFT, 'Light Infantry')
@@ -9973,8 +9979,16 @@ def WaitForEnter():
             end_pause = True
 
         # screenshot
-        elif key.vk == libtcod.KEY_F12:
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
 
         # refresh the screen
         libtcod.console_flush()
@@ -9999,14 +10013,56 @@ def WaitForSpace():
             end_pause = True
 
         # screenshot
-        elif key.vk == libtcod.KEY_F12:
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
 
         # refresh the screen
         libtcod.console_flush()
 
     # wait for enter to be released
     while libtcod.console_is_key_pressed(libtcod.KEY_SPACE):
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+        libtcod.console_flush()
+
+# wait for player to press space before continuing
+def WaitForEscape():
+    end_pause = False
+    while not end_pause:
+        # get input from user
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+
+        # exit right away
+        if libtcod.console_is_window_closed():
+            sys.exit()
+
+        elif key.vk == libtcod.KEY_ESCAPE:
+            end_pause = True
+
+        # screenshot
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
+            SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
+
+        # refresh the screen
+        libtcod.console_flush()
+
+    # wait for enter to be released
+    while libtcod.console_is_key_pressed(libtcod.KEY_ESCAPE):
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
         libtcod.console_flush()
 
@@ -10584,6 +10640,14 @@ def GetEncounterInput():
     # screenshot
     elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
         SaveScreenshot()
+
+    # sound toggle
+    elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+        campaign.sounds = not campaign.sounds
+        if campaign.sounds:
+            PopUp("Sound turned on")
+        else:
+            PopUp("Sound turned off")
 
     # backspace key can cancel issue order input mode
     elif key.vk == libtcod.KEY_BACKSPACE:
@@ -14159,6 +14223,14 @@ def RunCalendar(load_day):
                 SaveScreenshot()
                 refresh = True
 
+            # sound toggle
+            elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+                campaign.sounds = not campaign.sounds
+                if campaign.sounds:
+                    PopUp("Sound turned on")
+                else:
+                    PopUp("Sound turned off")
+
             # save and quit
             if key_char in ['q', 'Q']:
                 SaveGame()
@@ -14749,6 +14821,14 @@ def DoCampaignDay():
         # screenshot
         elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
 
         # get pressed key
         key_char = chr(key.c)
