@@ -1,10 +1,10 @@
 # List of things to do for Armoured Commander
 
 ## Bugs to investigate
-- When killing PopUp with "Enter", sends "Enter" to previous screen too
-- Prevent dead crews from getting promotions or levels
 - Using MGs doesn't auto-select target in active quadrant
 - Encounter does not end if no enemy units left but MGs left to fire
+- Prevent dead crews from getting promotions or levels
+- When killing PopUp with "Enter", sends "Enter" to previous screen too
 
 ## Gameplay
 - **Difficulty settings (Veterant, Regular, Reserve)**
@@ -13,19 +13,17 @@
 - Possibility to save multiple campaigns (one per campaign type?)
 
 ## UI improvements
-- Default starting actions of crew to accomodate Fire Main Gun
-- Default starting load for tanks (HE, AP...)
-- Shortcut to fire AP or HE (eg SHIFT-A and SHIFT-E)
-  - Adjusts next reloaded shell
-  - Put reloader in "change load" mode if needed
-  - Reload from rack if more than zero shell of type in rack
-- In info text (right click) of enemy unit, mention what type of weapons/shell types they are
-  succeptible to (AP, HE, HVAP, machine gun...)
 - Mouse less mode
   - Examine enemy units without mouse
   - Anything else?
+- Default starting load for tanks (AP)
+- In info text (right click) of enemy unit, mention what type of weapons/shell types they are
+  succeptible to (AP, HE, HVAP, machine gun...)
+- Shortcut to set crew members for certain actions
+  - fire AP or HE (eg SHIFT-A and SHIFT-E)
+  - reverse to Hull Down + smoke
+  - etc
 - Add Quick Start Guide section in first screen and in top menu
-- Show enemy ascii image in description
   
 ## Content
 - More campaigns (Russian...)
