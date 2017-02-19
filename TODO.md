@@ -1,25 +1,18 @@
 # List of things to do for Armoured Commander
 
 ## Bugs to investigate
-- Fix no effect on advancing fire
+- When killing PopUp with "Enter", sends "Enter" to previous screen too
+- Prevent dead crews from getting promotions or levels
+- Using MGs doesn't auto-select target in active quadrant
+- Encounter does not end if no enemy units left but MGs left to fire
 
-## Gameplay and content
-- Difficulty settings (Veterant, Regular, Reserve)
-- Replacement crew may already have some skills
+## Gameplay
+- **Difficulty settings (Veterant, Regular, Reserve)**
 - Add air burst against infantry in wood
-- Infantry can be dug in trenches
-- More campaigns (Russian...)
-- More diversity of enemies
-- More tank variants
+- Infantry can be dug in trenches (different then ||x|| ?)
 - Possibility to save multiple campaigns (one per campaign type?)
-- Modify enemy type rarity as a function of terrain
-- Show enemy ascii image in description
-  
+
 ## UI improvements
-- **Consistency (ESC, ENTER, SPACE...)**
-  - **Encounter Menu, use ESC to return to game instead of ENTER**
-  - **Right clicking on enemy unit to get info, use ESC to return to game instead of ENTER**
-- **Add control key to toggle sound (F7/7)**
 - Default starting actions of crew to accomodate Fire Main Gun
 - Default starting load for tanks (HE, AP...)
 - Shortcut to fire AP or HE (eg SHIFT-A and SHIFT-E)
@@ -32,6 +25,12 @@
   - Examine enemy units without mouse
   - Anything else?
 - Add Quick Start Guide section in first screen and in top menu
+- Show enemy ascii image in description
+  
+## Content
+- More campaigns (Russian...)
+- More diversity of enemies
+- More tank variants
   
 ## Game and installation
 - Maintain Windows and OSX executables

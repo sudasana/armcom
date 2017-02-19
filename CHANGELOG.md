@@ -1,16 +1,22 @@
 # History of changes
 
 ## 1.04 Changelog (now maintained by Eric Normandeau)
+- Feature: *in progress* Add Difficulty Level (Better skills and faster progression)
+
+- Feature: Automatically end RoF on Critical Hits
+- Feature: Infantry and MG squads easier to pin with MG fire
+- BugFix: Change 'Armoured Carrier' to 'Armoured Car'
+- Feature: Add sound toggle option during play
+- Feature: Use ESC to exit tactical map unit detail screens
 - Info: Update info about maintainer and github repository
 - BugFix: libtcod.so wasn't searched in game folder
 - Interface: Add symbol legend to tactical map
 - Interface: Minor tweak to command highlight color 
 - Interface: Make use of ENTER and SPACE more consistent
-- Cleanup: Removed all instances of "is not None" in code
-- Feature: Added pop up "Screenshot saved as: ..." for screenshots
+- Feature: Add pop up "Screenshot saved as: ..." for screenshots
 - Feature: Menu items (help...) are now accessible through F keys AND number keys
-- Feature: Added "On the way!" as possible gunner call upon firing
-- Feature: Added more crew talk diversity and increased odds for artillery
+- Feature: Add "On the way!" as possible gunner call upon firing
+- Feature: Add more crew talk diversity and increased odds for artillery
 - Feature: If 10 round cannot be added to tank, add maximum possible
 - BugFix: Wrong caliber of gun reported by crew ("That sounded like a 8mm gun")
 - Cleanup: Use spaces instead of tabulations in Python scripts

@@ -1,57 +1,59 @@
 # Armoured Commander - The WWII Tank Commander Roguelike
 
+#TODO (Short description of game)
+Created by: Gregory Adam Scott (sudasana@gmail.com)
+Maintained by: Eric Normandeau (eric.normandeau.qc@gmail.com)
+
 http://armouredcommander.com/
-
-                                  Armoured Commander                                    
-                       The World War II Tank Commander Roguelike                        
-
-Copyright 2015-2017 Gregory Adam Scott (sudasana@gmail.com)
-
-Maintained by Eric Normandeau since version 1.04
 
 ## Installation
 
-If you get an error when running armcom.exe, trying installing the Microsoft Visual C++
-2008 Redistributable Package (x86) [vcredist_x86.exe]
-
 Minimum screen resolution: 1192 x 732                            
 
+If you get an error when running armcom.exe, trying installing the Microsoft
+Visual C++ 2008 Redistributable Package (x86) [vcredist_x86.exe]
+
 If you want to run the game on a smaller resolution, rename the file
-  terminal8x12_armcom_small.png
-to
-  terminal8x12_armcom.png
+`terminal8x12_armcom_small.png` to `terminal8x12_armcom.png`
+
+### Dependencies
 
 Armcom is programmed in Python 2.7.8, and relies on:
-- the Doryen Library (libtcod), available at <http://roguecentral.org/doryen/libtcod/>
-- PyGame, available at <http://www.pygame.org/download.shtml>
+- the [Doryen Library (libtcod)](http://roguecentral.org/doryen/libtcod/)
+- [PyGame](http://www.pygame.org/download.shtml)
 
-Sound effects created with LLMS <https://lmms.io/> and sfxr
-<http://www.drpetter.se/project_sfxr.html>, and edited with Audacity
-<http://audacityteam.org/>.
+Sound effects created with [LLMS](https://lmms.io/) and
+[sfxr](http://www.drpetter.se/project_sfxr.html), and edited with
+[Audacity](http://audacityteam.org/).
 
-xp_loader.py is covered under a MIT License (MIT) and is Copyright (c) 2015 Sean Hagar
-see XpLoader_LICENSE.txt for more info.
-  
-## General Notes ##
+## Saving Campaigns
 
-- You can only have one campaign game running at one time. If you start a new campaign while
-  an old one is unfinished, then old one will be deleted.
+- You can only have one campaign game running at one time. If you start a new
+  campaign while an old one is unfinished, the old one will be deleted.
 
-## General Tips ##
+## General Tips
 
-- Don't fire at AT Guns, Self-propelled Guns, or Tanks unless you're fairly sure to take
-  them out. If you fire at their front then they are much more likely to fire back at you
-  in the next enemy action phase
-- Use Area Fire against unarmoured units at medium range, especially good against infantry
-  in cover
-- Start with all hatches open, but button up once the ambush and first spotting round has
-  passed.
+- Don't fire at AT Guns, Self-propelled Guns or Tanks unless you're fairly sure
+  to take them out. If you fire at their front then they are much more likely
+  to fire back at you in the next enemy action phase
+
+- Use Area Fire against unarmoured units at medium range, especially good
+  against infantry in cover
+
+- Start with all hatches open, but button up once the ambush and first spotting
+  round has passed.
+
 - Keep a balanced mix of HE and AP in the Ready Rack.
+
 - MG fire is really only effective at close range, and at units in the open.
-- Every pop-up and console message during a game session is saved to logfile.txt; if you
-  find a crash, please send this to me with a description of the error
+
+- Every pop-up and console message during a game session is saved to
+  logfile.txt; if you find a crash, please send this to me with a description
+  of the error
 
 ## Legal notice
+
+Copyright 2015-2017 Gregory Adam Scott (sudasana@gmail.com)
 
 This file is part of Armoured Commander.
 
@@ -71,4 +73,3 @@ If not, see <http://www.gnu.org/licenses/>.
 
 xp_loader.py is covered under a MIT License (MIT) and is Copyright (c) 2015 Sean Hagar
 see XpLoader_LICENSE.txt for more info.
-
