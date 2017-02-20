@@ -134,11 +134,27 @@ LIMIT_FPS = 50        # maximum screen refreshes per second
 
 # Game defintions
 EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun shells
-#TODO Difficulty level (Veteran=1, Regular=2, Recruit=3)
-#BASE_EXP_REQ = int(30 / DIFFICULTY
-#LVL_INFLATION = 40 - 10 * DIFFICULTY
-BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
-LVL_INFLATION = 10    # extra exp required per additional level
+
+# Difficulty level
+# Veteran=1, Regular=2, Recruit=3
+DIFFICULTY = 3
+BASE_EXP_REQ = int(30 / DIFFICULTY)
+LVL_INFLATION = 40 - 10 * DIFFICULTY
+
+# TODO
+print SKILLS
+for skill in SKILLS:
+    for k, v in enumerate(skill.levels):
+        skill.levels[k] *= DIFFICULTY
+        if skill.levels[k] > 100:
+            skill.levels[k] = 100
+
+#TODO remove supplementary 100s
+
+print SKILLS
+
+#BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
+#LVL_INFLATION = 10    # extra exp required per additional level
 
 STONE_ROAD_MOVE_TIME = 30    # minutes required to move into a new area via an improved road
 DIRT_ROAD_MOVE_TIME = 45    # " dirt road
@@ -2460,9 +2476,7 @@ class Crewman:
                     if battle.battle_leadership:
                         roll -= 5
 
-                #TODO Difficulty level (Veteran=1, Regular=2, Recruit=3)
-                #if roll <= skill.level * DIFFICULTY and roll <= 90#
-                if roll <= skill.level:
+                if roll <= skill.level and roll <= 95:
                     # only display message if skill is not automatic
                     if skill.level < 100:
                         text = self.name + ' activates ' + skill_name + ' skill!'
@@ -4210,7 +4224,8 @@ class EnemyUnit:
                         self.DismountInfantry(under_fire=True)
 
             # Pinned / Stunned
-            elif roll == roll_req:
+            # Infantry is easier to pin if shot at with MG
+            elif roll == roll_req or (not vehicle and roll == roll_req + 1):
 
                 # automatic pin for infantry, automatic stun for vehicles
                 if not vehicle:
@@ -7637,7 +7652,7 @@ def FireMG():
         battle.target.alive = False
 
     # Infantry are automatically Pinned
-    elif roll == roll_req:
+    elif roll == roll_req or roll == roll_req + 1:
         if battle.target.unit_class in ['LW', 'MG', 'AT_GUN']:
             battle.target.PinTest(auto=True)
             if not battle.target.alive:
@@ -7859,10 +7874,11 @@ def FireMainGun():
     if battle.target is None: return
 
     # random callout
-    if Roll1D10() == 1:
+    callout_roll = Roll1D10()
+    if callout_roll == 1:
         ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'Firing!',
             GetCrewByPosition('Gunner'))
-    if Roll1D10() == 2:
+    if callout_roll == 2:
         ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'On the way!',
             GetCrewByPosition('Gunner'))
 
@@ -7967,8 +7983,10 @@ def FireMainGun():
 
         # critical hit, automatically hits
         # if original to-hit roll was 2+
+        stop_firing = False
         if roll_action.roll_req >= 2 and (roll == 2 or weak_spot):
             roll_action.result = 'Critical Hit!'
+            stop_firing = True
             battle.target.hit_record.append(MainGunHit(tank.stats['main_gun'],
                 tank.ammo_load, True, battle.area_fire))
 
@@ -8081,7 +8099,7 @@ def FireMainGun():
 
             roll += skill_mod
 
-            if roll <= tank.stats['rof_num']:
+            if roll <= tank.stats['rof_num'] and not stop_firing:
                 roll_action.rof_result = 'RoF maintained!'
                 tank.has_rof = True
             else:
@@ -9058,9 +9076,7 @@ def UpdateMapOverlay(skip_los=False):
     libtcod.console_set_default_foreground(overlay_con, libtcod.white)
     libtcod.console_set_default_background(overlay_con, libtcod.black)
 
-    # TODO
     # display symbol legend on map
-
     # Units
     libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit type:')
     libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '----------')
@@ -11308,9 +11324,6 @@ def InitEncounter(load=False, counterattack=False, res_level=None):
                     continue
                 if unit.FriendlyAction(advance_fire=True):
                     result = True
-                    # TODO bug
-                    # Add actual result from advancing fire, like the enemy
-                    # unit being destroyed
 
                 UpdateMapOverlay()
                 RenderEncounter()

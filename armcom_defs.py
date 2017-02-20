@@ -114,6 +114,8 @@ class CrewSkill:
         self.desc = desc
         self.restrictions = restrictions
         self.levels = levels            # if always active: [100]
+    def __repr__(self):
+        return str(self.levels)
 
 SKILLS = []
 
@@ -564,7 +566,7 @@ CREW_TALK_NO_RES = [
     'They must have repositioned.',
     "Somebody must have told them we were coming.",
     "Where are they hiding?",
-    "I thought we were going to have some action.",
+    "I thought we were going to see some action.",
     "I guess they moved somewhere else."
 ]
 
