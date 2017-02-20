@@ -138,20 +138,23 @@ EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun sh
 # Difficulty level
 # Veteran=1, Regular=2, Recruit=3
 DIFFICULTY = 3
+
+# Adjust leveling for difficulty level
 BASE_EXP_REQ = int(30 / DIFFICULTY)
 LVL_INFLATION = 40 - 10 * DIFFICULTY
 
-# TODO
-print SKILLS
+# Adjust skill efficiency for difficulty level
 for skill in SKILLS:
+
     for k, v in enumerate(skill.levels):
         skill.levels[k] *= DIFFICULTY
         if skill.levels[k] > 100:
             skill.levels[k] = 100
 
-#TODO remove supplementary 100s
+    num_100 = len([x for x in skill.levels if x == 100])
 
-print SKILLS
+    if num_100 > 1:
+        skill.levels = skill.levels[:-(num_100 - 1)]
 
 #BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
 #LVL_INFLATION = 10    # extra exp required per additional level

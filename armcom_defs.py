@@ -140,14 +140,14 @@ SKILLS.append(CrewSkill('Target Tracking', 'No negative to-hit modifier for firi
 SKILLS.append(CrewSkill('Gyrostabilizer', 'Gunner must have at least one level ' +
     'of this skill to fire main gun while moving. If skill activates, to-hit penalty ' +
     'is +2, otherwise it doubles to +4. This skill only becomes available after first ' +
-    'refit period of campaign.', ['Gunner'], [15,30,60,100]))
+    'refit period of campaign.', ['Gunner'], [10,20,40,80,100]))
 
 # Loader
 SKILLS.append(CrewSkill('Fast Hands', 'Bonus to Rate of Fire roll.', ['Loader'], [5,10,15]))
 SKILLS.append(CrewSkill('Shell Juggler', 'If activated, reloaded shell is taken from ' +
     'general stores instead of ready rack.', ['Loader'], [3,5,7]))
 SKILLS.append(CrewSkill('Scrounger', 'More rare ammo types for main gun available if activated.',
-    ['Loader'], [25,50,75]))
+    ['Loader'], [20,40,60,80]))
 
 # Driver
 SKILLS.append(CrewSkill('Drag Racer', 'If tank is moving from a stopped position, ' +
@@ -172,15 +172,15 @@ SKILLS.append(CrewSkill('Eagle Eyed', 'This crewman has an uncanny ability to sp
 
 # All
 SKILLS.append(CrewSkill('Pocket Bible', 'Chance to ignore a Dead result when wounded.',
-    [], [25,50,75]))
-SKILLS.append(CrewSkill('Gymnast', 'Bonus to Bail Out roll.', [], [40,60,80]))
+    [], [20,40,60,80]))
+SKILLS.append(CrewSkill('Gymnast', 'Bonus to Bail Out roll.', [], [20,40,60,80]))
 SKILLS.append(CrewSkill('Lightning Reflexes', 'Chance to ignore wound from collateral ' +
-    'damage when crewman is exposed (open hatch, etc.)', [], [40,60,80]))
+    'damage when crewman is exposed (open hatch, etc.)', [], [20,40,60,80]))
 SKILLS.append(CrewSkill('True Grit', 'Better odds of recovering from negative status ' +
     'effects, resisting Stun, plus more likely that a wound will be less severe.',
-    [], [20,40,60,80,100]))
+    [], [20,40,60,80]))
 SKILLS.append(CrewSkill('Mechanic', 'Bonus to repair a tank malfunction.',
-    [], [25,60,90]))
+    [], [20,40,60,80]))
 
 # highest level that a crew member can reach
 LEVEL_CAP = 40
