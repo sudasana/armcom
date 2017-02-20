@@ -4,6 +4,7 @@
 - Using MGs doesn't auto-select target in active quadrant
 - Encounter does not end if no enemy units left but MGs left to fire
 - Prevent dead crews from getting promotions or levels
+- Units can spawn in the same exact location
 - When killing PopUp with "Enter", sends "Enter" to previous screen too
 
 ## Gameplay
@@ -26,6 +27,7 @@
 - Add Quick Start Guide section in first screen and in top menu
   
 ## Content
+- More skills
 - More campaigns (Russian...)
 - More diversity of enemies
 - More tank variants
