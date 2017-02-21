@@ -14522,6 +14522,7 @@ def ChooseCampaign():
 
 # set up and start a new campaign
 def NewCampaign():
+    # TODO Add difficulty level
 
     global tank, battle, campaign
 
