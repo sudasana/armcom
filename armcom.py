@@ -141,7 +141,7 @@ DIFFICULTY = 3
 
 # Adjust leveling for difficulty level
 BASE_EXP_REQ = int(30 / DIFFICULTY)
-LVL_INFLATION = 40 - 10 * DIFFICULTY
+LVL_INFLATION = (40 - 10) / DIFFICULTY
 
 # Adjust skill efficiency for difficulty level
 for skill in SKILLS:
@@ -607,6 +607,7 @@ class Campaign:
         # campaign options
         self.unlimited_tank_selection = False    # freedom to select any available tank model
         self.casual_commander = False        # can replace commander and continue playing
+        self.difficulty                 # campaign difficulty level
         self.start_date = 0            # index of date in the calendar to start campaign
 
         # game settings
@@ -10089,8 +10090,9 @@ def WaitForEscape():
 # save the game in progress
 def SaveGame():
 
-    # don't save if campaign is over@
-    if campaign.over: return
+    # don't save if campaign is over
+    if campaign.over:
+        return
 
     # create a new SavedGameInfo class
     name = ''
