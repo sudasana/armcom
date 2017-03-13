@@ -136,12 +136,12 @@ LIMIT_FPS = 50        # maximum screen refreshes per second
 EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun shells
 
 # Difficulty level
-# Veteran=1, Regular=2, Recruit=3
-DIFFICULTY = 3
+# Veteran=1(normal mode), Regular=2, Recruit=3
+DIFFICULTY = 1
 
 # Adjust leveling for difficulty level
 BASE_EXP_REQ = int(30 / DIFFICULTY)
-LVL_INFLATION = (40 - 10) / DIFFICULTY
+LVL_INFLATION = 10 / DIFFICULTY
 
 # Adjust skill efficiency for difficulty level
 for skill in SKILLS:
@@ -607,7 +607,7 @@ class Campaign:
         # campaign options
         self.unlimited_tank_selection = False    # freedom to select any available tank model
         self.casual_commander = False        # can replace commander and continue playing
-        self.difficulty                 # campaign difficulty level
+        self.difficulty = DIFFICULTY         # campaign difficulty level
         self.start_date = 0            # index of date in the calendar to start campaign
 
         # game settings
