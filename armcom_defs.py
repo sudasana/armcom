@@ -418,7 +418,7 @@ MENU_BAR1 = '%cESC%c:Menu  |  '%HIGHLIGHT
 MENU_BAR2 = (
     '%cF1/1%c:Help  |  '%HIGHLIGHT +
     '%cF2/2%c:Tank Info  |  '%HIGHLIGHT +
-    '%cF3/3%c:Crew Info'%HIGHLIGHT +
+    '%cF3/3%c:Crew Info  |  '%HIGHLIGHT +
     '%cF4/4%c:Settings  |  '%HIGHLIGHT +
     '%cF5/5%c:Campaign Stats  |  '%HIGHLIGHT +
     '%cF6/6%c:Screenshot  |  '%HIGHLIGHT +

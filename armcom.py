@@ -5561,8 +5561,8 @@ def ShowSettings():
         libtcod.console_set_default_foreground(menu_con, libtcod.white)
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
             libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
-        libtcod.console_print_ex(menu_con, MENU_CON_XM, 4,
-                libtcod.BKGND_NONE, libtcod.CENTER, "test")
+        #libtcod.console_print_ex(menu_con, MENU_CON_XM, 4,
+        #        libtcod.BKGND_NONE, libtcod.CENTER, "test")
 
         # Campaign Settings
         libtcod.console_print_frame(menu_con, 50, 5, 40, 6, clear=False,
@@ -14248,6 +14248,7 @@ def RunCalendar(load_day):
                     PopUp("Sound turned on")
                 else:
                     PopUp("Sound turned off")
+                refresh = True
 
             # save and quit
             if key_char in ['q', 'Q']:
