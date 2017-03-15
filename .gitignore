@@ -1,4 +1,7 @@
+*.bmp
 *.pyc
+*.swp
 *~
+Armoured_Commander_Journal*
 bones
 savegame

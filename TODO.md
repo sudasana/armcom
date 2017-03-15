@@ -1,34 +1,45 @@
 # List of things to do for Armoured Commander
 
-## v1.03
-## Done
-- advancing fire now no longer possible if main gun is malfunctioning or broken
-- fixed a rare crash when moving in a counterattack mission
-- added additional hometowns for Canadian crew
-- hometown text is now transcoded properly to handle accented characters (UTF-8 -> IBM850)
-- added additional strings for in-battle crew observations
-- added a text description of gun sounds when a hidden unidentified enemy unit fires with a gun
+## Bugs to investigate
+- Using MGs doesn't auto-select target in active quadrant
+- Encounter does not end if no enemy units left but MGs left to fire
+- Prevent dead crews from getting promotions or levels
+- Units can spawn in the same exact location
+- When killing PopUp with "Enter", sends "Enter" to previous screen too
 
-## v1.04+
-### Game and installation
-- Include all dependent libraries
-- Maintain Windows and OSX executables
+## Gameplay
+- **Difficulty settings (Veterant, Regular, Reserve)**
+- Add air burst against infantry in wood
+- Infantry can be dug in trenches (different then ||x|| ?)
+- Possibility to save multiple campaigns (one per campaign type?)
+
+## UI improvements
+- Mouse less mode
+  - Examine enemy units without mouse
+  - Anything else?
+- Default starting load for tanks (AP)
+- In info text (right click) of enemy unit, mention what type of weapons/shell types they are
+  succeptible to (AP, HE, HVAP, machine gun...)
+- Shortcut to set crew members for certain actions
+  - fire AP or HE (eg SHIFT-A and SHIFT-E)
+  - reverse to Hull Down + smoke
+  - etc
+- Add Quick Start Guide section in first screen and in top menu
   
-### Gameplay and content
-- Difficulty settings (Veterant, Regular, Reserve)
-- Adding cities of origin for Canadian crew members
-- Adding Crew dialog diversity
+## Content
+- More skills
 - More campaigns (Russian...)
 - More diversity of enemies
 - More tank variants
-- Replacement crew may already have some skills
   
-### UI improvements
-- Consistency (ESC, ENTER, SPACE...)
-- Make menus more accessible on laptops (1, 2, 3... plus F1, F2, F3...)
-- Mouse less mode
+## Game and installation
+- Maintain Windows and OSX executables
+  - **Find machine to compile executables**
+- Include pygame and bsddb? (seems big)
   
-### Manual
+## Manual
+- **Update README.md**
 - Update Manual
-- Write a quick start section
+- Find best place and format to host manual
+- Write a quick start guide
 - Write installation section
