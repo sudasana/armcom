@@ -22,8 +22,8 @@ DLLS = ['libtcod-mingw.dll', 'python27.dll', 'SDL.dll']
 
 if os.path.exists('dist/'): shutil.rmtree('dist/')	# remove last dist dir
 
-extra_files = [ ("",[ICONFILE,'README.txt', 'gpl.txt',
-	'terminal8x12_armcom.png', 'terminal8x12_armcom_small.png', 'data.zip']),
+extra_files = [ ("",[ICONFILE,'readme.md', 'gpl.txt',
+	'terminal8x12_armcom.png', 'terminal8x12_armcom_small.png']),
 	("data",glob.glob(os.path.join('data','*.png'))),
 	("data",glob.glob(os.path.join('data','*.xml'))),
 	("data",glob.glob(os.path.join('data','*.xp')))
@@ -84,7 +84,7 @@ for f in DLLS:
 # copy over source files
 os.mkdir('dist/src')
 SOURCEFILES = ['armcom.py', 'armcom_defs.py', 'armcom_vehicle_defs.py', 'setup.py',
-	'xp_loader.py', 'XpLoader_LICENSE.txt', 'gpl.txt', 'icon.ico']
+	'xp_loader.py', 'LICENSE_xp_loader.txt', 'gpl.txt', 'icon.ico']
 for filename in SOURCEFILES:
 	shutil.copyfile(filename, 'dist/src/'+filename)
 
