@@ -2485,7 +2485,8 @@ class Crewman:
                     if skill.level < 100:
                         text = self.name + ' activates ' + skill_name + ' skill!'
                         Message(text, color=SKILL_ACTIVATE_COLOR)
-                        PopUp(text)
+                        # TODO for debugging
+                        #PopUp(text)
                     return True
                 break
         return False
