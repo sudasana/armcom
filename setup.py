@@ -26,7 +26,8 @@ extra_files = [ ("",[ICONFILE,'readme.md', 'gpl.txt',
 	'terminal8x12_armcom.png', 'terminal8x12_armcom_small.png']),
 	("data",glob.glob(os.path.join('data','*.png'))),
 	("data",glob.glob(os.path.join('data','*.xml'))),
-	("data",glob.glob(os.path.join('data','*.xp')))
+	("data",glob.glob(os.path.join('data','*.xp'))),
+	("data",glob.glob(os.path.join('data','*.zip')))
 ]
 
 # list of modules to exclude from dist
