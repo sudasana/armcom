@@ -14293,10 +14293,10 @@ def RunCalendar(load_day):
                         else:
                             tank.unit_type = campaign.tank_on_offer
                             campaign.tank_on_offer = ''
-                        CheckPlayerTankPositions()
                         tank.Setup()
                         SetVehicleStats(tank)
                         GetTankName()
+                        CheckPlayerTankPositions()
                         for crew_member in tank.crew:
                             crew_member.order = crew_member.default_order
                             crew_member.CheckHatch()
