@@ -64,11 +64,14 @@ DEBUG = False                           # enable in-game debug commands
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
 SUBVERSION = '4'                        # descriptive only, no effect on compatability
+MAINTAINER_INFO = "Maintained by Eric Normandeau (ericDOTnormandeauDOTqcATgmailDOTcom)"
+WEBSITE = 'www.armouredcommander.com'
+GITHUB = 'github.com/sudasana/armcom'
 
 COMPATIBLE_VERSIONS = ['Beta 3.0']      # list of older versions for which the savegame
                                         #  is compatible with this version
 
-DATAPATH = 'data/'.replace('/', os.sep)        # path to data files
+DATAPATH = 'data' + os.sep        # path to data files
 
 PI = pi
 
@@ -131,8 +134,30 @@ LIMIT_FPS = 50        # maximum screen refreshes per second
 
 # Game defintions
 EXTRA_AMMO = 30        # player tank can carry up to this many extra main gun shells
-BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
-LVL_INFLATION = 10    # extra exp required per additional level
+
+# Difficulty level
+# Veteran=1(normal mode), Regular=2, Recruit=3
+DIFFICULTY = 1
+
+# Adjust leveling for difficulty level
+BASE_EXP_REQ = int(30 / DIFFICULTY)
+LVL_INFLATION = 10 / DIFFICULTY
+
+# Adjust skill efficiency for difficulty level
+for skill in SKILLS:
+
+    for k, v in enumerate(skill.levels):
+        skill.levels[k] *= DIFFICULTY
+        if skill.levels[k] > 100:
+            skill.levels[k] = 100
+
+    num_100 = len([x for x in skill.levels if x == 100])
+
+    if num_100 > 1:
+        skill.levels = skill.levels[:-(num_100 - 1)]
+
+#BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
+#LVL_INFLATION = 10    # extra exp required per additional level
 
 STONE_ROAD_MOVE_TIME = 30    # minutes required to move into a new area via an improved road
 DIRT_ROAD_MOVE_TIME = 45    # " dirt road
@@ -582,6 +607,7 @@ class Campaign:
         # campaign options
         self.unlimited_tank_selection = False    # freedom to select any available tank model
         self.casual_commander = False        # can replace commander and continue playing
+        self.difficulty = DIFFICULTY         # campaign difficulty level
         self.start_date = 0            # index of date in the calendar to start campaign
 
         # game settings
@@ -2454,11 +2480,13 @@ class Crewman:
                     if battle.battle_leadership:
                         roll -= 5
 
-                if roll <= skill.level:
+                if roll <= skill.level and roll <= 95:
                     # only display message if skill is not automatic
                     if skill.level < 100:
                         text = self.name + ' activates ' + skill_name + ' skill!'
                         Message(text, color=SKILL_ACTIVATE_COLOR)
+                        # TODO for debugging
+                        #PopUp(text)
                     return True
                 break
         return False
@@ -4201,7 +4229,8 @@ class EnemyUnit:
                         self.DismountInfantry(under_fire=True)
 
             # Pinned / Stunned
-            elif roll == roll_req:
+            # Infantry is easier to pin if shot at with MG
+            elif roll == roll_req or (not vehicle and roll == roll_req + 1):
 
                 # automatic pin for infantry, automatic stun for vehicles
                 if not vehicle:
@@ -5533,6 +5562,8 @@ def ShowSettings():
         libtcod.console_set_default_foreground(menu_con, libtcod.white)
         libtcod.console_print_ex(menu_con, MENU_CON_XM, 3,
             libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
+        #libtcod.console_print_ex(menu_con, MENU_CON_XM, 4,
+        #        libtcod.BKGND_NONE, libtcod.CENTER, "test")
 
         # Campaign Settings
         libtcod.console_print_frame(menu_con, 50, 5, 40, 6, clear=False,
@@ -6219,8 +6250,8 @@ def SpawnCrewMember(name, position, rank_level, replacement=False, old_member=No
         new_crew.hometown = random.choice(USA_HOMETOWNS)
     elif campaign.player_nation == 'CAN':
         new_crew.hometown = random.choice(CAN_HOMETOWNS)
-    # NEW: transcode to handle accented characters
-    new_crew.hometown = new_crew.hometown.decode('utf8').encode('cp850')
+    # removed transcoding; may be able to add a better solution in the future
+    #new_crew.hometown = new_crew.hometown.decode('utf8').encode('cp850')
 
     # set default order and initial hatch state
     if position == 'Commander':
@@ -7011,11 +7042,11 @@ def UnitInfo(mx, my):
                 ShowVehicleTypeInfo(unit.unit_type, menu_con, 58, 7)
 
             libtcod.console_print_ex(menu_con, MENU_CON_XM, MENU_CON_HEIGHT-4,
-                libtcod.BKGND_NONE, libtcod.CENTER, 'Press Enter to continue')
+                libtcod.BKGND_NONE, libtcod.CENTER, 'Press ESC to exit')
             libtcod.console_blit(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT, 0, MENU_CON_X, MENU_CON_Y)
             libtcod.console_flush()
 
-            WaitForEnter()
+            WaitForEscape()
             return
 
 
@@ -7626,7 +7657,7 @@ def FireMG():
         battle.target.alive = False
 
     # Infantry are automatically Pinned
-    elif roll == roll_req:
+    elif roll == roll_req or roll == roll_req + 1:
         if battle.target.unit_class in ['LW', 'MG', 'AT_GUN']:
             battle.target.PinTest(auto=True)
             if not battle.target.alive:
@@ -7848,10 +7879,11 @@ def FireMainGun():
     if battle.target is None: return
 
     # random callout
-    if Roll1D10() == 1:
+    callout_roll = Roll1D10()
+    if callout_roll == 1:
         ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'Firing!',
             GetCrewByPosition('Gunner'))
-    if Roll1D10() == 2:
+    if callout_roll == 2:
         ShowLabel(MAP_X0+MAP_CON_X, MAP_Y0+MAP_CON_Y, 'On the way!',
             GetCrewByPosition('Gunner'))
 
@@ -7910,6 +7942,7 @@ def FireMainGun():
 
     # flag to record what kind of animation / effect to show later
     hit_result = None
+    stop_firing = False
 
     # handle smoke attacks differently
     if tank.ammo_load in ['WP', 'HCBI']:
@@ -7958,6 +7991,7 @@ def FireMainGun():
         # if original to-hit roll was 2+
         if roll_action.roll_req >= 2 and (roll == 2 or weak_spot):
             roll_action.result = 'Critical Hit!'
+            stop_firing = True
             battle.target.hit_record.append(MainGunHit(tank.stats['main_gun'],
                 tank.ammo_load, True, battle.area_fire))
 
@@ -8070,7 +8104,7 @@ def FireMainGun():
 
             roll += skill_mod
 
-            if roll <= tank.stats['rof_num']:
+            if roll <= tank.stats['rof_num'] and not stop_firing:
                 roll_action.rof_result = 'RoF maintained!'
                 tank.has_rof = True
             else:
@@ -9047,12 +9081,10 @@ def UpdateMapOverlay(skip_los=False):
     libtcod.console_set_default_foreground(overlay_con, libtcod.white)
     libtcod.console_set_default_background(overlay_con, libtcod.black)
 
-    # TODO
     # display symbol legend on map
-
     # Units
-    libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit types:')
-    libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '-----------')
+    libtcod.console_print_ex(overlay_con, 1, 41, libtcod.BKGND_SET, libtcod.LEFT, 'Unit type:')
+    libtcod.console_print_ex(overlay_con, 1, 42, libtcod.BKGND_SET, libtcod.LEFT, '----------')
 
     libtcod.console_put_char(overlay_con, 1, 43, libtcod.CHAR_RADIO_UNSET, flag=libtcod.BKGND_SET)
     libtcod.console_print_ex(overlay_con, 4, 43, libtcod.BKGND_SET, libtcod.LEFT, 'Tank')
@@ -9067,7 +9099,7 @@ def UpdateMapOverlay(skip_los=False):
     libtcod.console_print_ex(overlay_con, 4, 46, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Personel Carrier')
 
     libtcod.console_put_char(overlay_con, 1, 47, libtcod.CHAR_RADIO_SET, flag=libtcod.BKGND_SET)
-    libtcod.console_print_ex(overlay_con, 4, 47, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Carrier')
+    libtcod.console_print_ex(overlay_con, 4, 47, libtcod.BKGND_SET, libtcod.LEFT, 'Armoured Car')
 
     libtcod.console_put_char(overlay_con, 1, 48, libtcod.CHAR_BLOCK1, flag=libtcod.BKGND_SET)
     libtcod.console_print_ex(overlay_con, 4, 48, libtcod.BKGND_SET, libtcod.LEFT, 'Light Infantry')
@@ -9968,8 +10000,16 @@ def WaitForEnter():
             end_pause = True
 
         # screenshot
-        elif key.vk == libtcod.KEY_F12:
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
 
         # refresh the screen
         libtcod.console_flush()
@@ -9994,8 +10034,16 @@ def WaitForSpace():
             end_pause = True
 
         # screenshot
-        elif key.vk == libtcod.KEY_F12:
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
 
         # refresh the screen
         libtcod.console_flush()
@@ -10005,12 +10053,47 @@ def WaitForSpace():
         libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
         libtcod.console_flush()
 
+# wait for player to press space before continuing
+def WaitForEscape():
+    end_pause = False
+    while not end_pause:
+        # get input from user
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+
+        # exit right away
+        if libtcod.console_is_window_closed():
+            sys.exit()
+
+        elif key.vk == libtcod.KEY_ESCAPE:
+            end_pause = True
+
+        # screenshot
+        elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
+            SaveScreenshot()
+
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
+
+        # refresh the screen
+        libtcod.console_flush()
+
+    # wait for enter to be released
+    while libtcod.console_is_key_pressed(libtcod.KEY_ESCAPE):
+        libtcod.sys_check_for_event(libtcod.EVENT_KEY_PRESS|libtcod.EVENT_MOUSE, key, mouse)
+        libtcod.console_flush()
+
 
 # save the game in progress
 def SaveGame():
 
-    # don't save if campaign is over@
-    if campaign.over: return
+    # don't save if campaign is over
+    if campaign.over:
+        return
 
     # create a new SavedGameInfo class
     name = ''
@@ -10579,6 +10662,14 @@ def GetEncounterInput():
     # screenshot
     elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
         SaveScreenshot()
+
+    # sound toggle
+    elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+        campaign.sounds = not campaign.sounds
+        if campaign.sounds:
+            PopUp("Sound turned on")
+        else:
+            PopUp("Sound turned off")
 
     # backspace key can cancel issue order input mode
     elif key.vk == libtcod.KEY_BACKSPACE:
@@ -11239,9 +11330,6 @@ def InitEncounter(load=False, counterattack=False, res_level=None):
                     continue
                 if unit.FriendlyAction(advance_fire=True):
                     result = True
-                    # TODO bug
-                    # Add actual result from advancing fire, like the enemy
-                    # unit being destroyed
 
                 UpdateMapOverlay()
                 RenderEncounter()
@@ -14154,6 +14242,15 @@ def RunCalendar(load_day):
                 SaveScreenshot()
                 refresh = True
 
+            # sound toggle
+            elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+                campaign.sounds = not campaign.sounds
+                if campaign.sounds:
+                    PopUp("Sound turned on")
+                else:
+                    PopUp("Sound turned off")
+                refresh = True
+
             # save and quit
             if key_char in ['q', 'Q']:
                 SaveGame()
@@ -14196,10 +14293,10 @@ def RunCalendar(load_day):
                         else:
                             tank.unit_type = campaign.tank_on_offer
                             campaign.tank_on_offer = ''
-                        CheckPlayerTankPositions()
                         tank.Setup()
                         SetVehicleStats(tank)
                         GetTankName()
+                        CheckPlayerTankPositions()
                         for crew_member in tank.crew:
                             crew_member.order = crew_member.default_order
                             crew_member.CheckHatch()
@@ -14429,6 +14526,7 @@ def ChooseCampaign():
 
 # set up and start a new campaign
 def NewCampaign():
+    # TODO Add difficulty level
 
     global tank, battle, campaign
 
@@ -14745,6 +14843,14 @@ def DoCampaignDay():
         elif key.vk == libtcod.KEY_F6 or key.vk == libtcod.KEY_6:
             SaveScreenshot()
 
+        # sound toggle
+        elif key.vk == libtcod.KEY_F7 or key.vk == libtcod.KEY_7:
+            campaign.sounds = not campaign.sounds
+            if campaign.sounds:
+                PopUp("Sound turned on")
+            else:
+                PopUp("Sound turned off")
+
         # get pressed key
         key_char = chr(key.c)
 
@@ -14923,7 +15029,7 @@ def LoadSounds():
         ]
 
     # load the sounds from the zip file into memory
-    with zipfile.ZipFile('data.zip', 'r') as archive:
+    with zipfile.ZipFile('data/sounds.zip', 'r') as archive:
         for sound_name in SOUND_LIST:
             sound_data = archive.read(sound_name + '.wav')
             bytes_io = io.BytesIO(sound_data)
@@ -15235,13 +15341,16 @@ def MainMenu():
             HIGHLIGHT)
 
         libtcod.console_set_default_foreground(con, libtcod.light_grey)
-        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-6, libtcod.BKGND_NONE, libtcod.CENTER, VERSION + SUBVERSION)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-7, libtcod.BKGND_NONE, libtcod.CENTER,
+                "version " + VERSION + SUBVERSION)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-6, libtcod.BKGND_NONE, libtcod.CENTER,
+                MAINTAINER_INFO.replace("DOT", ".").replace("AT", "@"))
         text = 'Copyright 2015-2017 Gregory Adam Scott'
         libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-4, libtcod.BKGND_NONE, libtcod.CENTER, text)
         text = 'Free Software under the GNU General Public License'
         libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-3, libtcod.BKGND_NONE, libtcod.CENTER, text)
-        text = 'www.armouredcommander.com'
-        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-2, libtcod.BKGND_NONE, libtcod.CENTER, text)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-2, libtcod.BKGND_NONE, libtcod.CENTER, WEBSITE)
+        libtcod.console_print_ex(con, SCREEN_XM, SCREEN_HEIGHT-1, libtcod.BKGND_NONE, libtcod.CENTER, GITHUB)
 
         # display ascii poppy
         libtcod.console_set_default_foreground(con, libtcod.red)
