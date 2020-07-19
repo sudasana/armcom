@@ -58,7 +58,7 @@ setup(windows = [
 		"includes": INCLUDE_STUFF,
 		"compressed": 1,
 		"ascii": 1,
-		"bundle_files": 2,
+		"bundle_files": 3,
 		"ignores": ['tcl','AppKit','Numeric','Foundation'],
 		"excludes": MODULE_EXCLUDES} },
 	name = PRODUCT_NAME,
