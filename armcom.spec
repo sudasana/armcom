@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['armcom.py'],
-             pathex=['c:\\armcom'],
+             pathex=['C:\\armcom'],
              binaries=[],
              datas=[],
              hiddenimports=[],

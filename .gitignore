@@ -7,3 +7,5 @@ bones.*
 savegame
 build/*
 dist/*
+build/armcom/*
+savegame.*

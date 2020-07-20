@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
-# Python 2.7.8
+# Python 3.6.8
 ##########################################################################################
 #                                  Armoured Commander                                    #
 #                       The World War II Tank Commander Roguelike                        #
@@ -32,6 +32,11 @@
 #
 ##########################################################################################
 
+# needed for pyinstaller?
+import sys                              # for command line functions
+if getattr(sys, 'frozen', False):
+    os.chdir(sys._MEIPASS)
+
 ##### Libraries #####
 from datetime import datetime           # for recording date and time in campaign journal
 from encodings import ascii, utf_8      # needed for Py2EXE version
@@ -39,21 +44,20 @@ from encodings import hex_codec         # needed for Py2EXE version
 from math import atan2, degrees         # more "
 from math import pi, floor, ceil, sqrt  # math functions
 from operator import attrgetter         # for list sorting
-from pygame.locals import *
 from textwrap import wrap               # for breaking up game messages
 import csv                              # for loading campaign info
-import dbhash, anydbm                   # need this for py2exe
 import libtcodpy as libtcod             # The Doryen Library
 import os                               # for SDL window instruction, other OS-related stuff
-import pygame, pygame.mixer             # for sound effects
 import random                           # for randomly selecting items from a list
 import shelve                           # for saving and loading games
-import sys                              # for command line functions
 import time                             # for wait function
 import xml.etree.ElementTree as xml     # ElementTree library for xml
 import xp_loader                        # for loading image files
 import gzip                             # for loading image files
 import zipfile, io                      # for loading from zip archive
+import sdl2.sdlmixer as mixer           # sound effects
+
+mixer_active = False
 
 from armcom_defs import *               # general definitions
 from armcom_vehicle_defs import *       # vehicle stat definitions
@@ -63,7 +67,7 @@ DEBUG = False                           # enable in-game debug commands
 
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
-SUBVERSION = '5'                        # descriptive only, no effect on compatability
+SUBVERSION = '6'                        # descriptive only, no effect on compatability
 WEBSITE = 'www.armouredcommander.com'
 GITHUB = 'github.com/sudasana/armcom'
 
@@ -773,7 +777,7 @@ class Campaign:
                     closest_dist = dist
 
         if closest is None:
-            print 'ERROR: Could not find a friendly node to move to'
+            print ('ERROR: Could not find a friendly node to move to')
             return
 
         # do the move
@@ -1070,7 +1074,7 @@ class Campaign:
             return 'Woods'
         elif node.node_type == 'F':
             return 'Bocage'
-        print 'ERROR: unknown node terrain'
+        print ('ERROR: unknown node terrain')
         return 'Unknown'
 
     # return the rarity factor for a given vehicle type for the current date
@@ -1109,7 +1113,7 @@ class Campaign:
 
     # record a campaign stat, either creating a new entry or increasing one already existing
     def AddStat(self, stat_name, value):
-        if not self.stats.has_key(stat_name):
+        if stat_name not in self.stats:
             self.stats[stat_name] = value
         else:
             previous_value = self.stats[stat_name]
@@ -1472,15 +1476,15 @@ class PlayerTank:
                     damage_type = 'Intercom Malfunction'
             elif roll <= 8:
                 if d6roll <= 2:
-                    if not tank.stats.has_key('aa_mg'):
+                    if 'aa_mg' not in tank.stats:
                         return
                     damage_type = 'AA MG'
                 elif d6roll <= 4:
-                    if not tank.stats.has_key('co_ax_mg'):
+                    if 'co_ax_mg' not in tank.stats:
                         return
                     damage_type = 'Co-ax MG'
                 else:
-                    if not tank.stats.has_key('bow_mg'):
+                    if 'bow_mg' not in tank.stats:
                         return
                     damage_type = 'Bow MG'
                 if Roll1D6() <= 2:
@@ -1709,7 +1713,7 @@ class PlayerTank:
 
         # apply any secondary modifiers
         if roll + mod in [3,4,5,11,12]:
-            if not tank.stats.has_key('wet_stowage'):
+            if 'wet_stowage' not in tank.stats:
                 mod -= 1
 
             # extra ammo
@@ -2365,7 +2369,7 @@ class Crewman:
 
             # only show Smoke Mortar order if tank has a smoke mortar
             if order.name == 'Fire Smoke Mortar':
-                if not tank.stats.has_key('smoke_mortar'): continue
+                if 'smoke_mortar' not in tank.stats: continue
 
             # skip movement orders if tank is immobilized
             if tank.immobilized or tank.bogged_down:
@@ -2388,7 +2392,7 @@ class Crewman:
 
             # AA MG
             if order.name in ['Fire AA MG', 'Repair AA MG']:
-                if not tank.stats.has_key('aa_mg'): continue
+                if 'aa_mg' not in tank.stats: continue
                 if self.position == 'Loader' and tank.stats['loader_hatch'] != 'Split': continue
                 if self.hatch != 'Open': continue
             if order.name == 'Fire AA MG':
@@ -2398,19 +2402,19 @@ class Crewman:
 
             # Co-ax MG
             if order.name == 'Fire Co-Axial MG':
-                if not tank.stats.has_key('co_ax_mg'): continue
+                if 'co_ax_mg' not in tank.stats: continue
                 if 'Co-ax MG Malfunction' in tank.damage_list or 'Co-ax MG Broken' in tank.damage_list: continue
             if order.name == 'Repair Co-ax MG':
-                if not tank.stats.has_key('co_ax_mg'): continue
+                if 'co_ax_mg' not in tank.stats: continue
                 if 'Co-ax MG Malfunction' not in tank.damage_list: continue
 
             # Bow MG
             if order.name == 'Fire Bow MG':
-                if not tank.stats.has_key('bow_mg'): continue
+                if 'bow_mg' not in tank.stats: continue
                 if tank.hull_down: continue
                 if 'Bow MG Malfunction' in tank.damage_list or 'Bow MG Broken' in tank.damage_list: continue
             if order.name == 'Repair Bow MG':
-                if not tank.stats.has_key('bow_mg'): continue
+                if 'bow_mg' not in tank.stats: continue
                 if 'Bow MG Malfunction' not in tank.damage_list: continue
 
             # Firing Main Gun, Directing Main Gun Fire, or changing gun load
@@ -2557,7 +2561,7 @@ class Crewman:
                 break
 
         if self.position == 'Commander':
-            if tank.stats.has_key('vision_cupola'):
+            if 'vision_cupola' in tank.stats:
                 self.spot = 'All'
             elif self.hatch == 'Open':
                 self.spot = 'All'
@@ -3262,7 +3266,7 @@ class EnemyUnit:
                 self.map_hex = map_hex
                 (self.x, self.y) = self.GetCharLocation()
                 return
-        print 'ERROR: could not find hex ' + str(new_x) + ',' + str(new_z)
+        print ('ERROR: could not find hex ' + str(new_x) + ',' + str(new_z))
 
     # record this unit's destruction in the battle record
     def RecordKO(self, friendly=False, left_behind=False, advance_fire=False):
@@ -3291,7 +3295,7 @@ class EnemyUnit:
             index = 7
 
         if index < 0:
-            print 'RecordKO() error: could not find unit type'
+            print ('RecordKO() error: could not find unit type')
             return
 
         if friendly:
@@ -4388,7 +4392,7 @@ class EnemyUnit:
         elif self.unit_type in ['PzKw VI E', 'PzKw VI B']:
             tk_num = 3
         else:
-            print 'FriendlyAction() Error: Unrecognized unit type'
+            print ('FriendlyAction() Error: Unrecognized unit type')
             return
 
         # check modified roll against tk number
@@ -4738,7 +4742,7 @@ def TutorialMessage(key):
     bones = save['bones']
 
     # check to see if bones file already has key
-    if bones.tutorial_message_flags.has_key(key):
+    if key in bones.tutorial_message_flags:
         # key is already set to true
         if bones.tutorial_message_flags[key]:
             save.close()
@@ -5362,7 +5366,7 @@ def ShowCampaignStats():
         # display current day of campaign calendar
         libtcod.console_set_default_background(menu_con, ROW_COLOR)
         libtcod.console_rect(menu_con, MENU_CON_XM-20, 5, 40, 1, False, flag=libtcod.BKGND_SET)
-        if not campaign.stats.has_key('Days of Combat'):
+        if 'Days of Combat' not in campaign.stats:
             d1 = '0'
         else:
             d1 = campaign.stats['Days of Combat']
@@ -5383,7 +5387,7 @@ def ShowCampaignStats():
         y = 9
         for stat_name in C_STATS:
             text = stat_name + ': '
-            if not campaign.stats.has_key(stat_name):
+            if stat_name not in campaign.stats:
                 text += '0'
             else:
                 text += str(campaign.stats[stat_name])
@@ -5758,7 +5762,7 @@ def ShowLabel(x, y, original_text, crewman=None):
 
         # otherwise, reveal label two characters at a time
         else:
-            for i in xrange(0, len(line)+1, 2):
+            for i in range(0, len(line)+1, 2):
                 libtcod.console_print_ex(0, x, y+n, libtcod.BKGND_SET, libtcod.CENTER, line[:i])
                 libtcod.console_flush()
                 Wait(1)
@@ -5797,8 +5801,8 @@ def IsOdd(num):
 # returns center of given hex
 # hex 0, 0 always center of map console
 def Hex2Screen(hx, hy):
-    x = (MAP_CON_WIDTH/2) + (hx*9)
-    y = (MAP_CON_HEIGHT/2) + (hy*6) + (hx*3)
+    x = int((MAP_CON_WIDTH/2) + (hx*9))
+    y = int((MAP_CON_HEIGHT/2) + (hy*6) + (hx*3))
     return x, y
 
 
@@ -6024,7 +6028,7 @@ def SpawnEnemy(unit_class=None, map_hex=None):
             roll -= v
 
     if unit_class == '':
-        print 'ERROR: Could not generate a random unit class'
+        print ('ERROR: Could not generate a random unit class')
         return
 
     # determine unit type
@@ -6063,7 +6067,7 @@ def SpawnEnemy(unit_class=None, map_hex=None):
                 break
 
     if unit_type == '':
-        print 'ERROR: Could not generate a random unit type for class: ' + unit_class
+        print ('ERROR: Could not generate a random unit type for class: ' + unit_class)
         return
 
     # apply morale modifier for certain unit classes / types
@@ -6232,7 +6236,7 @@ def SpawnEnemy(unit_class=None, map_hex=None):
 def SpawnCrewMember(name, position, rank_level, replacement=False, old_member=None):
 
     # if tank model does not have an asst driver, skip
-    if position == 'Asst. Driver' and tank.stats.has_key('no_asst_driver'):
+    if position == 'Asst. Driver' and 'no_asst_driver' in tank.stats:
         return None
 
     new_crew = Crewman()
@@ -6307,7 +6311,7 @@ def SetVehicleStats(obj):
         if vehicle_type[0] == obj.unit_type:
             break
     else:
-        print 'ERROR: Vehicle type not found: ' + obj.unit_type
+        print ('ERROR: Vehicle type not found: ' + obj.unit_type)
         return
 
     obj.stats = {}
@@ -6449,7 +6453,7 @@ def CalcTH(attacker, target, area_fire, ammo_type):
 
         # commander buttoned up
         crew_member = GetCrewByPosition('Commander')
-        if crew_member.hatch == 'Shut' and not tank.stats.has_key('vision_cupola'):
+        if crew_member.hatch == 'Shut' and 'vision_cupola' not in tank.stats:
             drm.append(('Commander buttoned up', 1))
 
         # tank moving, firing with gyrostabilizer
@@ -6558,7 +6562,7 @@ def CalcTH(attacker, target, area_fire, ammo_type):
                 else:
                     mod = -2
                 drm.append(('Commander Directing Fire', mod))
-            elif tank.stats.has_key('vision_cupola'):
+            elif 'vision_cupola' in tank.stats:
                 if crew_member.SkillCheck('Fire Direction'):
                     mod = -2
                 else:
@@ -6723,7 +6727,7 @@ def CalcTK(attacker, target, target_facing, ammo_type, critical, area_fire, hit_
             elif attacker.stats['main_gun'] == '88LL':
                 base_tk = 27
             else:
-                print 'ERROR: Gun Type not found!'
+                print ('ERROR: Gun Type not found!')
                 return (2, 2, [])
 
             # double if critical
@@ -6901,7 +6905,7 @@ def ShowVehicleTypeInfo(unit_type, console, x, y, no_image=False):
         if vt[0] == unit_type:
             break
     else:
-        print 'ERROR: Vehicle type not found: ' + unit_type
+        print ('ERROR: Vehicle type not found: ' + unit_type)
         return
     stats = {}
     for (k, value) in vt[1:]:
@@ -6909,9 +6913,9 @@ def ShowVehicleTypeInfo(unit_type, console, x, y, no_image=False):
 
     # display the info
     text = stats['vehicle_type']
-    if stats.has_key('sub_type'):
+    if 'sub_type' in stats:
         text += ' (' + stats['sub_type'] + ')'
-    if stats.has_key('nickname'):
+    if 'nickname' in stats:
         text += ' "' + stats['nickname'] + '"'
     PrintInfo(x, y, text)
     PrintInfo(x, y+1, stats['vehicle_class'])
@@ -6919,7 +6923,7 @@ def ShowVehicleTypeInfo(unit_type, console, x, y, no_image=False):
     libtcod.console_set_default_foreground(console, libtcod.light_grey)
     PrintInfo(x, y+3, 'Main Gun:')
     libtcod.console_set_default_foreground(console, libtcod.white)
-    if stats.has_key('main_gun'):
+    if 'main_gun' in stats:
         text = stats['main_gun']
         if text != 'MG':
             text.replace('L', '') + 'mm'
@@ -6933,49 +6937,49 @@ def ShowVehicleTypeInfo(unit_type, console, x, y, no_image=False):
     PrintInfo(x, y+7, 'Hull')
     libtcod.console_set_default_foreground(console, libtcod.white)
 
-    if stats.has_key('turret_front_armour'):
+    if 'turret_front_armour' in stats:
         text = str(stats['turret_front_armour'])
     else:
         text = '-'
     PrintInfo(x+11, y+6, text)
-    if stats.has_key('turret_side_armour'):
+    if 'turret_side_armour' in stats:
         text = str(stats['turret_side_armour'])
     else:
         text = '-'
     PrintInfo(x+17, y+6, text)
-    if stats.has_key('hull_front_armour'):
+    if 'hull_front_armour' in stats:
         text = str(stats['hull_front_armour'])
     else:
         text = '-'
     PrintInfo(x+11, y+7, text)
-    if stats.has_key('hull_side_armour'):
+    if 'hull_side_armour' in stats:
         text = str(stats['hull_side_armour'])
     else:
         text = '-'
     PrintInfo(x+17, y+7, text)
 
-    if stats.has_key('loader_hatch'):
+    if 'loader_hatch' in stats:
         libtcod.console_set_default_foreground(console, libtcod.light_grey)
         PrintInfo(x, y+9, 'Loader Hatch:')
         libtcod.console_set_default_foreground(console, libtcod.white)
         PrintInfo(x+14, y+9, stats['loader_hatch'])
 
     ys = 1
-    if stats.has_key('vision_cupola'):
+    if 'vision_cupola' in stats:
         PrintInfo(x, y+9+ys, 'Vision Cupola')
         ys += 1
-    if stats.has_key('smoke_mortar'):
+    if 'smoke_mortar' in stats:
         PrintInfo(x, y+9+ys, 'Smoke Mortar')
         ys += 1
-    if stats.has_key('wet_stowage'):
+    if 'wet_stowage' in stats:
         PrintInfo(x, y+9+ys, 'Wet Stowage')
         ys += 1
-    if stats.has_key('HVSS'):
+    if 'HVSS' in stats:
         PrintInfo(x, y+9+ys, 'Possible HVSS')
         ys += 1
 
     # show vehicle info text if any
-    if stats.has_key('info_text'):
+    if 'info_text' in stats:
         ys += 2
         lines = wrap(stats['info_text'], 34, subsequent_indent = ' ')
         for line in lines:
@@ -6986,7 +6990,7 @@ def ShowVehicleTypeInfo(unit_type, console, x, y, no_image=False):
     if no_image: return
 
     # show vehicle overhead image if any
-    if stats.has_key('overhead_view'):
+    if 'overhead_view' in stats:
         temp_console = LoadXP(stats['overhead_view'])
         libtcod.console_blit(temp_console, 0, 0, 0, 0, console, x+46, y)
 
@@ -7337,7 +7341,7 @@ def ResolveCrewFate(hit_location, sector, pf, abandoned=False):
     # brew up roll
     if not abandoned:
         roll = Roll1D100()
-        if tank.stats.has_key('wet_stowage'):
+        if 'wet_stowage' in tank.stats:
             target_score = 15
         elif 'M4A1' in tank.stats['vehicle_type']:
             target_score = 75
@@ -7553,7 +7557,7 @@ def SetupFireMGs():
         tank.aa_mg_can_fire = True
     if GetCrewByPosition('Gunner').order == 'Fire Co-Axial MG':
         tank.coax_mg_can_fire = True
-    if not tank.stats.has_key('no_asst_driver'):
+    if 'no_asst_driver' not in tank.stats:
         if GetCrewByPosition('Asst. Driver').order == 'Fire Bow MG' and not tank.hull_down:
             tank.bow_mg_can_fire = True
 
@@ -8084,7 +8088,7 @@ def FireMainGun():
             if tank.use_rr:
                 roll -= 2
             else:
-                if not tank.stats.has_key('no_asst_driver'):
+                if 'no_asst_driver' not in tank.stats:
                     crew_member = GetCrewByPosition('Asst. Driver')
                     if crew_member.order == 'Pass Ammo':
                         mod = -1
@@ -8505,7 +8509,7 @@ def MoveTank():
             mod_roll += 2
 
         # HVSS
-        if tank.stats.has_key('HVSS'):
+        if 'HVSS' in tank.stats:
             mod_roll -= 1
 
         # Commander Directing Movement from Open Hatch: -2
@@ -8518,7 +8522,7 @@ def MoveTank():
                 else:
                     mod = -2
                 mod_roll += mod
-            elif tank.stats.has_key('vision_cupola'):
+            elif 'vision_cupola' in tank.stats:
                 if crew_member.SkillCheck('Driver Direction'):
                     mod = -2
                 else:
@@ -8584,7 +8588,7 @@ def MoveTank():
             else:
                 mod = -2
             mod_roll += mod
-        elif tank.stats.has_key('vision_cupola'):
+        elif 'vision_cupola' in tank.stats:
             if crew_member.SkillCheck('Driver Direction'):
                 mod = -2
             else:
@@ -8592,7 +8596,7 @@ def MoveTank():
             mod_roll += mod
 
     # HVSS: -1
-    if tank.stats.has_key('HVSS'):
+    if 'HVSS' in tank.stats:
         mod_roll -= 1
 
     # Driver Buttoned up: +2
@@ -8678,7 +8682,7 @@ def MoveTank():
         roll -= 2
 
     # duckbills
-    if tank.stats.has_key('duckbills'):
+    if 'duckbills' in tank.stats:
         roll += 2
 
     # weather effects
@@ -9328,7 +9332,7 @@ def UpdateTankCon():
     if 'nickname' in tank.stats:
         text += ' "' + tank.stats['nickname'] + '"'
     # note if current tank has HVSS
-    if tank.stats.has_key('HVSS'):
+    if 'HVSS' in tank.stats:
         text += ' (HVSS)'
     libtcod.console_print(tank_con, 1, 2, text)
 
@@ -9444,7 +9448,7 @@ def UpdateTankCon():
     libtcod.console_print(tank_con, 1, 6, 'Smoke Grenades:')
     libtcod.console_set_default_foreground(tank_con, libtcod.white)
     libtcod.console_print(tank_con, 17, 6, str(tank.smoke_grenades))
-    if tank.stats.has_key('smoke_mortar'):
+    if 'smoke_mortar' in tank.stats:
         libtcod.console_set_default_foreground(tank_con, libtcod.light_grey)
         libtcod.console_print(tank_con, 20, 6, 'Smoke Bombs:')
         libtcod.console_set_default_foreground(tank_con, libtcod.white)
@@ -11981,7 +11985,7 @@ def UpdateCInfoCon(mx, my):
 
     # check in case of error
     if (mx,my) not in campaign.day_map.char_locations:
-        print 'ERROR: Could not find character location under mouse cursor'
+        print ('ERROR: Could not find character location under mouse cursor')
         return
 
     node = campaign.day_map.char_locations[(mx,my)]
@@ -13500,7 +13504,7 @@ def GenerateCampaignMap():
 
     # set node terrain chances based on day terrain type if any
     today = GetToday()
-    if today.has_key('terrain'):
+    if 'terrain' in today:
         if today['terrain'] == 'bocage':
             terrain_chances = [(4,'C'), (5,'A'), (8,'F'), (10,'B'), (11,'D'), (12,'E')]
         elif today['terrain'] == 'forest':
@@ -13657,7 +13661,7 @@ def GenerateCampaignMap():
 
     # use the default seed to generate a random seed to use to map painting
     # seed is an unsigned 32 bit int
-    campaign.day_map.seed = libtcod.random_get_int(0, 0, 4294967295)
+    campaign.day_map.seed = libtcod.random_get_int(0, 0, 2147483647)
 
     # paint the map console for the first time
     PaintCampaignMap()
@@ -13751,7 +13755,7 @@ def CheckCommander():
         # record remainder of campaign stats
         for stat_name in C_STATS:
             text = stat_name + ': '
-            if not campaign.stats.has_key(stat_name):
+            if stat_name not in campaign.stats:
                 text += '0'
             else:
                 text += str(campaign.stats[stat_name])
@@ -13791,7 +13795,7 @@ def RandomPlayerTankModel():
         result -= rf
 
     if new_type == '':
-        print 'ERROR: Could not randomly choose a new tank model'
+        print ('ERROR: Could not randomly choose a new tank model')
         return 'M4 Turret A'
 
     return new_type
@@ -13825,7 +13829,7 @@ def GetCommanderName(crewman):
 def CheckPlayerTankPositions():
 
     # need a new asst. driver
-    if not tank.stats.has_key('no_asst_driver') and GetCrewByPosition('Asst. Driver') is None:
+    if 'no_asst_driver' not in tank.stats and GetCrewByPosition('Asst. Driver') is None:
         highest_level = GetHighestCrewLevel()
         new_crew = SpawnCrewMember(None, 'Asst. Driver', 0)
         new_crew.SetLevel(libtcod.random_get_int(0, 1, highest_level))
@@ -13836,7 +13840,7 @@ def CheckPlayerTankPositions():
         ShowSkills(new_crew)
 
     # have an extra asst. driver
-    elif tank.stats.has_key('no_asst_driver') and GetCrewByPosition('Asst. Driver') is not None:
+    elif 'no_asst_driver' in tank.stats and GetCrewByPosition('Asst. Driver') is not None:
         crewman = GetCrewByPosition('Asst. Driver')
         tank.crew.remove(crewman)
         SetCrewPointers()
@@ -14161,7 +14165,7 @@ def RunCalendar(load_day):
 
             # display current location on map if any is set
             today = GetToday()
-            if today.has_key('map_x') and today.has_key('map_y'):
+            if 'map_x' in today and 'map_y' in today:
                 x = int(today['map_x'])
                 y = int(today['map_y'])
                 libtcod.console_put_char(con, x+63, y+2, '@', flag=libtcod.BKGND_NONE)
@@ -14206,7 +14210,7 @@ def RunCalendar(load_day):
             if DEBUG and mouse.rbutton:
                 mx, my = mouse.cx, mouse.cy
                 if mx >= 63 and my >= 2:
-                    print 'Mouse pos: ' + str(mx - 63) + ',' + str(my - 2)
+                    print ('Mouse pos: ' + str(mx - 63) + ',' + str(my - 2))
 
             # get pressed key
             key_char = chr(key.c)
@@ -14611,7 +14615,7 @@ def NewCampaign():
     ShowSkills(crewman)
 
     # some tank models have no assistant driver
-    if not tank.stats.has_key('no_asst_driver'):
+    if 'no_asst_driver' not in tank.stats:
         crewman = SpawnCrewMember(None, 'Asst. Driver', 0)
         PopUp(crewman.name + ' is assigned as your Assistant Driver.')
         ShowSkills(crewman)
@@ -15014,8 +15018,8 @@ def GetFiringSound(gun_type):
     return None
 
 
-# load game sound effects from data archive
-def LoadSounds():
+# try to init SDL mixer and load sound files
+def InitMixer():
 
     SOUND_LIST = ['20_mm_gun', '75_mm_gun', '76_mm_gun', '88_mm_gun', 'main_gun_misfire',
         'menu_select', 'aa_mg_firing', 'armour_save',
@@ -15027,28 +15031,31 @@ def LoadSounds():
         'new_skill'
         ]
 
+    global mixer_active, SOUNDS
+    mixer.Mix_Init(mixer.MIX_INIT_OGG)
+    if mixer.Mix_OpenAudio(48000, mixer.MIX_DEFAULT_FORMAT, 2, 1024) == -1: return
+    mixer.Mix_AllocateChannels(16)
+    mixer_active = True
+
     # load the sounds from the zip file into memory
+    SOUNDS = {}
     with zipfile.ZipFile('data/sounds.zip', 'r') as archive:
         for sound_name in SOUND_LIST:
-            sound_data = archive.read(sound_name + '.wav')
-            bytes_io = io.BytesIO(sound_data)
-            sound = pygame.mixer.Sound(bytes_io)
-            sound.set_volume(0.50)
-            SOUNDS[sound_name] = sound
+            SOUNDS[sound_name] = mixer.Mix_LoadWAV((sound_name + '.wav').encode('ascii'))
 
 # play a sound
 def PlaySound(sound_name):
-    # don't play the sound if campaign sound setting has been set to no sounds
+    # don't play the sound if mixer unable to init, or campaign sound setting has been set to no sounds
+    if not mixer_active: return
     if campaign is not None:
         if not campaign.sounds:
             return
 
     # make sure sound is actually part of archive
-    if not sound_name in SOUNDS:
-        print 'ERROR: Sound file not found: ' + sound_name + '.wav'
-        return
+    if not sound_name in SOUNDS: return
+    if SOUNDS[sound_name] is None: return
 
-    SOUNDS[sound_name].play()
+    mixer.Mix_PlayChannel(-1, SOUNDS[sound_name], 0)
 
 
 ##########################################################################################
@@ -15304,7 +15311,7 @@ def MainMenu():
         libtcod.console_set_alignment(con, libtcod.CENTER)
         libtcod.console_print(con, SCREEN_XM, 33, 'The World War II Tank Commander Roguelike')
 
-        if os.path.exists('savegame'):
+        if os.path.exists('savegame.dat'):
             libtcod.console_print(con, SCREEN_XM, 36, '[%cC%c]ontinue Campaign:'%
                 HIGHLIGHT)
 
@@ -15395,7 +15402,7 @@ def MainMenu():
 
             key_char = chr(key.c)
             if key_char in ['c', 'C']:
-                if os.path.exists('savegame') and good_saved_game:
+                if os.path.exists('savegame.dat') and good_saved_game:
                     PlaySound('menu_select')
                     RunCalendar(True)
                     tombstone = GetRandomGrave()
@@ -15404,7 +15411,7 @@ def MainMenu():
             elif key_char in ['n', 'N']:
                 PlaySound('menu_select')
                 # if there's already a savegame, make sure we want to replace it
-                if os.path.exists('savegame'):
+                if os.path.exists('savegame.dat'):
                     if PopUp('Starting a new campaign will erase the currently saved one in progress. Are you sure?', confirm=True, skip_update=True):
                         NewCampaign()
                 else:
@@ -15488,7 +15495,7 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'        # center window on screen
 libtcod.console_set_custom_font('terminal8x12_armcom.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW, 0, 0)
 libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION, False)
 libtcod.sys_set_fps(LIMIT_FPS)
-libtcod.console_set_keyboard_repeat(0, 0)
+#libtcod.console_set_keyboard_repeat(0, 0)
 
 # set defaults for screen console
 libtcod.console_set_default_background(0, libtcod.black)
@@ -15531,11 +15538,6 @@ c_action_con = CreateConsole(C_ACTION_CON_W, C_ACTION_CON_H, libtcod.black, libt
 c_info_con = CreateConsole(C_INFO_CON_W, C_INFO_CON_H, libtcod.black, libtcod.white,
     libtcod.LEFT)            # campaign message console
 
-
-# init pygame mixer stuff
-pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=1024)
-pygame.mixer.init()
-
 # create mouse and key event holders
 mouse = libtcod.Mouse()
 key = libtcod.Key()
@@ -15550,12 +15552,12 @@ libtcod.console_print(con, SCREEN_XM, 30, 'Loading...')
 libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
 libtcod.console_flush()
 
-# load sound effects
-LoadSounds()
+# init SDL mixer
+InitMixer()
 
 # set up empty bones file if doesn't exist yet
 if not os.path.exists('bones'):
-    print 'No bones file found; creating a new empty bones file.'
+    print ('No bones file found; creating a new empty bones file.')
     bones = Bones()
     save = shelve.open('bones')
     save['bones'] = bones
