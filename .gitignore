@@ -5,3 +5,5 @@
 Armoured_Commander_Journal*
 bones
 savegame
+build/*
+dist/*
