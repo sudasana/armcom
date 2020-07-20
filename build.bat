@@ -1,6 +1,8 @@
 pyinstaller -y -c armcom.py
 copy /y .\*.dll .\dist\armcom
+copy /y .\*.lib .\dist\armcom
 copy /y .\*.png .\dist\armcom
+copy /y .\steam_appid.txt .\dist\armcom
 mkdir .\dist\armcom\data
 copy /y .\data\*.* .\dist\armcom\data
 mkdir .\dist\armcom\sounds

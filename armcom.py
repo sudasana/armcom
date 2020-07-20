@@ -53,6 +53,7 @@ import xp_loader                        # for loading image files
 import gzip                             # for loading image files
 import zipfile, io                      # for loading from zip archive
 import sdl2.sdlmixer as mixer           # sound effects
+from steamworks import STEAMWORKS			# main steamworks library
 
 mixer_active = False
 
@@ -4723,7 +4724,7 @@ def GetExpReq(level):
     if level > 2:
         for l in range(3, level+1):
             x += LVL_INFLATION * (l-2)
-    return x
+    return int(x)
 
 
 # display a window of help text. if help text is disabled in campaign settings, or we have
@@ -5237,7 +5238,7 @@ def ShowSkills(crew_member):
                             libtcod.console_set_default_foreground(menu_con, libtcod.light_blue)
                         else:
                             libtcod.console_set_default_foreground(menu_con, libtcod.white)
-                        libtcod.console_print(menu_con, x2, 27, str(skill_level)+'%%')
+                        libtcod.console_print(menu_con, x2, 27, str(skill_level)+'%')
                         x2 += len(str(skill_level)) + 2
 
             # gyro skill not available yet
@@ -5307,7 +5308,7 @@ def ShowSkills(crew_member):
                                 if PopUp(text, confirm=True):
                                     crew_member.skill_pts -= 1
                                     crew_member.skills.append(SkillRecord(skill.name, skill.levels[0]))
-                                    WriteJournal(crew_member.name + ' added a new skill: ' + skill.name + ', now at '+ str(skill.levels[0]) + '%% activation')
+                                    WriteJournal(crew_member.name + ' added a new skill: ' + skill.name + ', now at '+ str(skill.levels[0]) + '% activation')
                                     PlaySound('new_skill')
 
                             # upgrade skill
@@ -5320,7 +5321,7 @@ def ShowSkills(crew_member):
                                         if PopUp(text, confirm=True):
                                             crew_member.skill_pts -= 1
                                             crew_member.UpgradeSkill(skill.name, skill_level)
-                                            WriteJournal(crew_member.name + ' upgraded a skill: ' + skill.name + ', now at ' + str(skill_level) + '%% activation')
+                                            WriteJournal(crew_member.name + ' upgraded a skill: ' + skill.name + ', now at ' + str(skill_level) + '% activation')
                                             PlaySound('new_skill')
 
                                         # we found the right skill level
@@ -5618,22 +5619,24 @@ def ShowSettings():
             text += 'Off'
         libtcod.console_print(menu_con, 52, 18, text)
 
-        text = '[%cF%c]ull Screen: '%HIGHLIGHT
-        # display based on actual fullscreen status, not campaign setting
-        if libtcod.console_is_fullscreen():
-            text += 'On'
-        else:
-            text += 'Off'
-        libtcod.console_print(menu_con, 52, 20, text)
+        # NEW: only display option if allowed by renderer
+        if libtcod.sys_get_renderer() in [3, 4]:
+            text = '[%cF%c]ull Screen: '%HIGHLIGHT
+            # display based on actual fullscreen status, not campaign setting
+            if libtcod.console_is_fullscreen():
+                text += 'On'
+            else:
+                text += 'Off'
+            libtcod.console_print(menu_con, 52, 20, text)
 
-        text = '[%cR%c]esolution for Full Screen: '%HIGHLIGHT
-        text += str(campaign.fs_res_x) + ' x ' + str(campaign.fs_res_y)
-        libtcod.console_print(menu_con, 52, 21, text)
+            text = '[%cR%c]esolution for Full Screen: '%HIGHLIGHT
+            text += str(campaign.fs_res_x) + ' x ' + str(campaign.fs_res_y)
+            libtcod.console_print(menu_con, 52, 21, text)
 
-        libtcod.console_set_default_foreground(menu_con, libtcod.lighter_blue)
-        libtcod.console_print(menu_con, 53, 22, 'Changing either of these two settings may')
-        libtcod.console_print(menu_con, 53, 23, 'pause your computer for a few seconds')
-        libtcod.console_set_default_foreground(menu_con, libtcod.white)
+            libtcod.console_set_default_foreground(menu_con, libtcod.lighter_blue)
+            libtcod.console_print(menu_con, 53, 22, 'Changing either of these two settings may')
+            libtcod.console_print(menu_con, 53, 23, 'pause your computer for a few seconds')
+            libtcod.console_set_default_foreground(menu_con, libtcod.white)
 
         libtcod.console_print_ex(menu_con, MENU_CON_XM, MENU_CON_HEIGHT-3,
             libtcod.BKGND_NONE, libtcod.CENTER, 'Press highlighted letter to change setting')
@@ -5676,7 +5679,9 @@ def ShowSettings():
                 campaign.tutorial_message = not campaign.tutorial_message
                 refresh = True
 
-            elif key_char in ['f', 'F']:
+            if libtcod.sys_get_renderer() not in [3, 4]: continue
+
+            if key_char in ['f', 'F']:
                 # switch FS mode and update campaign setting if required
                 libtcod.console_set_fullscreen(not libtcod.console_is_fullscreen())
                 campaign.fullscreen = libtcod.console_is_fullscreen()
@@ -9726,7 +9731,9 @@ def GetInput(console, prompt_text, y, max_length, random_list=[], get_name=False
                 # otherwise, try to add it to the string
                 else:
                     if len(input_text) < max_length:
-                        input_text = input_text + chr(key.c)
+                        new_text = chr(key.c)
+                        if key.shift: new_text = new_text.upper()
+                        input_text = input_text + new_text
                         refresh = True
 
             libtcod.console_flush()
@@ -13148,10 +13155,10 @@ def MainGunAmmoMenu(no_dark=False):
                 else:
                     n = 3
 
-                if key_char in ['u', 'i', 'o', 'p']:
-                    amount = 1
-                else:
+                if key.shift:
                     amount = 10
+                else:
+                    amount = 1
 
                 # get the ammo type
                 i = 0
@@ -14523,7 +14530,6 @@ def ChooseCampaign():
 
 # set up and start a new campaign
 def NewCampaign():
-    # TODO Add difficulty level
 
     global tank, battle, campaign
 
@@ -15485,7 +15491,8 @@ def CreateConsole(w, h, bc, fc, a):
 # set up basic stuff
 os.environ['SDL_VIDEO_CENTERED'] = '1'        # center window on screen
 libtcod.console_set_custom_font('terminal8x12_armcom.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW, 0, 0)
-libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION, False)
+libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION,
+    fullscreen=False, renderer=libtcod.RENDERER_OPENGL2, vsync=True)
 libtcod.sys_set_fps(LIMIT_FPS)
 
 # set defaults for screen console
@@ -15532,6 +15539,13 @@ c_info_con = CreateConsole(C_INFO_CON_W, C_INFO_CON_H, libtcod.black, libtcod.wh
 # create mouse and key event holders
 mouse = libtcod.Mouse()
 key = libtcod.Key()
+
+# try to start up steamworks; if it fails, it may just mean that Steam is offline, so do nothing
+try:
+    steamworks = STEAMWORKS()
+    steamworks.initialize()
+except:
+    pass
 
 # set up colour control for highlighting command keys
 libtcod.console_set_color_control(libtcod.COLCTRL_1, KEY_HIGHLIGHT_COLOR, libtcod.black)
