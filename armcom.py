@@ -10106,7 +10106,7 @@ def SaveGame():
             break
     info = SavedGameInfo(VERSION, campaign.campaign_name, name, tank.name, campaign.GetDate())
 
-    save = shelve.open('savegame')
+    save = shelve.open('savegame', 'n')
     save['info'] = info
     save['campaign'] = campaign
     save['tank'] = tank
@@ -15557,10 +15557,10 @@ libtcod.console_flush()
 InitMixer()
 
 # set up empty bones file if doesn't exist yet
-if not os.path.exists('bones'):
+if not os.path.exists('bones.dat'):
     print ('No bones file found; creating a new empty bones file.')
     bones = Bones()
-    save = shelve.open('bones')
+    save = shelve.open('bones', 'n')
     save['bones'] = bones
     save.close()
 
