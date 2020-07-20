@@ -3,7 +3,7 @@
 *.swp
 *~
 Armoured_Commander_Journal*
-bones
+bones.*
 savegame
 build/*
 dist/*
