@@ -13706,7 +13706,7 @@ def CheckAwardsPromotions(new_month=False):
 
     # check through ranks in reverse order, finding the highest new rank that can be
     #  awarded
-    for n in reversed(range(7)):
+    for n in range(7, -1, -1):
         if n == crewman.rank_level: break
         a, b, vp_req = campaign.ranks[n]
         if campaign.vp >= vp_req:
