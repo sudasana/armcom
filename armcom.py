@@ -9833,7 +9833,7 @@ def RandomEvent():
     else:
         RANGES = [3,5,6,7,9,12,0]
 
-    roll = Roll2D6()
+    d1, d2, roll = Roll2D6()
 
     # flanking fire
     if roll <= RANGES[0]:
@@ -15033,15 +15033,16 @@ def InitMixer():
 
     global mixer_active, SOUNDS
     mixer.Mix_Init(mixer.MIX_INIT_OGG)
-    if mixer.Mix_OpenAudio(48000, mixer.MIX_DEFAULT_FORMAT, 2, 1024) == -1: return
+    if mixer.Mix_OpenAudio(44100, mixer.MIX_DEFAULT_FORMAT, 2, 1024) == -1:
+        print('Unable to init sounds.')
+        return
     mixer.Mix_AllocateChannels(16)
     mixer_active = True
 
-    # load the sounds from the zip file into memory
+    # load the sounds into memory
     SOUNDS = {}
-    with zipfile.ZipFile('data/sounds.zip', 'r') as archive:
-        for sound_name in SOUND_LIST:
-            SOUNDS[sound_name] = mixer.Mix_LoadWAV((sound_name + '.wav').encode('ascii'))
+    for sound_name in SOUND_LIST:
+        SOUNDS[sound_name] = mixer.Mix_LoadWAV(('sounds' + os.sep + sound_name + '.wav').encode('ascii'))
 
 # play a sound
 def PlaySound(sound_name):
