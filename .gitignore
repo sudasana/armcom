@@ -9,3 +9,4 @@ build/*
 dist/*
 build/armcom/*
 savegame.*
+build/armcom/base_library.zip

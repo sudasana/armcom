@@ -32,15 +32,12 @@
 #
 ##########################################################################################
 
-# needed for pyinstaller?
 import sys                              # for command line functions
-if getattr(sys, 'frozen', False):
+if getattr(sys, 'frozen', False):       # needed for pyinstaller
     os.chdir(sys._MEIPASS)
 
 ##### Libraries #####
 from datetime import datetime           # for recording date and time in campaign journal
-from encodings import ascii, utf_8      # needed for Py2EXE version
-from encodings import hex_codec         # needed for Py2EXE version
 from math import atan2, degrees         # more "
 from math import pi, floor, ceil, sqrt  # math functions
 from operator import attrgetter         # for list sorting
@@ -158,9 +155,6 @@ for skill in SKILLS:
 
     if num_100 > 1:
         skill.levels = skill.levels[:-(num_100 - 1)]
-
-#BASE_EXP_REQ = 30    # exp required to advance from level 1 to 2
-#LVL_INFLATION = 10    # extra exp required per additional level
 
 STONE_ROAD_MOVE_TIME = 30    # minutes required to move into a new area via an improved road
 DIRT_ROAD_MOVE_TIME = 45    # " dirt road
@@ -15040,7 +15034,6 @@ def InitMixer():
     mixer_active = True
 
     # load the sounds into memory
-    SOUNDS = {}
     for sound_name in SOUND_LIST:
         SOUNDS[sound_name] = mixer.Mix_LoadWAV(('sounds' + os.sep + sound_name + '.wav').encode('ascii'))
 
@@ -15052,10 +15045,8 @@ def PlaySound(sound_name):
         if not campaign.sounds:
             return
 
-    # make sure sound is actually part of archive
     if not sound_name in SOUNDS: return
     if SOUNDS[sound_name] is None: return
-
     mixer.Mix_PlayChannel(-1, SOUNDS[sound_name], 0)
 
 
@@ -15496,7 +15487,6 @@ os.environ['SDL_VIDEO_CENTERED'] = '1'        # center window on screen
 libtcod.console_set_custom_font('terminal8x12_armcom.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW, 0, 0)
 libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION, False)
 libtcod.sys_set_fps(LIMIT_FPS)
-#libtcod.console_set_keyboard_repeat(0, 0)
 
 # set defaults for screen console
 libtcod.console_set_default_background(0, libtcod.black)
