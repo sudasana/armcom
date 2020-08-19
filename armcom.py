@@ -65,7 +65,7 @@ DEBUG = False                           # enable in-game debug commands
 
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
-SUBVERSION = '6'                        # descriptive only, no effect on compatability
+SUBVERSION = '7'                        # descriptive only, no effect on compatability
 WEBSITE = 'www.armouredcommander.com'
 GITHUB = 'github.com/sudasana/armcom'
 
@@ -15488,8 +15488,17 @@ def CreateConsole(w, h, bc, fc, a):
     libtcod.console_clear(new_con)
     return new_con
 
+# set up empty bones file if doesn't exist yet
+if not os.path.exists('bones.dat'):
+    print ('No bones file found; creating a new empty bones file.')
+    bones = Bones()
+    save = shelve.open('bones', 'n')
+    save['bones'] = bones
+    save.close()
+
 # set up basic stuff
 os.environ['SDL_VIDEO_CENTERED'] = '1'        # center window on screen
+os.environ['PYSDL2_DLL_PATH'] = os.getcwd()   # set sdl2 dll path
 libtcod.console_set_custom_font('terminal8x12_armcom.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW, 0, 0)
 libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION,
     fullscreen=False, renderer=libtcod.RENDERER_OPENGL2, vsync=True)
@@ -15559,14 +15568,6 @@ libtcod.console_flush()
 
 # init SDL mixer
 InitMixer()
-
-# set up empty bones file if doesn't exist yet
-if not os.path.exists('bones.dat'):
-    print ('No bones file found; creating a new empty bones file.')
-    bones = Bones()
-    save = shelve.open('bones', 'n')
-    save['bones'] = bones
-    save.close()
 
 # start main menu
 MainMenu()
