@@ -32,9 +32,10 @@
 #
 ##########################################################################################
 
-import sys                              # for command line functions
+import sys, os                              # for command line functions, for SDL window instruction, other OS-related stuff
 if getattr(sys, 'frozen', False):       # needed for pyinstaller
     os.chdir(sys._MEIPASS)
+os.environ['PYSDL2_DLL_PATH'] = os.getcwd()   # set sdl2 dll path
 
 ##### Libraries #####
 from datetime import datetime           # for recording date and time in campaign journal
@@ -44,7 +45,6 @@ from operator import attrgetter         # for list sorting
 from textwrap import wrap               # for breaking up game messages
 import csv                              # for loading campaign info
 import libtcodpy as libtcod             # The Doryen Library
-import os                               # for SDL window instruction, other OS-related stuff
 import random                           # for randomly selecting items from a list
 import shelve                           # for saving and loading games
 import time                             # for wait function
@@ -52,10 +52,13 @@ import xml.etree.ElementTree as xml     # ElementTree library for xml
 import xp_loader                        # for loading image files
 import gzip                             # for loading image files
 import zipfile, io                      # for loading from zip archive
-import sdl2.sdlmixer as mixer           # sound effects
-from steamworks import STEAMWORKS			# main steamworks library
 
-mixer_active = False
+MIXER_ACTIVE = True
+try:
+	import sdl2.sdlmixer as mixer   # sound effects
+except:
+	MIXER_ACTIVE = False
+from steamworks import STEAMWORKS       # main steamworks library
 
 from armcom_defs import *               # general definitions
 from armcom_vehicle_defs import *       # vehicle stat definitions
@@ -65,7 +68,7 @@ DEBUG = False                           # enable in-game debug commands
 
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
-SUBVERSION = '7'                        # descriptive only, no effect on compatability
+SUBVERSION = '8'                        # descriptive only, no effect on compatability
 WEBSITE = 'www.armouredcommander.com'
 GITHUB = 'github.com/sudasana/armcom'
 
@@ -15021,6 +15024,10 @@ def GetFiringSound(gun_type):
 # try to init SDL mixer and load sound files
 def InitMixer():
 
+    global MIXER_ACTIVE
+
+    if not MIXER_ACTIVE: return
+
     SOUND_LIST = ['20_mm_gun', '75_mm_gun', '76_mm_gun', '88_mm_gun', 'main_gun_misfire',
         'menu_select', 'aa_mg_firing', 'armour_save',
         'arty_firing', 'bow_mg_firing', 'coax_mg_firing', 'dice_roll',
@@ -15035,18 +15042,19 @@ def InitMixer():
     mixer.Mix_Init(mixer.MIX_INIT_OGG)
     if mixer.Mix_OpenAudio(44100, mixer.MIX_DEFAULT_FORMAT, 2, 1024) == -1:
         print('Unable to init sounds.')
+        MIXER_ACTIVE = False
         return
     mixer.Mix_AllocateChannels(16)
-    mixer_active = True
 
     # load the sounds into memory
     for sound_name in SOUND_LIST:
         SOUNDS[sound_name] = mixer.Mix_LoadWAV(('sounds' + os.sep + sound_name + '.wav').encode('ascii'))
+    print('Sound mixer initialized.')
+
 
 # play a sound
 def PlaySound(sound_name):
-    # don't play the sound if mixer unable to init, or campaign sound setting has been set to no sounds
-    if not mixer_active: return
+    if not MIXER_ACTIVE: return
     if campaign is not None:
         if not campaign.sounds:
             return
@@ -15498,7 +15506,6 @@ if not os.path.exists('bones.dat'):
 
 # set up basic stuff
 os.environ['SDL_VIDEO_CENTERED'] = '1'        # center window on screen
-os.environ['PYSDL2_DLL_PATH'] = os.getcwd()   # set sdl2 dll path
 libtcod.console_set_custom_font('terminal8x12_armcom.png', libtcod.FONT_TYPE_GREYSCALE | libtcod.FONT_LAYOUT_ASCII_INROW, 0, 0)
 libtcod.console_init_root(SCREEN_WIDTH, SCREEN_HEIGHT, NAME + ' - ' + VERSION + SUBVERSION,
     fullscreen=False, renderer=libtcod.RENDERER_OPENGL2, vsync=True)
