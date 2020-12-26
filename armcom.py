@@ -9722,7 +9722,10 @@ def GetInput(console, prompt_text, y, max_length, random_list=[], get_name=False
 
                     # if selecting a name
                     if get_name:
-                        input_text = random.choice(FIRST_NAMES) + ' ' + random.choice(LAST_NAMES)
+                        for n in range(99):
+                            input_text = random.choice(FIRST_NAMES) + ' ' + random.choice(LAST_NAMES)
+                            if len(input_text) <= max_length:
+                                break
                         refresh = True
 
                     elif len(random_list) > 0:
