@@ -32,8 +32,8 @@
 #
 ##########################################################################################
 
-import sys, os                              # for command line functions, for SDL window instruction, other OS-related stuff
-if getattr(sys, 'frozen', False):       # needed for pyinstaller
+import sys, os                                # for command line functions, for SDL window instruction, other OS-related stuff
+if getattr(sys, 'frozen', False):             # needed for pyinstaller
     os.chdir(sys._MEIPASS)
 os.environ['PYSDL2_DLL_PATH'] = os.getcwd()   # set sdl2 dll path
 
@@ -55,7 +55,7 @@ import zipfile, io                      # for loading from zip archive
 
 MIXER_ACTIVE = True
 try:
-	import sdl2.sdlmixer as mixer   # sound effects
+	import sdl2.sdlmixer as mixer       # sound effects
 except:
 	MIXER_ACTIVE = False
 from steamworks import STEAMWORKS       # main steamworks library
@@ -68,7 +68,7 @@ DEBUG = False                           # enable in-game debug commands
 
 NAME = 'Armoured Commander'
 VERSION = '1.0'                         # determines saved game compatability
-SUBVERSION = '8'                        # descriptive only, no effect on compatability
+SUBVERSION = '9'                        # descriptive only, no effect on compatability
 WEBSITE = 'www.armouredcommander.com'
 GITHUB = 'github.com/sudasana/armcom'
 
@@ -2077,25 +2077,28 @@ class Crewman:
 
     # add an entry to the bones file recording this crewman's demise
     def AddHeadStone(self):
-        # open bones file
-        save = shelve.open('bones')
-        bones = save['bones']
-        save.close()
-
-        # add the entry
-
-        # get most recent decortation
-        if len(self.decorations) > 0:
-            decoration_text = self.decorations[-1]
-        else:
-            decoration_text = ''
-
-        bones.graveyard.append([self.GetRank(), self.name, self.hometown, campaign.GetDate(), decoration_text])
-
-        # save the bones file
-        save = shelve.open('bones')
-        save['bones'] = bones
-        save.close()
+        try:
+            # open bones file
+            save = shelve.open('bones')
+            bones = save['bones']
+            save.close()
+    
+            # add the entry
+    
+            # get most recent decortation
+            if len(self.decorations) > 0:
+                decoration_text = self.decorations[-1]
+            else:
+                decoration_text = ''
+    
+            bones.graveyard.append([self.GetRank(), self.name, self.hometown, campaign.GetDate(), decoration_text])
+    
+            # save the bones file
+            save = shelve.open('bones')
+            save['bones'] = bones
+            save.close()
+        except:
+            print('ERROR: Could not open bones file')
 
     # award a decoration to this crewman, and display a window with information about
     #  the decoration
@@ -4736,59 +4739,63 @@ def TutorialMessage(key):
     if campaign is not None:
         if not campaign.tutorial_message: return
 
-    save = shelve.open('bones')
-    bones = save['bones']
-
-    # check to see if bones file already has key
-    if key in bones.tutorial_message_flags:
-        # key is already set to true
-        if bones.tutorial_message_flags[key]:
-            save.close()
-            return
-
-    # mark that this text has been displayed in the bones file
-    # will also add the key if bones file did not already have it
-    bones.tutorial_message_flags[key] = True
-    save['bones'] = bones
-    save.close
-
-    # display the text
-    for w in range(3, MENU_CON_WIDTH, 6):
-        h = int(w/3) - 3
-        if h < 3: h = 3
-        libtcod.console_rect(0, SCREEN_XM-int(w/2), SCREEN_YM-int(h/2), w, h, False,
-            flag=libtcod.BKGND_SET)
-        libtcod.console_print_frame(0, SCREEN_XM-int(w/2), SCREEN_YM-int(h/2), w, h,
-            clear=True, flag=libtcod.BKGND_DEFAULT, fmt=0)
+    try:
+        save = shelve.open('bones')
+        bones = save['bones']
+    
+        # check to see if bones file already has key
+        if key in bones.tutorial_message_flags:
+            # key is already set to true
+            if bones.tutorial_message_flags[key]:
+                save.close()
+                return
+    
+        # mark that this text has been displayed in the bones file
+        # will also add the key if bones file did not already have it
+        bones.tutorial_message_flags[key] = True
+        save['bones'] = bones
+        save.close
+    
+        # display the text
+        for w in range(3, MENU_CON_WIDTH, 6):
+            h = int(w/3) - 3
+            if h < 3: h = 3
+            libtcod.console_rect(0, SCREEN_XM-int(w/2), SCREEN_YM-int(h/2), w, h, False,
+                flag=libtcod.BKGND_SET)
+            libtcod.console_print_frame(0, SCREEN_XM-int(w/2), SCREEN_YM-int(h/2), w, h,
+                clear=True, flag=libtcod.BKGND_DEFAULT, fmt=0)
+            libtcod.console_flush()
+    
+        libtcod.console_clear(menu_con)
+        libtcod.console_set_alignment(menu_con, libtcod.LEFT)
+        libtcod.console_print_frame(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT,
+            clear=False, flag=libtcod.BKGND_DEFAULT, fmt=0)
+    
+        libtcod.console_set_default_foreground(menu_con, MENU_TITLE_COLOR)
+        libtcod.console_print_ex(menu_con, MENU_CON_XM, 1,
+            libtcod.BKGND_NONE, libtcod.CENTER, 'Tutorial Message')
+        libtcod.console_set_default_foreground(menu_con, libtcod.white)
+    
+        lines = wrap(TUTORIAL_TEXT[key], 60, subsequent_indent = ' ')
+        y = int(MENU_CON_HEIGHT / 2) - int(len(lines)/2)
+        for line in lines:
+            libtcod.console_print(menu_con, 40, y, line)
+            y += 1
+    
+        libtcod.console_print_ex(menu_con, MENU_CON_XM, MENU_CON_HEIGHT-2, libtcod.BKGND_NONE,
+            libtcod.CENTER, '[%cEnter%c] to Continue'%HIGHLIGHT)
+    
+        libtcod.console_blit(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT, 0, MENU_CON_X, MENU_CON_Y)
         libtcod.console_flush()
-
-    libtcod.console_clear(menu_con)
-    libtcod.console_set_alignment(menu_con, libtcod.LEFT)
-    libtcod.console_print_frame(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT,
-        clear=False, flag=libtcod.BKGND_DEFAULT, fmt=0)
-
-    libtcod.console_set_default_foreground(menu_con, MENU_TITLE_COLOR)
-    libtcod.console_print_ex(menu_con, MENU_CON_XM, 1,
-        libtcod.BKGND_NONE, libtcod.CENTER, 'Tutorial Message')
-    libtcod.console_set_default_foreground(menu_con, libtcod.white)
-
-    lines = wrap(TUTORIAL_TEXT[key], 60, subsequent_indent = ' ')
-    y = int(MENU_CON_HEIGHT / 2) - int(len(lines)/2)
-    for line in lines:
-        libtcod.console_print(menu_con, 40, y, line)
-        y += 1
-
-    libtcod.console_print_ex(menu_con, MENU_CON_XM, MENU_CON_HEIGHT-2, libtcod.BKGND_NONE,
-        libtcod.CENTER, '[%cEnter%c] to Continue'%HIGHLIGHT)
-
-    libtcod.console_blit(menu_con, 0, 0, MENU_CON_WIDTH, MENU_CON_HEIGHT, 0, MENU_CON_X, MENU_CON_Y)
-    libtcod.console_flush()
-
-    WaitForEnter()
-
-    # re-blit original display console to screen
-    libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
-    libtcod.console_flush()
+    
+        WaitForEnter()
+    
+        # re-blit original display console to screen
+        libtcod.console_blit(con, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, 0)
+        libtcod.console_flush()
+    
+    except:
+        print('ERROR: Could not open bones file')
 
 
 # display help interface
@@ -10239,40 +10246,43 @@ def LoadXP(filename):
 
 # open the highscores file and try to add this campaign's outcome
 def AddHighScore():
-    # load the existing highscores object from the bones file
-    save = shelve.open('bones')
-    bones = save['bones']
-    save.close()
-
-    # compose the outcome text to be added
-    for crew_member in tank.crew:
-        if crew_member.position == 'Commander':
-            break
-    if not crew_member.alive:
-        outcome = 'KIA on ' + campaign.GetDate()
-    elif crew_member.v_serious_wound:
-        outcome = 'Sent Home on ' + campaign.GetDate()
-    else:
-        outcome = 'Survived'
-
-    # add the new entry to the list of highscores
-    vp = campaign.vp + campaign.day_vp
-    bones.score_list.append((tank.name, crew_member.name, vp, outcome,
-        campaign.unlimited_tank_selection,
-        campaign.casual_commander,
-        campaign.campaign_name))
-
-    # sort the new list
-    bones.score_list.sort(key=lambda tup: tup[2], reverse=True)
-
-    # limit to max length
-    if len(bones.score_list) > MAX_HS:
-        del bones.score_list[-1]
-
-    # save the new bones file
-    save = shelve.open('bones')
-    save['bones'] = bones
-    save.close()
+    try:
+        # load the existing highscores object from the bones file
+        save = shelve.open('bones')
+        bones = save['bones']
+        save.close()
+    
+        # compose the outcome text to be added
+        for crew_member in tank.crew:
+            if crew_member.position == 'Commander':
+                break
+        if not crew_member.alive:
+            outcome = 'KIA on ' + campaign.GetDate()
+        elif crew_member.v_serious_wound:
+            outcome = 'Sent Home on ' + campaign.GetDate()
+        else:
+            outcome = 'Survived'
+    
+        # add the new entry to the list of highscores
+        vp = campaign.vp + campaign.day_vp
+        bones.score_list.append((tank.name, crew_member.name, vp, outcome,
+            campaign.unlimited_tank_selection,
+            campaign.casual_commander,
+            campaign.campaign_name))
+    
+        # sort the new list
+        bones.score_list.sort(key=lambda tup: tup[2], reverse=True)
+    
+        # limit to max length
+        if len(bones.score_list) > MAX_HS:
+            del bones.score_list[-1]
+    
+        # save the new bones file
+        save = shelve.open('bones')
+        save['bones'] = bones
+        save.close()
+    except:
+        print('ERROR: Could not open bones file.')
 
 
 # save a screenshot of the current main console
@@ -15132,10 +15142,15 @@ def DisplayCredits():
 
 # display a list of high scores
 def DisplayHighScores():
-    # open bones file
-    save = shelve.open('bones')
-    bones = save['bones']
-    save.close()
+    try:
+        # open bones file
+        save = shelve.open('bones')
+        bones = save['bones']
+        save.close()
+    
+    except:
+        print('ERROR: Could not open bones file.')
+        return
 
     libtcod.console_clear(con)
 
@@ -15188,12 +15203,16 @@ def MainMenu():
 
     # grab a random entry from the graveyard to display in the main menu
     def GetRandomGrave():
-        save = shelve.open('bones')
-        bones = save['bones']
-        save.close()
-        if len(bones.graveyard) == 0:
+        try:
+            save = shelve.open('bones')
+            bones = save['bones']
+            save.close()
+            if len(bones.graveyard) == 0:
+                return None
+            return random.choice(bones.graveyard)
+        except:
+            print('ERROR: Could not open bones file.')
             return None
-        return random.choice(bones.graveyard)
 
     # update the cloud layer console
     def UpdateCloudLayer():
